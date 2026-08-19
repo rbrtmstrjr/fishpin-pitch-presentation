@@ -135,7 +135,11 @@ p,li{line-height:1.45;}
 .ctx-bento{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:285px;gap:20px;}
 .ctx-bento img{width:100%;height:100%;object-fit:cover;border-radius:20px;box-shadow:0 14px 30px rgba(7,17,43,.12);}
 .bentoTrack{display:flex;flex-direction:column;gap:20px;animation:bento-scroll 28s linear infinite;will-change:transform;}
+.askGal .ctx-bento{grid-template-columns:repeat(3,1fr);grid-auto-rows:238px;gap:16px;}
+.askGal .bentoTrack{gap:16px;animation-duration:52s;}
 @keyframes bento-scroll{from{transform:translateY(0)}to{transform:translateY(calc(-50% - 10px))}}
+.askGal .bentoTrack{animation-name:bento-scroll-ask;}
+@keyframes bento-scroll-ask{from{transform:translateY(0)}to{transform:translateY(calc(-50% - 8px))}}
 @media (prefers-reduced-motion:reduce){.bentoTrack{animation:none;}}
 @media print{.bentoTrack{animation:none !important;}}
 
@@ -361,7 +365,7 @@ table.deck td.soft{color:var(--ink-soft);}
 .mkt-basis svg{width:22px;height:22px;color:var(--blue);flex:0 0 auto;margin-top:2px;}
 .mkt-basis span{font-size:19px;color:var(--ink-soft);line-height:1.5;}
 /* the ask */
-.ask-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px;}
+.ask-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:22px;max-width:620px;}
 .ask-stat{background:#fff;border:1px solid #e4edfa;border-radius:16px;padding:18px 20px;box-shadow:0 8px 22px rgba(7,17,43,.05);}
 .ask-stat b{display:block;font-family:var(--font-head);font-size:40px;font-weight:800;color:var(--blue);line-height:1;letter-spacing:-0.01em;}
 .ask-stat > span{display:block;font-size:15.5px;color:var(--ink-soft);line-height:1.35;margin-top:6px;}
@@ -439,6 +443,10 @@ table.deck td.soft{color:var(--ink-soft);}
 .gtm-econ .ge-num{font-family:var(--font-head);font-weight:800;font-size:30px;color:#fff;letter-spacing:-0.01em;}
 .gtm-econ .ge-lbl{font-size:15.5px;color:rgba(255,255,255,.8);}
 .gtm-econ .ge-div{width:1px;height:42px;background:rgba(255,255,255,.28);}
+.gtm-path{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px;}
+.gtm-path span{font-size:17px;color:var(--ink-soft);}
+.gtm-path b{font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--blue);margin-right:6px;}
+.gtm-path i{width:26px;height:2px;background:#c6d7f0;border-radius:2px;display:block;}
 .gtm-route{position:relative;background:#fff;border:1px solid #e4edfa;border-radius:20px;padding:24px 24px;box-shadow:0 10px 26px rgba(7,17,43,.06);display:flex;flex-direction:column;gap:26px;}
 .gtm-route .gr-title{font-family:var(--font-head);font-size:23px;font-weight:700;color:var(--ink);margin:0;letter-spacing:-0.01em;}
 .gr-step{display:flex;gap:18px;align-items:flex-start;position:relative;z-index:1;}
@@ -977,7 +985,7 @@ table.deck td.soft{color:var(--ink-soft);}
       <div style="position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,#F4F8FF 0%,#F4F8FF 46%,rgba(244,248,255,.94) 58%,rgba(244,248,255,.6) 72%,rgba(244,248,255,.15) 90%,rgba(244,248,255,0) 100%);"></div>
       <div style="position:relative;z-index:1;">
         <div data-rise style="display:inline-flex;align-items:center;gap:10px;background:#eaf3ff;border:2px solid #b6d2ff;color:var(--blue);border-radius:40px;padding:8px 22px;font-size:17px;font-weight:600;letter-spacing:.12em;width:fit-content;margin-bottom:14px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block;"></span>MARKET SIZE</div>
-        <h1 class="headline" data-rise style="font-size:52px;margin:0 0 34px;">A market measured in <span style="color:var(--blue);">fishermen.</span></h1>
+        <h1 class="headline" data-rise style="font-size:52px;margin:0 0 34px;">A market <span style="color:var(--blue);">we can reach.</span></h1>
       </div>
       <div class="row grow" style="gap:0;align-items:stretch;position:relative;z-index:1;min-height:0;">
         <div class="col" style="flex:1;justify-content:center;gap:24px;max-width:900px;">
@@ -1021,7 +1029,7 @@ table.deck td.soft{color:var(--ink-soft);}
     <div class="slide-inner" style="background:#F4F8FF;padding:52px 100px 74px 110px;overflow:hidden;">
       <div style="position:relative;z-index:1;">
         <div data-rise style="display:inline-flex;align-items:center;gap:10px;background:#eaf3ff;border:2px solid #b6d2ff;color:var(--blue);border-radius:40px;padding:8px 22px;font-size:17px;font-weight:600;letter-spacing:.12em;width:fit-content;margin-bottom:12px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block;"></span>MARKETING AND SALES STRATEGY</div>
-        <h1 class="headline" data-rise style="font-size:50px;margin:0 0 26px;">Start where <span style="color:var(--blue);">I'm trusted.</span></h1>
+        <h1 class="headline" data-rise style="font-size:50px;margin:0 0 26px;">How we <span style="color:var(--blue);">reach them.</span></h1>
       </div>
       <div class="row" style="gap:44px;align-items:center;position:relative;z-index:1;flex:1;min-height:0;">
         <img id="gtmPhone" src="assets/slide16/1.png" alt="A fisherman holding a phone with the FishPin sign-in screen" style="width:560px;height:auto;flex:0 0 auto;filter:drop-shadow(0 28px 50px rgba(13,93,255,.3));">
@@ -1054,14 +1062,17 @@ table.deck td.soft{color:var(--ink-soft);}
         <div class="gtm-econ">
           <div><span class="ge-num">PHP <b class="count" data-target="24000">0</b></span><span class="ge-lbl">marketing spend, year one</span></div>
           <div class="ge-div"></div>
-          <div><span class="ge-num"><b class="count" data-target="200">0</b> users</span><span class="ge-lbl">paid target, year one</span></div>
+          <div><span class="ge-num"><b class="count" data-target="500">0</b> users</span><span class="ge-lbl">paid target, year one</span></div>
           <div class="ge-div"></div>
-          <div><span class="ge-num">PHP <b class="count" data-target="120">0</b></span><span class="ge-lbl">per paying customer</span></div>
+          <div><span class="ge-num">PHP <b class="count" data-target="48">0</b></span><span class="ge-lbl">per paying customer</span></div>
+        </div>
+        <div class="gtm-path">
+          <span><b>500</b> year one</span><i></i><span><b>3,000</b> year two</span><i></i><span><b>5,000</b> year three</span>
         </div>
         </div>
       </div>
     </div>
-    <aside class="notes">Go to market: start where I am trusted, then ride the coastline, from Oriental Mindoro and MIMAROPA to the Visayas and Bicol. Digital reach on Facebook, TikTok and the Play Store at 2,000 pesos a month. Live demonstrations at landing sites. Partners in BFAR, cooperatives and barangay officials. 24,000 pesos for the year against 200 paid users: 120 pesos per paying customer. (17s)</aside>
+    <aside class="notes">Go to market: start where I am trusted, then ride the coastline, from Oriental Mindoro and MIMAROPA to the Visayas and Bicol. Digital reach on Facebook, TikTok and the Play Store at 2,000 pesos a month. Live demonstrations at landing sites. Partners in BFAR, cooperatives and barangay officials. 24,000 pesos for the year against 500 paid users: 48 pesos per paying customer. From there, 3,000 users by year two and 5,000 by year three. (17s)</aside>
   </section>
 
   <!-- ============ SLIDE 14 : REVENUE MODEL ============ -->
@@ -1075,7 +1086,7 @@ table.deck td.soft{color:var(--ink-soft);}
             <div class="rp-num">PHP <span class="count" data-target="499">0</span></div>
             <span class="rp-badge">ONE-TIME</span>
           </div>
-          <p>A single in-app purchase through Google Play Billing unlocks FishPin permanently.</p>
+          <p>Buy it once in the app, and it is yours for good.</p>
         </div>
         <p class="rev-cap" data-rise>COST OVER 5 YEARS</p>
         <div class="rev-bars">
@@ -1090,24 +1101,24 @@ table.deck td.soft{color:var(--ink-soft);}
           <div class="row" style="gap:22px;align-items:flex-start;">
             <div class="icon-chip" style="width:52px;height:52px;margin:0;border-radius:14px;flex:0 0 auto;"><svg data-lucide="hand-coins" style="width:26px;height:26px;"></svg></div>
             <div><h3 style="font-size:28px;">Why one-time, not subscription</h3>
-            <p style="font-size:21px;">Fishermen have scarce cash and scarcer data. A subscription dies the first month money is tight. This is a deliberate design choice, not a limitation.</p></div>
+            <p style="font-size:21px;">Most fishermen have little cash and even less mobile data. A monthly fee is the first thing dropped when money is tight. Paying once means the app keeps working, every trip.</p></div>
           </div>
         </div>
         <div class="card" data-rise>
           <div class="row" style="gap:22px;align-items:flex-start;">
             <div class="icon-chip" style="width:52px;height:52px;margin:0;border-radius:14px;flex:0 0 auto;"><svg data-lucide="smartphone-nfc" style="width:26px;height:26px;"></svg></div>
             <div><h3 style="font-size:28px;">Payment</h3>
-            <p style="font-size:21px;">Google Play Billing handles card, GCash, Maya and carrier load. No cash for the enterprise to collect.</p></div>
+            <p style="font-size:21px;">Google Play Billing accepts cards, GCash, Maya and load. No cash needs to change hands.</p></div>
           </div>
         </div>
         <div class="rev-goal" data-rise>
-          <div><span class="rg-num"><span class="count" data-target="200">0</span></span><span class="rg-lbl">paid licences, year one</span></div>
+          <div><span class="rg-num"><span class="count" data-target="500">0</span></span><span class="rg-lbl">paid licences, year one</span></div>
           <svg data-lucide="arrow-right"></svg>
-          <div><span class="rg-num">PHP <span class="count" data-target="99800">0</span></span><span class="rg-lbl">gross sales, year one</span></div>
+          <div><span class="rg-num">PHP <span class="count" data-target="249500">0</span></span><span class="rg-lbl">gross sales, year one</span></div>
         </div>
       </div>
     </div>
-    <aside class="notes">Pricing is simple: pay once, own it. 499 pesos through Google Play Billing, which handles card, GCash, Maya and carrier load. A subscription dies the first month money is tight, so one-time is a deliberate design choice, not a limitation. Over five years a fisherman pays 499 pesos against sixteen to twenty-one thousand for the alternatives. Year one target: 200 licences, or 99,800 pesos in gross sales. (17s)</aside>
+    <aside class="notes">Pricing is simple: pay once, own it. 499 pesos through Google Play Billing, which accepts cards, GCash, Maya and load. Most fishermen have little cash and even less data, so a monthly fee is the first thing dropped when money is tight. Paying once means the app keeps working every trip. Over five years a fisherman pays 499 pesos against sixteen to twenty-one thousand for the alternatives. Year one target: 500 licences, or 249,500 pesos in gross sales. (17s)</aside>
   </section>
 
   <!-- ============ SLIDE 15 : FINANCIAL PROJECTIONS ============ -->
@@ -1140,10 +1151,10 @@ table.deck td.soft{color:var(--ink-soft);}
             </div>
           </div>
           <div class="fin-stats">
-            <div class="fin-stat" data-rise><svg data-lucide="receipt"></svg><b>PHP <span class="count" data-target="99800">0</span></b><span>Gross sales, year 1</span></div>
-            <div class="fin-stat good" data-rise><svg data-lucide="trending-up"></svg><b>PHP <span class="count" data-target="40034">0</span></b><span>Net income, year 1</span></div>
-            <div class="fin-stat" data-rise><svg data-lucide="percent"></svg><b><span class="count" data-target="30.21" data-decimals="2" data-suffix="%">0</span></b><span>Return on investment</span></div>
-            <div class="fin-stat" data-rise><svg data-lucide="clock"></svg><b><span class="count" data-target="3.31" data-decimals="2">0</span> yrs</b><span>Payback period</span></div>
+            <div class="fin-stat" data-rise><svg data-lucide="receipt"></svg><b>PHP <span class="count" data-target="249500">0</span></b><span>Gross sales, year 1</span></div>
+            <div class="fin-stat good" data-rise><svg data-lucide="trending-up"></svg><b>PHP <span class="count" data-target="167279">0</span></b><span>Net income, year 1</span></div>
+            <div class="fin-stat" data-rise><svg data-lucide="percent"></svg><b><span class="count" data-target="126.23" data-decimals="2" data-suffix="%">0</span></b><span>Return on investment</span></div>
+            <div class="fin-stat" data-rise><svg data-lucide="clock"></svg><b><span class="count" data-target="0.79" data-decimals="2">0</span> yrs</b><span>Payback period</span></div>
           </div>
         </div>
       </div>
@@ -1152,7 +1163,7 @@ table.deck td.soft{color:var(--ink-soft);}
         <span>Year one carries the entire capital cost. From the second cycle onward only recurring services remain while the paid base keeps growing, so net income and return on investment both improve substantially.</span>
       </div>
     </div>
-    <aside class="notes">The math is honest. Total investment: 132,521 pesos. I am asking 80,000 from the YFC grant against 52,521 of my own counterpart. Year one reaches 200 users, nets 40,034 pesos, a 30.21 percent return, with payback in 3.31 years. Year one carries the entire capital cost; from the second cycle onward the model improves substantially. (17s)</aside>
+    <aside class="notes">The math is honest. Total investment: 132,521 pesos. I am asking 80,000 from the YFC grant against 52,521 of my own counterpart. Year one reaches 500 users, nets 167,279 pesos, a 126.23 percent return, with payback in under a year. Year one carries the entire capital cost; from the second cycle onward the model improves substantially. (17s)</aside>
   </section>
 
   <!-- ============ SLIDE 16 : SOCIAL AND ENVIRONMENTAL IMPACT ============ -->
@@ -1208,47 +1219,79 @@ table.deck td.soft{color:var(--ink-soft);}
           </div>
         </div>
       </div>
-      <p id="impactClose" style="font-size:26px;font-weight:600;color:#fff;text-align:center;margin:26px 0 0;">Fisherfolk feed this country. They should not also be the ones who go missing because they had no way to say where they were.</p>
     </div>
     <aside class="notes">This is more than a tool. Hold the SOS button for three seconds and exact coordinates reach family by SMS, even with no internet. Fewer wasted trips, fair value for every catch, and knowledge preserved instead of dying with the elder who held it. Fisherfolk feed this country. They should not also be the ones who go missing because they had no way to say where they were. (24s)</aside>
   </section>
 
   <!-- ============ SLIDE 17 : STATUS AND THE ASK ============ -->
   <section id="ask" class="paper-bg">
-    <div class="slide-inner" style="background:#F4F8FF;flex-direction:row;gap:64px;padding:70px 100px 90px 130px;">
-      <div class="col" style="flex:1.1;justify-content:center;max-width:900px;">
-        <img id="askPhoto" data-rise src="assets/slide20/1.png" alt="Robert holding a large trevally" style="width:auto;height:460px;object-fit:contain;margin-bottom:22px;align-self:flex-start;">
-        <div data-rise style="display:inline-flex;align-items:center;gap:12px;background:rgba(45,198,83,.12);border:2px solid rgba(45,198,83,.45);color:#1d9e43;border-radius:40px;padding:9px 22px;font-size:17px;font-weight:600;letter-spacing:.12em;width:fit-content;margin-bottom:20px;"><span style="width:11px;height:11px;border-radius:50%;background:#22c55e;display:inline-block;"></span>LIVE NOW &middot; GOOGLE PLAY</div>
-        <h1 class="headline" data-rise style="font-size:56px;line-height:1.1;margin:0 0 18px;">Every trip should<br><span style="color:var(--blue);">end at home.</span></h1>
-        <p data-rise style="font-size:21px;color:var(--ink-soft);line-height:1.55;margin:0 0 28px;max-width:760px;">A live product on Google Play since June 2026, built by someone who lived the problem. With this grant I register the enterprise properly and scale across Oriental Mindoro and MIMAROPA.</p>
+    <div class="slide-inner" style="background:#F4F8FF;flex-direction:row;gap:48px;padding:70px 90px 90px 110px;">
+      <div class="col" style="flex:1;justify-content:center;min-width:0;">
+        <img data-rise src="assets/slide2/slide2-logo.png" alt="FishPin app icon" style="width:96px;height:96px;border-radius:22px;box-shadow:0 14px 32px rgba(13,93,255,.28);margin-bottom:24px;">
+        <h1 class="headline" data-rise style="font-size:76px;line-height:1.08;margin:0 0 20px;">Help us grow<br><span style="color:var(--blue);">FishPin.</span></h1>
+        <p data-rise style="font-size:21px;color:var(--ink-soft);line-height:1.55;margin:0 0 28px;max-width:760px;">FishPin is live on Google Play and already in fishermen&#39;s hands. With this grant I can register the enterprise properly, reach more coastal barangays, and bring smart fishing to every fisherman across Oriental Mindoro and MIMAROPA.</p>
+        <div class="ask-stats">
+          <div class="ask-stat" data-rise><b><span class="count" data-target="19">0</span></b><span>users on the live app</span></div>
+          <div class="ask-stat" data-rise><b>200+</b><span>Philippine fish species</span></div>
+        </div>
       </div>
-      <div class="bentoWrap" style="flex:.95;min-width:0;overflow:hidden;position:relative;">
+      <div class="bentoWrap askGal" style="flex:2.35;min-width:0;overflow:hidden;position:relative;">
         <div class="bentoTrack">
           <div class="ctx-bento">
-            <img src="assets/slide3/6.jpg" alt="Fisherman heading home across open water" style="grid-row:span 2;">
-            <img src="assets/slide3/5.jpg" alt="Catch at the landing site">
-            <img src="assets/slide3/2.jpg" alt="Fisherman with his catch">
-            <img src="assets/slide3/1.jpg" alt="Fisherman hauling in a net" style="grid-column:span 2;">
-            <img src="assets/slide3/7.jpg" alt="Banca at sea" style="grid-column:span 2;">
+            <img src="assets/slide20/1.jpg" alt="FishPin fishing community photo 1" style="grid-row:span 2;">
+            <img src="assets/slide20/2.jpg" alt="FishPin fishing community photo 2">
+            <img src="assets/slide20/3.jpg" alt="FishPin fishing community photo 3">
+            <img src="assets/slide20/4.jpg" alt="FishPin fishing community photo 4">
+            <img src="assets/slide20/5.jpg" alt="FishPin fishing community photo 5">
+            <img src="assets/slide20/6.jpg" alt="FishPin fishing community photo 6" style="grid-column:span 2;">
+            <img src="assets/slide20/7.jpg" alt="FishPin fishing community photo 7">
+            <img src="assets/slide20/8.jpg" alt="FishPin fishing community photo 8" style="grid-row:span 2;">
+            <img src="assets/slide20/9.jpg" alt="FishPin fishing community photo 9">
+            <img src="assets/slide20/10.jpg" alt="FishPin fishing community photo 10">
+            <img src="assets/slide20/11.jpg" alt="FishPin fishing community photo 11">
+            <img src="assets/slide20/12.jpg" alt="FishPin fishing community photo 12">
+            <img src="assets/slide20/13.jpg" alt="FishPin fishing community photo 13" style="grid-column:span 2;">
+            <img src="assets/slide20/14.jpg" alt="FishPin fishing community photo 14">
+            <img src="assets/slide20/15.jpg" alt="FishPin fishing community photo 15" style="grid-row:span 2;">
+            <img src="assets/slide20/16.jpg" alt="FishPin fishing community photo 16">
+            <img src="assets/slide20/17.jpg" alt="FishPin fishing community photo 17">
+            <img src="assets/slide20/18.jpg" alt="FishPin fishing community photo 18">
+            <img src="assets/slide20/19.jpg" alt="FishPin fishing community photo 19">
+            <img src="assets/slide20/20.jpg" alt="FishPin fishing community photo 20" style="grid-column:span 2;">
           </div>
           <div class="ctx-bento" aria-hidden="true">
-            <img src="assets/slide3/6.jpg" alt="" style="grid-row:span 2;">
-            <img src="assets/slide3/5.jpg" alt="">
-            <img src="assets/slide3/2.jpg" alt="">
-            <img src="assets/slide3/1.jpg" alt="" style="grid-column:span 2;">
-            <img src="assets/slide3/7.jpg" alt="" style="grid-column:span 2;">
+            <img src="assets/slide20/1.jpg" alt="" style="grid-row:span 2;">
+            <img src="assets/slide20/2.jpg" alt="">
+            <img src="assets/slide20/3.jpg" alt="">
+            <img src="assets/slide20/4.jpg" alt="">
+            <img src="assets/slide20/5.jpg" alt="">
+            <img src="assets/slide20/6.jpg" alt="" style="grid-column:span 2;">
+            <img src="assets/slide20/7.jpg" alt="">
+            <img src="assets/slide20/8.jpg" alt="" style="grid-row:span 2;">
+            <img src="assets/slide20/9.jpg" alt="">
+            <img src="assets/slide20/10.jpg" alt="">
+            <img src="assets/slide20/11.jpg" alt="">
+            <img src="assets/slide20/12.jpg" alt="">
+            <img src="assets/slide20/13.jpg" alt="" style="grid-column:span 2;">
+            <img src="assets/slide20/14.jpg" alt="">
+            <img src="assets/slide20/15.jpg" alt="" style="grid-row:span 2;">
+            <img src="assets/slide20/16.jpg" alt="">
+            <img src="assets/slide20/17.jpg" alt="">
+            <img src="assets/slide20/18.jpg" alt="">
+            <img src="assets/slide20/19.jpg" alt="">
+            <img src="assets/slide20/20.jpg" alt="" style="grid-column:span 2;">
           </div>
         </div>
       </div>
     </div>
-    <aside class="notes">FishPin is live in production on Google Play today, with 20 users already on the app, six core flows, and a guide of more than 200 Philippine species. With this grant I register the enterprise properly and scale across Oriental Mindoro and MIMAROPA: 200 paid users in year one, on the way to 2,000. Every trip should end at home. Thank you. (26s)</aside>
+    <aside class="notes">FishPin is live in production on Google Play today, with 19 users already on the app and a guide of more than 200 Philippine species. With this grant I register the enterprise properly, reach more coastal barangays, and bring smart fishing to more fishermen across Oriental Mindoro and MIMAROPA. Help us grow FishPin. Thank you. (26s)</aside>
   </section>
 
   </div>
 </div>
 
 <div id="deckFooter">
-  <div class="f-logo"><svg viewBox="0 0 634 107" style="height:30px;width:180px;"><use href="#fp-logo"/></svg></div>
+  <div class="f-logo"><img src="assets/slide2/slide2-logo.png" alt="FishPin" style="height:44px;width:44px;border-radius:11px;display:block;"></div>
   <div class="f-num"><span id="slideNum">01</span> / <span id="slideTotal">17</span></div>
 </div>
 
@@ -1654,8 +1697,7 @@ const anims = {
     sosReset();
     const tl = gsap.timeline();
     riseIn(tl, s.querySelectorAll('[data-rise]'), {stagger:.1});
-    tl.fromTo(s.querySelectorAll('.imp-card'),{opacity:0,x:40},{opacity:1,x:0,duration:.5,ease:'power2.out',stagger:.14},'-=.3')
-      .fromTo('#impactClose',{opacity:0},{opacity:1,duration:.9,ease:'power2.out'},'+=.3');
+    tl.fromTo(s.querySelectorAll('.imp-card'),{opacity:0,x:40},{opacity:1,x:0,duration:.5,ease:'power2.out',stagger:.14},'-=.3');
     later(sosHoldStart, 1600);
     return tl;
   },
@@ -1694,7 +1736,7 @@ function makeRampChart(animate){
     data:{
       labels:['Q1','Q2','Q3','Q4'],
       datasets:[{
-        data:[15,45,120,200],
+        data:[40,115,300,500],
         backgroundColor:['#7badff','#4a92ff','#0d5dff','#0a2461'],
         borderRadius:10,
         maxBarThickness:110
@@ -1708,7 +1750,7 @@ function makeRampChart(animate){
       plugins:{ legend:{display:false}, tooltip:{enabled:false} },
       scales:{
         x:{ grid:{display:false}, ticks:{font:{family:"'Poppins'",size:20,weight:600}, color:'#4a5568'} },
-        y:{ beginAtZero:true, max:220, grid:{color:'rgba(74,85,104,.12)'}, ticks:{font:{family:"'Poppins'",size:18}, color:'#4a5568', stepSize:50} }
+        y:{ beginAtZero:true, max:550, grid:{color:'rgba(74,85,104,.12)'}, ticks:{font:{family:"'Poppins'",size:18}, color:'#4a5568', stepSize:100} }
       }
     }
   });
