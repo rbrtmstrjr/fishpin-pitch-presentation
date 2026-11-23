@@ -1,9 +1,12 @@
+import os
+import subprocess
 import sys
 from pathlib import Path
 
 import pytest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "check_claims.py"
+sys.path.insert(0, str(SCRIPT.parent))
 import check_claims as cc  # noqa: E402
 
 
@@ -29,6 +32,10 @@ def rules(text: str) -> list[str]:
     "BS Information Technology",
     "PHP 4,990 is not the old price",
     "Google Play is our store partner",
+    "SAM PHP 461M, 70% of fishermen (assumption)",
+    "iOS release (planned)",
+    "the iOS release is planned for December.",
+    "Next come the iOS release, a Filipino-language interface, and live SOS tracking.",
 ])
 def test_clean_lines_pass(text):
     assert rules(text) == []
@@ -52,6 +59,9 @@ def test_clean_lines_pass(text):
     ("Now available on iOS", "ios-shipped"),
     ("No safety feature behind a paywall", "paywall-promise"),
     ("AI fish ID by Gemini", "gemini"),
+    ("Now released on iOS", "ios-shipped"),
+    ("Now on the App Store, Lifetime plan", "ios-shipped"),
+    ("Tagalog app, Lifetime plan", "tagalog-app"),
 ])
 def test_violations_are_caught(text, rule):
     assert rule in rules(text)
@@ -71,6 +81,21 @@ def test_html_flags_competitor_logo_images():
 def test_html_with_empty_bindings_keeps_trial_wording_clean():
     src = '<p class="price-sub">one-time &middot; after a <span data-k="trialDays" data-f="int"></span>-day free trial</p>'
     assert cc.check_html(src) == []
+
+
+def test_main_survives_cp1252_stdout(tmp_path):
+    bad = tmp_path / "peso.txt"
+    bad.write_text("Only ₱499 once", encoding="utf-8")
+    env = dict(os.environ, PYTHONIOENCODING="cp1252")
+    proc = subprocess.run(
+        [sys.executable, str(SCRIPT), str(bad)],
+        capture_output=True, env=env,
+    )
+    stdout = proc.stdout.decode("utf-8", errors="replace")
+    stderr = proc.stderr.decode("utf-8", errors="replace")
+    assert proc.returncode == 1
+    assert "old-price" in stdout
+    assert "UnicodeEncodeError" not in stderr
 
 
 def test_main_exit_codes(tmp_path, capsys):

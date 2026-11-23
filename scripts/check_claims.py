@@ -34,7 +34,7 @@ ORGS = re.compile(
 
 RULES = [
     Rule("em-dash", re.compile("—")),
-    Rule("sector-size", re.compile(r"(?<![\d.])(\d+(?:\.\d+)?)\s*(?:million|M)\b[^.\n]{0,40}fisher", I), group_ok="1.1"),
+    Rule("sector-size", re.compile(r"(?<![\d.])(?<!PHP )(?<!PHP)(?<!₱)(\d+(?:\.\d+)?)\s*(?:million|M)\b[^.\n]{0,40}fisher", I), group_ok="1.1"),
     Rule("seventy-percent-unlabelled", re.compile(r"\b70\s*(?:%|percent|per cent)", I), allow=re.compile(r"assum", I)),
     Rule("university", re.compile(r"universit|college|campus|\bMinSU\b|Mindoro State", I)),
     Rule("free", re.compile(r"\bfree\b|\blibre\b|walang bayad", I),
@@ -44,9 +44,9 @@ RULES = [
     Rule("partner-claim", re.compile(r"partner|endorse|katuwang|accredit|backed by|supported by|in cooperation with", I),
          require=ORGS),
     Rule("tagalog-app", re.compile(r"(?:Tagalog|Filipino)(?:-language)?\s+(?:app|interface|UI|screens)", I),
-         allow=re.compile(r"plan|next|translation", I)),
+         allow=re.compile(r"\bplanned\b|\bnext\b|\btranslation\b", I)),
     Rule("ios-shipped", re.compile(r"\biOS\b|App Store|iPhone", I),
-         allow=re.compile(r"plan|December 2026|Dec 2026|next|release|build", I)),
+         allow=re.compile(r"\bplanned\b|\bDec(?:ember)? 2026\b|\bnext\b|\bbuild\b", I)),
     Rule("paywall-promise", re.compile(r"behind a paywall", I)),
     Rule("gemini", re.compile(r"Gemini(?! API)")),
 ]
@@ -89,6 +89,9 @@ def check_html(src: str) -> list[tuple[int, str, str]]:
 
 
 def main(argv: list[str]) -> int:
+    reconfigure = getattr(sys.stdout, "reconfigure", None)
+    if reconfigure is not None:
+        reconfigure(encoding="utf-8", errors="replace")
     if not argv:
         print(__doc__)
         return 2
