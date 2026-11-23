@@ -123,3 +123,35 @@ html, body { margin: 0; background: var(--navy-deep); }
 .swim img { display: block; width: 100%; height: auto; animation: bob 2.6s ease-in-out infinite; }
 @keyframes swim { from { transform: translateX(-160px); } to { transform: translateX(2080px); } }
 @keyframes bob { 50% { transform: translateY(-8px); } }
+
+/* ---------- 02 problem ---------- */
+.photo-panel { position: absolute; left: 0; top: 0; bottom: 0; width: 640px; }
+.photo-panel img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.problem { padding-left: 744px; }
+.hero-row { display: flex; align-items: flex-end; gap: 32px; margin-bottom: 24px; }
+.hero-of { padding-bottom: 18px; font-size: 40px; font-weight: 600; line-height: 1.2; }
+.dots { display: grid; grid-template-columns: repeat(21, 24px); gap: 12px; margin-bottom: 28px; }
+.dot { display: block; width: 24px; height: 24px; border-radius: 50%; background: rgba(159, 179, 217, .22); }
+.dot.gps { background: var(--amber); transform: scale(1.25); }
+.problem .lede { margin-bottom: 28px; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.fact { display: flex; gap: 20px; align-items: flex-start; padding: 26px 28px; }
+.fact [data-icon] { width: 40px; height: 40px; flex: none; color: var(--blue-on-navy); }
+.fact p { font-size: 28px; line-height: 1.35; color: var(--mist-2); }
+.fact b { font-weight: 600; color: var(--mist); }
+.problem .note { margin-top: auto; }
+
+/* ---------- 03 solution ---------- */
+.solution { display: grid; grid-template-columns: 520px 1fr; gap: 96px; align-items: center; }
+.sol-phone { position: relative; justify-self: center; }
+.scr { opacity: 0; transition: opacity .32s var(--ease); }
+.scr.on { opacity: 1; }
+.pin-wrap { position: absolute; left: 50%; top: 44%; width: 0; height: 0; transition: opacity .2s var(--ease); }
+.sol-phone:not(.at-0) .pin-wrap { opacity: 0; }
+.pin-drop { position: absolute; left: -28px; top: -76px; width: 56px; height: 76px; }
+.pin-ripple { position: absolute; left: -30px; top: -14px; width: 60px; height: 28px; border-radius: 50%; border: 3px solid var(--amber); opacity: 0; }
+.solution .h2 { font-size: 64px; }
+.tiles { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.tile { display: flex; align-items: center; gap: 22px; padding: 24px 28px; border-radius: var(--r-card); background: var(--navy-card); border: 1px solid var(--line); font-size: 30px; font-weight: 600; line-height: 1.25; transition: border-color .2s var(--ease), background-color .2s var(--ease); }
+.tile.on { border-color: var(--blue-on-navy); background: var(--blue-soft); }
+.problem .note, .tile span { text-wrap: balance; }

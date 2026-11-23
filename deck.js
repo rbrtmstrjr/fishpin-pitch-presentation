@@ -125,6 +125,43 @@
     t.fromTo($('.cover-phones', s), { y: 60, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out', clearProps: 'transform' }, 0.2);
   };
 
+  /* 02 problem: 103 dots, one per fisherman. 93 fade, 10 light amber, the count falls 103 -> 10. */
+  RENDER.push(function problemDots() {
+    const box = $('#fisherDots');
+    if (!box) return;
+    const total = DECK.market.barangayFishermen;
+    const lit = DECK.market.barangayGps;
+    const litAt = new Set(Array.from({ length: lit }, (_, k) => Math.floor((k + 0.5) * total / lit)));
+    box.innerHTML = Array.from({ length: total }, (_, i) => `<i class="dot${litAt.has(i) ? ' gps' : ''}"></i>`).join('');
+    $('#gpsCount').dataset.from = String(total);
+  });
+  ANIM.problem = (s, t) => {
+    const dots = $$('.dot', s);
+    const lit = dots.filter(d => d.classList.contains('gps'));
+    const dim = dots.filter(d => !d.classList.contains('gps'));
+    t.fromTo(dots, { scale: 0, opacity: 0, backgroundColor: '#9FB3D9' }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2)', stagger: 0.004 }, 0.25)
+      .to(dim, { backgroundColor: 'rgba(159,179,217,0.22)', duration: 0.6, ease: 'power2.out', stagger: { each: 0.004, from: 'random' } }, 0.95)
+      .to(lit, { backgroundColor: '#FFC857', scale: 1.25, duration: 0.4, ease: 'back.out(3)', stagger: 0.04 }, 1.2)
+      .set(dots, { clearProps: 'all' });
+  };
+
+  /* 03 solution: an amber pin drops on the chart, then the tiles light in turn as the screen changes */
+  ANIM.solution = (s, t) => {
+    const tiles = $$('[data-tile]', s);
+    const screens = $$('.scr', s);
+    const phone = $('.sol-phone', s);
+    let i = 0;
+    const show = n => {
+      tiles.forEach((el, k) => el.classList.toggle('on', k === n));
+      screens.forEach((el, k) => el.classList.toggle('on', k === n));
+      phone.classList.toggle('at-0', n === 0);
+    };
+    show(0);
+    t.fromTo($('.pin-drop', s), { y: -160, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'bounce.out', clearProps: 'transform' }, 0.35)
+      .fromTo($('.pin-ripple', s), { scale: 0.2, opacity: 0.8 }, { scale: 3, opacity: 0, duration: 1, ease: 'power2.out' }, 0.9);
+    every(1800, () => { i = (i + 1) % tiles.length; show(i); }, 2400);
+  };
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */
