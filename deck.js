@@ -326,6 +326,64 @@
       .map((v, i) => `<i class="s${i + 1}" data-grow data-grow-at="${(0.3 + i * 0.45).toFixed(2)}" style="width:${(v / f.total * 100).toFixed(2)}%"></i>`).join('');
   });
 
+  /* 11 impact: press-and-hold SOS. The ring fills over the hold time; release early and it drains. */
+  (function sosDemo() {
+    const box = $('#sos');
+    if (!box) return;
+    const btn = $('#sosBtn');
+    const prog = $('.prog', box);
+    const C = 741.4;
+    let tw = null;
+    const setState = s => { box.dataset.state = s; };
+    function reset() {
+      if (tw) tw.kill();
+      tw = null;
+      gsap.set(prog, { clearProps: 'strokeDashoffset,stroke' });
+      setState('idle');
+    }
+    function start() {
+      if (box.dataset.state === 'sent') reset();
+      if (tw) tw.kill();
+      setState('holding');
+      tw = gsap.fromTo(prog, { strokeDashoffset: C }, {
+        strokeDashoffset: 0, duration: DECK.product.sosHoldSeconds, ease: 'none',
+        onComplete: () => { tw = null; gsap.set(prog, { clearProps: 'strokeDashoffset,stroke' }); setState('sent'); },
+      });
+    }
+    function end() {
+      if (box.dataset.state !== 'holding') return;
+      if (tw) tw.kill();
+      tw = gsap.to(prog, {
+        strokeDashoffset: C, duration: 0.3, ease: 'power2.out',
+        onComplete: () => { tw = null; gsap.set(prog, { clearProps: 'strokeDashoffset' }); setState('idle'); },
+      });
+    }
+    btn.addEventListener('pointerdown', e => { e.preventDefault(); start(); });
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach(type => btn.addEventListener(type, end));
+    ANIM.impact = () => { reset(); later(1000, start); };
+  })();
+
+  /* 12 close: the route home draws from the fishing spot while the boat sails along it */
+  function placeBoat(s, p) {
+    const path = $('.voyage .path', s);
+    const pt = path.getPointAtLength(path.getTotalLength() * p);
+    $('.voyage .boat', s).style.transform = `translate(${(pt.x - 70).toFixed(1)}px, ${(pt.y - 146).toFixed(1)}px)`;
+    return pt;
+  }
+  RENDER.push(function voyageEnd() {
+    const s = $('#close');
+    if (s) placeBoat(s, 1);
+  });
+  ANIM.close = (s, t) => {
+    const clip = $('#voyageClip rect');
+    const o = { p: 0 };
+    const at = p => { const pt = placeBoat(s, p); clip.setAttribute('width', String(Math.ceil(pt.x + 6))); };
+    at(0);
+    t.fromTo($('.voyage .spot', s), { scale: 0, transformOrigin: '50% 100%' }, { scale: 1, duration: 0.4, ease: 'back.out(3)' }, 0.3)
+      .to(o, { p: 1, duration: 2, ease: 'power1.inOut', onUpdate: () => at(o.p), onComplete: () => { clip.setAttribute('width', '1664'); placeBoat(s, 1); } }, 0.5)
+      .fromTo($('.home-mark', s), { scale: 0 }, { scale: 1, duration: 0.4, ease: 'back.out(3)', clearProps: 'transform' }, 2.1);
+  };
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */
