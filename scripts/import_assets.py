@@ -23,6 +23,7 @@ KIT = Path.home() / "OneDrive" / "Documents" / "fishpin-brand"
 AWARD = KIT / "16-yfc-awarding" / "final"
 SHOTS = KIT / "09-screenshots" / "light"
 FONTS = KIT / "04-typography" / "fonts"
+APP_FONTS = Path.home() / "OneDrive" / "Documents" / "FishPin" / "node_modules" / "@expo-google-fonts" / "poppins"
 
 VENDOR = {
     "vendor/reveal/reveal.js": "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js",
@@ -48,6 +49,9 @@ COPY = {
     "brand/fonts/Poppins_500Medium.ttf": FONTS / "Poppins_500Medium.ttf",
     "brand/fonts/Poppins_600SemiBold.ttf": FONTS / "Poppins_600SemiBold.ttf",
     "brand/fonts/Poppins_700Bold.ttf": FONTS / "Poppins_700Bold.ttf",
+    # the brand kit ships 400-700 only; the cover's Light and ExtraBold come from the app's font package
+    "brand/fonts/Poppins_300Light.ttf": APP_FONTS / "300Light/Poppins_300Light.ttf",
+    "brand/fonts/Poppins_800ExtraBold.ttf": APP_FONTS / "800ExtraBold/Poppins_800ExtraBold.ttf",
     "brand/fonts/IBMPlexMono_500Medium.ttf": FONTS / "IBMPlexMono_500Medium.ttf",
     "brand/fonts/IBMPlexMono_600SemiBold.ttf": FONTS / "IBMPlexMono_600SemiBold.ttf",
     "brand/fonts/OFL-Poppins.txt": FONTS / "OFL-Poppins.txt",
@@ -56,7 +60,6 @@ COPY = {
 CONTOUR_SRC = KIT / "07-textures/contour-lines/contour-lines-transparent-light-lines.svg"
 CONTOUR_DST = "brand/texture/contour.svg"
 CONTOUR_STROKE = "#7DC3FF"
-HERO_SRC, HERO_DST, HERO_WIDTH = KIT / "13-website/hero-phones.png", "brand/hero-phones.png", 1100
 SCREENS = {
     "screens/map-nautical.png": "03-map/04-map-nautical-idle.png",
     "screens/navigate.png": "05-navigate/03-navigate.png",
@@ -132,11 +135,6 @@ def main() -> None:
         svg = svg.replace("<svg ", f'<svg stroke="{CONTOUR_STROKE}" fill="none" ', 1)
     out(CONTOUR_DST).write_text(svg, encoding="utf-8")
     print(f"write {CONTOUR_DST}")
-
-    hero = Image.open(HERO_SRC)
-    hero = hero.resize((HERO_WIDTH, round(hero.height * HERO_WIDTH / hero.width)), Image.LANCZOS)
-    hero.save(out(HERO_DST), optimize=True)
-    print(f"write {HERO_DST}")
 
     for rel, shot in SCREENS.items():
         img = Image.open(SHOTS / shot).convert("RGB")

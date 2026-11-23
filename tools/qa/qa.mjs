@@ -76,7 +76,15 @@ async function open(query = '', viewport = { width: 1920, height: 1080 }) {
   const page = await context.newPage();
   page.on('pageerror', e => errors.push(`page error: ${e.message}`));
   page.on('console', m => { if (m.type() === 'error') errors.push(`console error: ${m.text()}`); });
-  page.on('requestfailed', r => { if (!/^https?:/.test(r.url())) errors.push(`failed to load: ${r.url()}`); });
+  page.on('requestfailed', r => {
+    if (/^https?:/.test(r.url())) return;
+    const why = r.failure()?.errorText || '';
+    // Chrome cancels a video's background download when the slide pauses it or it has buffered
+    // enough; that is not a missing file. A missing file fails as ERR_FILE_NOT_FOUND instead,
+    // and the per-slide check below also flags any <video> with a load error.
+    if (r.resourceType() === 'media' && why === 'net::ERR_ABORTED') return;
+    errors.push(`failed to load: ${r.url()} (${why})`);
+  });
   let ready = true;
   try {
     await page.goto(DECK_URL + query);
@@ -119,7 +127,8 @@ function inspect(minFont) {
     return ownText && parseFloat(getComputedStyle(el).fontSize) < minFont - 0.5;
   }).slice(0, 5).map(el => `${name(el)} (${getComputedStyle(el).fontSize})`) : [];
   const unbound = [...sec.querySelectorAll('[data-k]')].filter(el => !el.textContent.trim() || /undefined|NaN/.test(el.textContent)).map(el => el.dataset.k);
-  const broken = [...sec.querySelectorAll('img')].filter(im => !im.complete || !im.naturalWidth).map(im => im.getAttribute('src'));
+  const broken = [...sec.querySelectorAll('img')].filter(im => !im.complete || !im.naturalWidth).map(im => im.getAttribute('src'))
+    .concat([...sec.querySelectorAll('video')].filter(v => v.error || v.networkState === HTMLMediaElement.NETWORK_NO_SOURCE).map(v => v.getAttribute('src')));
   const hidden = [...sec.querySelectorAll('[data-rise]')].filter(el => parseFloat(getComputedStyle(el).opacity) < 0.95).map(name);
   const counter = document.getElementById('slideCounter')?.textContent.trim() ?? '';
   const notes = sec.querySelector('aside.notes')?.textContent.trim() ?? '';

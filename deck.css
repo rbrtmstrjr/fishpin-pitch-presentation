@@ -2,10 +2,12 @@
    Every rule describes a slide's FINAL state. deck.js animates into it. */
 
 /* ---------- fonts (self-hosted so the deck works with no internet) ---------- */
+@font-face { font-family: 'Poppins'; font-weight: 300; font-style: normal; font-display: block; src: url('assets/brand/fonts/Poppins_300Light.ttf') format('truetype'); }
 @font-face { font-family: 'Poppins'; font-weight: 400; font-style: normal; font-display: block; src: url('assets/brand/fonts/Poppins_400Regular.ttf') format('truetype'); }
 @font-face { font-family: 'Poppins'; font-weight: 500; font-style: normal; font-display: block; src: url('assets/brand/fonts/Poppins_500Medium.ttf') format('truetype'); }
 @font-face { font-family: 'Poppins'; font-weight: 600; font-style: normal; font-display: block; src: url('assets/brand/fonts/Poppins_600SemiBold.ttf') format('truetype'); }
 @font-face { font-family: 'Poppins'; font-weight: 700; font-style: normal; font-display: block; src: url('assets/brand/fonts/Poppins_700Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Poppins'; font-weight: 800; font-style: normal; font-display: block; src: url('assets/brand/fonts/Poppins_800ExtraBold.ttf') format('truetype'); }
 @font-face { font-family: 'IBM Plex Mono'; font-weight: 500; font-style: normal; font-display: block; src: url('assets/brand/fonts/IBMPlexMono_500Medium.ttf') format('truetype'); }
 @font-face { font-family: 'IBM Plex Mono'; font-weight: 600; font-style: normal; font-display: block; src: url('assets/brand/fonts/IBMPlexMono_600SemiBold.ttf') format('truetype'); }
 
@@ -48,7 +50,6 @@ html, body { margin: 0; background: var(--navy-deep); }
 .sea::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 52%, rgba(2, 6, 20, .5) 100%); }
 @keyframes seaWaves { to { transform: translateX(-960px); } }
 @keyframes seaSpecks { to { transform: translateY(-1080px); } }
-#cover { --gx: 50%; --gy: 42%; }
 #problem { --gx: 74%; --gy: 45%; }
 #solution, #offline, #impact { --gx: 30%; --gy: 45%; }
 #traction { --gx: 40%; --gy: 45%; }
@@ -116,29 +117,29 @@ html, body { margin: 0; background: var(--navy-deep); }
 .is-pending { outline: 3px dashed var(--warn); outline-offset: 6px; }
 
 /* still mode (static, print, reduced motion): final states only */
-.still .swim { display: none; }
 .still *, .still *::before, .still *::after { animation: none !important; transition: none !important; }
 @media print { #deckFooter, #progress, #timer, #qmenu, #help, #checkBanner { display: none !important; } }
 
 /* ---------- 01 cover ---------- */
-.cover { display: grid; grid-template-columns: 1fr 700px; gap: 40px; align-items: center; }
-.cover-logo { height: 80px; width: auto; display: block; margin-bottom: 64px; }
+/* Tatay's close-up loops in slow motion (forward then backward, baked into the file by
+   scripts/build_cover_video.py) while a slow push-in breathes on top. Still mode shows the
+   poster, which is the loop's first frame. Overlays match the Figma frame layer for layer. */
+.cover-media { position: absolute; inset: 0; overflow: hidden; background: var(--navy-deep); }
+.cover-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 68% 42%; animation: coverPush 24.12s ease-in-out infinite alternate; }
+@keyframes coverPush { from { transform: scale(1); } to { transform: scale(1.06); } }
+.cover-shade { position: absolute; inset: 0; background:
+  linear-gradient(180deg, rgba(6, 18, 51, 0) 55%, rgba(6, 18, 51, .6) 100%),
+  linear-gradient(90deg, rgba(6, 18, 51, .95) 20%, rgba(6, 18, 51, .66) 50%, rgba(6, 18, 51, .22) 70%, rgba(6, 18, 51, 0) 90%),
+  linear-gradient(rgba(10, 36, 97, .16), rgba(10, 36, 97, .16)); }
+.cover { padding: 0; display: block; }
+.cover-logo { position: absolute; left: 128px; top: 118px; width: 311px; height: auto; display: block; }
+.cover-copy { position: absolute; left: 128px; top: 268px; width: 1100px; }
+.cover-title { font-weight: 800; font-size: 119px; line-height: .95; color: var(--amber); }
 .cover-title span { display: block; }
-.cover .lede { margin-top: 32px; max-width: 24ch; }
-.cover-meta { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 36px 0 0; padding: 0; font-family: var(--nums); font-size: 28px; color: var(--mist-2); }
-
-.badges { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
-.badge { display: inline-flex; align-items: center; gap: 12px; padding: 10px 24px 10px 16px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 28px; font-weight: 600; }
-.badge [data-icon] { width: 32px; height: 32px; color: var(--amber); }
-.cover-visual { position: relative; height: 840px; display: grid; place-items: center; }
-.cover-phones { position: relative; z-index: 1; width: 680px; height: auto; }
-.sonar { position: absolute; left: 50%; top: 50%; width: 480px; height: 480px; margin: -240px 0 0 -240px; border-radius: 50%; border: 2px solid rgba(64, 162, 255, .45); animation: sonar 4.8s var(--ease) infinite; }
-.sonar.s2 { animation-delay: 2.4s; }
-@keyframes sonar { 0% { transform: scale(.6); opacity: 0; } 15% { opacity: 1; } 100% { transform: scale(1.6); opacity: 0; } }
-.swim { position: absolute; left: 0; bottom: 48px; width: 110px; animation: swim 22s linear infinite; }
-.swim img { display: block; width: 100%; height: auto; animation: bob 2.6s ease-in-out infinite; }
-@keyframes swim { from { transform: translateX(-160px); } to { transform: translateX(2080px); } }
-@keyframes bob { 50% { transform: translateY(-8px); } }
+.cover-lede { margin-top: 6px; font-weight: 300; font-size: 57px; line-height: 1.65; color: #fff; }
+.cover-foot { position: absolute; left: 128px; top: 792px; }
+.cover-rule { display: block; width: 64px; height: 3px; background: var(--amber); }
+.cover-meta { list-style: none; margin: 29px 0 0; padding: 0; font-family: var(--nums); font-weight: 500; font-size: 28px; line-height: 1.5; color: var(--mist-2); }
 
 /* ---------- 02 problem ---------- */
 .photo-panel { position: absolute; left: 0; top: 0; bottom: 0; width: 640px; }

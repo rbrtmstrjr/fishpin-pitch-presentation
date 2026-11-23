@@ -122,9 +122,15 @@
 
   /* ===== slide code: each later task inserts its slide's RENDER/ANIM above the end marker ===== */
 
-  /* 01 cover: the app phones rise into place while the sonar rings pulse behind them */
+  /* 01 cover: Tatay's face surfaces out of the navy and settles while the title rises over it.
+     The video itself loops in slow motion (Reveal plays it via data-autoplay); still mode
+     keeps it paused on its poster so print and static screenshots match the Figma frame. */
+  RENDER.push(function coverVideo() {
+    if (!still) return;
+    $$('video[data-autoplay]').forEach(v => v.removeAttribute('data-autoplay'));
+  });
   ANIM.cover = (s, t) => {
-    t.fromTo($('.cover-phones', s), { y: 60, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out', clearProps: 'transform' }, 0.2);
+    t.fromTo($('.cover-media', s), { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 2.4, ease: 'power2.out', clearProps: 'opacity,transform' }, 0);
   };
 
   /* 02 problem: 103 dots, one per fisherman. 93 fade, 10 light amber, the count falls 103 -> 10. */
