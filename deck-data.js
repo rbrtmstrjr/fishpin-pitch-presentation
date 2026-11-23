@@ -88,6 +88,10 @@
       plotterMax: 30000,
       povertyPct: 27.4,
       povertyYear: 2023,
+      mimaropaPovertyRisePts: 10.0,
+      catch2023: 3523,
+      catch2024: 1995,
+      catchDropPct: 43.4,
     },
 
     gtm: {
@@ -113,8 +117,13 @@
       { name: 'Garmin plotter', min: 8000, max: 30000, model: 'Dedicated hardware', builtFor: 'Boats with a dedicated plotter' },
     ],
 
+    // the demo navigation shown in the app screenshot (FishPin Pitch 2026, chapter 2)
+    demo: { distanceNm: 2.6, etaMin: 25 },
+
     product: {
       species: 300,
+      saltwater: 262,
+      freshwater: 38,
       localNames: 6337,
       languages: 26,
       sosContactsMin: 3,
@@ -177,6 +186,10 @@
       'market.plotterMin': 'BMC Value Proposition',
       'market.plotterMax': 'BMC Value Proposition',
       'market.povertyPct': 'PSA 2023 fisherfolk poverty incidence (provincial deck)',
+      'market.mimaropaPovertyRisePts': 'PSA MIMAROPA poverty statistics 2021-2023 (FishPin Pitch 2026, regional round)',
+      'market.catch2023': 'PSA Oriental Mindoro fisheries 2024, municipal catch in MT (FishPin Pitch 2026)',
+      'market.catch2024': 'PSA Oriental Mindoro fisheries 2024, municipal catch in MT (FishPin Pitch 2026)',
+      'product.saltwater': 'FishPin apps/mobile/data/ph-fish-guide.json (FishPin Pitch 2026 guide scene)',
       'gtm.coopSessions': 'FP Work and Financial Plan rows 29-30 and note B39; BMC Channels',
       'gtm.reach': 'FP Investment Cost!C71 basis note',
       'gtm.adsPerMonth': 'FP Investment Cost!E31',
@@ -238,6 +251,8 @@
     eq('market.samM', m.samM, Math.round(m.sector * p * m.smartphoneShare / 1e6));
     eq('market.somM', m.somM, Math.round(m.somUsers * p / 1e6));
     eq('market.barangayMemory', m.barangayMemory, m.barangayFishermen - m.barangayGps);
+    eq('market.catchDropPct', m.catchDropPct, round((1 - m.catch2024 / m.catch2023) * 100, 1));
+    eq('product species split', DECK.product.saltwater + DECK.product.freshwater, DECK.product.species);
 
     eq('gtm.townCount', g.townCount, g.towns.length);
     eq('gtm.coopSessions', g.coopSessions, g.coopMansalay + g.coopExpansion);

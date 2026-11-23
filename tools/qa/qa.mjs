@@ -3,8 +3,8 @@
 // (the venue may have no internet), steps through every slide, and fails on: runtime
 // errors, blocked requests, elements outside the 1920x1080 frame, text under 28px on
 // main slides, unfilled numbers, broken images, text still hidden after the entrance,
-// wrong counters, speaker notes over their time budget, clip slides without a loaded
-// video or poster, and broken interactions (Q menu, Esc return, clicker guard, timer).
+// wrong counters, speaker notes over their time budget, slide-specific facts, and
+// broken interactions (Q menu, Esc return, clicker guard, timer).
 //
 // Usage (from the deck root):
 //   node tools/qa/qa.mjs                  full check; screenshots + rendered.txt in tools/qa/out/
@@ -28,20 +28,16 @@ const only = argv.find(a => a.startsWith('--only='))?.slice('--only='.length).sp
 const WORDS_PER_MINUTE = 140;
 const MAIN_SECONDS = 280;
 const MIN_FONT = 28;
-const DEFAULT_WAIT = 1800;
+const DEFAULT_WAIT = 3600; // the slides' last details land about 3.4 s in
 const WAIT = {};
 
-/* Slide facts that must hold once the slide has settled. Each returns '' or an error.
-   Slides 02-16 are clips (section.clip): each must have its video attached (Reveal sets src from
-   data-src as the slide nears), a poster for still mode, and no load error. */
-const CHECKS = {};
-const CLIP_CHECK = id => {
-  const v = document.querySelector(`#${id} video.clip-video`);
-  if (!v) return 'clip slide has no video.clip-video';
-  if (!v.getAttribute('poster')) return 'clip video has no poster (its last frame, for still mode)';
-  if (!v.getAttribute('src')) return 'clip video was not loaded from data-src';
-  if (v.error) return `clip video failed to load (code ${v.error.code})`;
-  return '';
+/* Slide facts that must hold once the slide has settled. Each returns '' or an error. */
+const CHECKS = {
+  problem: () => document.querySelector('#problem [data-k="market.barangayGps"]').textContent.trim() === String(DECK.market.barangayGps) ? '' : 'GPS count did not land on the data value',
+  'demo-catch': () => document.querySelectorAll('#fishChips span').length === 8 ? '' : 'fish name chips are not filled',
+  business: () => document.querySelectorAll('#trialDays span').length === DECK.trialDays ? '' : 'trial days do not match DECK.trialDays',
+  gtm: () => document.querySelectorAll('#gtmTowns .town').length === DECK.gtm.towns.length && document.querySelectorAll('#gtmTally i').length === DECK.gtm.coopSessions ? '' : 'towns or session marks do not match DECK.gtm',
+  financials: () => document.querySelectorAll('#financials .f-bar .seg').length === 4 && document.querySelectorAll('#finRamp i').length === DECK.fin.ramp.length ? '' : 'funding bar needs 4 segments and the ramp 12 months',
 };
 
 const failures = [];
@@ -179,17 +175,14 @@ async function checkSlidesInner(page, ready) {
       const msg = await page.evaluate(`(${CHECKS[s.id]})()`);
       if (msg) fail(where, msg);
     }
-    if (s.clip) {
-      const msg = await page.evaluate(`(${CLIP_CHECK})(${JSON.stringify(s.id)})`);
-      if (msg) fail(where, msg);
-    }
+
     await page.screenshot({ path: join(OUT, `${pad(s.i + 1)}-${s.id}.png`) });
     rendered += `=== ${s.id} [${s.appendix ? 'appendix' : 'main'}] ===\n${r.text}\n--- notes ---\n${r.notes}\n\n`;
   }
   if (!only) {
     const total = mains.reduce((t, s) => t + s.time, 0);
     if (has('notes')) {
-      if (mains.length !== 16) fail('deck shape', `expected 16 main slides (cover + 15 clips), found ${mains.length}`);
+      if (mains.length !== 16) fail('deck shape', `expected 16 main slides, found ${mains.length}`);
       if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
     } else if (total > MAIN_SECONDS) {
       fail('timing', `main slides add up to ${total}s; budget is ${MAIN_SECONDS}s`);

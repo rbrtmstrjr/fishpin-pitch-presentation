@@ -51,8 +51,12 @@
     yrs: v => nf(v, 2) + ' yrs',
     million: v => nf(v / 1e6, 1) + ' million',
     date: v => new Date(v + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
+    dec2: v => nf(v, 2),
+    peso: v => '\u20B1' + nf(v),
+    pts: v => '+' + nf(v, 1),
+    drop: v => '\u2212' + nf(v, 1) + '%',
   };
-  const WHOLE = new Set(['int', 'php', 'phpM']);
+  const WHOLE = new Set(['int', 'php', 'phpM', 'peso']);
   const format = (el, v) => {
     if (el.dataset.f && !FORMAT[el.dataset.f]) console.error('deck: unknown format "' + el.dataset.f + '" on ' + el.dataset.k);
     return (FORMAT[el.dataset.f] || FORMAT.text)(v);
@@ -108,10 +112,14 @@
     stopTimers();
     if (still) return;
     tl = gsap.timeline();
-    const rise = $$('[data-rise]', slide);
+    const rise = $$('[data-rise]', slide).filter(el => !el.dataset.at);
     if (rise.length) {
       tl.fromTo(rise, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: 'power3.out', stagger: { each: 0.035, amount: Math.min(0.035 * (rise.length - 1), 0.4) }, clearProps: 'transform' }, 0.05);
     }
+    // details that arrive later: data-at is seconds after the slide appears
+    $$('[data-rise][data-at]', slide).forEach(el => tl.fromTo(el, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: 'power3.out', clearProps: 'transform,opacity' }, Number(el.dataset.at)));
+    $$('[data-pop]', slide).forEach(el => tl.fromTo(el, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.35, ease: 'back.out(2.2)', clearProps: 'transform,opacity' }, Number(el.dataset.at || 0.3)));
+    $$('[data-grow-y]', slide).forEach(el => tl.fromTo(el, { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: 'power3.out', transformOrigin: 'center bottom', clearProps: 'transform' }, Number(el.dataset.at || 0.3)));
     $$('[data-count]', slide).forEach(el => countUp(el, tl));
     $$('[data-grow]', slide).forEach((el, i) => {
       tl.fromTo(el, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power3.out', transformOrigin: 'left center', clearProps: 'transform' },
@@ -134,10 +142,108 @@
     t.fromTo($('.cover-media', s), { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 2.4, ease: 'power2.out', clearProps: 'opacity,transform' }, 0);
   };
 
-  /* 02-16: clip slides. Each <section class="clip"> holds one clip cut from FishPin Pitch 2026
-     (scripts/build_clips.mjs, video/clips.json). Reveal loads it from data-src when the slide is
-     near, plays it once from the start on arrival (data-autoplay) and pauses it on leave; the clip
-     then holds its last frame. Still mode shows the poster, which is that last frame. */
+  /* 02-16: FishPin Pitch 2026 as slides. The markup and CSS hold each scene's finished frame;
+     these build the data-driven parts and animate the details into place. */
+
+  /* Sea backdrop for every navy slide, matching the video pitch: ten wave lines whose
+     shape repeats every 960px (so a -960px CSS drift loops seamlessly) and 36 specks
+     drawn twice, 1080px apart (so a -1080px CSS rise loops seamlessly). */
+  RENDER.push(function seaBackdrop() {
+    const W = 3840, P = 960;
+    const waves = Array.from({ length: 10 }, (_, i) => {
+      const y0 = 60 + i * 108; let d = '';
+      for (let x = 0; x <= W; x += 24) {
+        const y = y0 + Math.sin((2 * Math.PI * x) / P + i * 0.7) * (16 + i * 2) + Math.sin((4 * Math.PI * x) / P - i * 1.2) * 5;
+        d += `${x ? ' L' : 'M'} ${x} ${y.toFixed(1)}`;
+      }
+      return `<path d="${d}"/>`;
+    }).join('');
+    let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const dots = Array.from({ length: 36 }, () => ({ x: rnd() * 1920, y: rnd() * 1080, r: 1.5 + rnd() * 3.2, o: 0.12 + rnd() * 0.3 }));
+    const specks = dots.map(d => [0, 1080].map(dy => `<circle cx="${d.x.toFixed(0)}" cy="${(d.y + dy).toFixed(0)}" r="${d.r.toFixed(1)}" opacity="${d.o.toFixed(2)}"/>`).join('')).join('');
+    const html = `<div class="sea" data-bleed aria-hidden="true"><svg class="waves" viewBox="0 0 ${W} 1080">${waves}</svg><svg class="specks" viewBox="0 0 1920 2160">${specks}</svg></div>`;
+    $$('.reveal .slides > section.contour').forEach(s => s.insertAdjacentHTML('afterbegin', html));
+  });
+
+  /* draw an SVG stroke (pathLength="1" paths) from nothing to its CSS final state */
+  const draw = (t, el, at, dur = 0.9) => el && t.fromTo(el, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: dur, ease: 'power2.inOut', clearProps: 'strokeDashoffset' }, at);
+
+  /* 02 hook: the signal bars drop out one by one, the slash strikes, then the title lands */
+  ANIM.hook = (s, t) => {
+    t.fromTo($$('.bars rect', s), { fill: '#FFFFFF' }, { fill: 'rgba(234,242,255,0.28)', duration: 0.25, stagger: { each: 0.18, from: 'end' }, clearProps: 'fill' }, 0.3);
+    draw(t, $('.bars .slash', s), 1.0, 0.35);
+  };
+
+  /* 04 signal: catch bars sized from DECK; the poverty line draws in */
+  RENDER.push(function catchBars() {
+    const m = DECK.market, a = $('#catch23'), b = $('#catch24');
+    if (a) a.style.width = '100%';
+    if (b) b.style.width = `${(m.catch2024 / m.catch2023) * 100}%`;
+  });
+  ANIM.signal = (s, t) => { draw(t, $('.s-line path', s), 1.7, 1.0); };
+
+  /* 05 demo: airplane mode flips on, then the chart keeps working */
+  ANIM['demo-chart'] = (s, t) => {
+    const tog = $('#airToggle', s);
+    tog.classList.add('off');
+    t.call(() => tog.classList.remove('off'), null, 1.3);
+  };
+
+  /* 09 demo: local fish names from the species guide */
+  RENDER.push(function fishChips() {
+    const box = $('#fishChips');
+    if (box) box.innerHTML = DECK.fishNames.slice(0, 8).map(n => `<span data-pop data-at="${(1.7 + DECK.fishNames.indexOf(n) * 0.08).toFixed(2)}">${n}</span>`).join('');
+  });
+
+  /* 10 value: the search zigzag, then the straight line back to the proven spot */
+  ANIM.value = (s, t) => { draw(t, $('.v-route .search', s), 1.3, 0.9); draw(t, $('.v-route .straight', s), 2.0, 0.6); };
+
+  /* 13 business: the seven trial days */
+  RENDER.push(function trialDays() {
+    const box = $('#trialDays');
+    if (box) box.innerHTML = Array.from({ length: DECK.trialDays }, (_, i) => `<span data-pop data-at="${(0.45 + i * 0.07).toFixed(2)}">${i + 1}</span>`).join('');
+  });
+
+  /* 14 go-to-market: towns on the coast (closing.tsx TOWNS, in the map's 1920x1080 space) and one mark per session */
+  const TOWN_XY = { Bansud: [451, 140], Bongabong: [490, 285], Roxas: [531, 491], Mansalay: [430, 573], Bulalacao: [330, 800] };
+  RENDER.push(function gtmTowns() {
+    const box = $('#gtmTowns'), tally = $('#gtmTally');
+    if (box) box.innerHTML = DECK.gtm.towns.map((n, i) => {
+      const [x, y] = TOWN_XY[n] || [0, 0];
+      // the map's viewBox starts at (80, 20) and is drawn at 1:1, so a town sits 80px left and 20px up
+      return `<span class="town${n === DECK.gtm.home ? ' home' : ''}" style="left:${x - 80}px;top:${y - 20}px" data-pop data-at="${(0.4 + i * 0.12).toFixed(2)}"><i></i>${n}</span>`;
+    }).join('');
+    if (tally) tally.innerHTML = Array.from({ length: DECK.gtm.coopSessions }, () => '<i data-icon="users"></i>').join('');
+  });
+  ANIM.gtm = (s, t) => { draw(t, $('.g-map .coast', s), 0.1, 1.0); };
+
+  /* 15 financials: the funding bar in proportion, the year-one ramp, and the payback month */
+  RENDER.push(function finParts() {
+    const f = DECK.fin;
+    [['segProv', f.grantProvincial], ['segReg', f.grantRegional], ['segNat', f.grantNational], ['segCp', f.counterpart]].forEach(([id, v]) => {
+      const el = $('#' + id); if (el) el.style.width = `${(v / f.total) * 100}%`;
+    });
+    const ramp = $('#finRamp'), top = Math.max(...f.ramp);
+    if (ramp) ramp.innerHTML = f.ramp.map((n, i) => `<i style="height:${(n / top) * 100}%" data-grow-y data-at="${(1.8 + i * 0.05).toFixed(2)}"></i>`).join('');
+    const months = Math.round(f.payback * 12);
+    if ($('#paybackMonth')) $('#paybackMonth').textContent = String(months);
+    if ($('#paybackMonths')) $('#paybackMonths').textContent = String(months);
+  });
+  ANIM.financials = (s, t) => {
+    const b = $('#paybackMonth', s), months = Number(b.textContent), o = { m: 1 };
+    t.fromTo(o, { m: 1 }, { m: months, duration: 1.0, ease: 'power1.in', onUpdate: () => { b.textContent = String(Math.round(o.m)); }, onComplete: () => { b.textContent = String(months); } }, 2.0);
+    t.fromTo($('.cal .paid', s), { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2)', clearProps: 'transform,opacity' }, 3.05);
+  };
+
+  /* 16 close: Mansalay on the region map (mimaropa-map.json: 100 units per degree) */
+  RENDER.push(function mansalayPin() {
+    const pin = $('#mansalayPin');
+    if (!pin) return;
+    // assets/pitch/mimaropa.svg viewBox, and the map box in deck.css (.c-map 400 x 430, the same aspect)
+    const [vx, vy, vw, vh] = [29.9, 748.3, 588.4, 633.3], [mx, my] = [483.2, 898], W = 400, H = 430;
+    pin.style.left = `${((mx - vx) / vw) * W}px`;
+    pin.style.top = `${((my - vy) / vh) * H}px`;
+  });
 
   /* Q&A appendix: tables and the licence ramp are built from DECK so they can never drift */
   RENDER.push(function appendixTables() {
@@ -185,7 +291,7 @@
     document.documentElement.style.background = bg;
     document.body.style.background = bg;
     document.body.classList.toggle('on-appx', appx);
-    document.body.classList.toggle('no-foot-mark', slide.id === 'cover' || slide.classList.contains('clip'));
+    document.body.classList.toggle('no-foot-mark', !appx); // the video-style slides carry no footer logo; the counter stays
     const counter = $('#slideCounter');
     if (appx) {
       counter.textContent = 'Q&A · ' + (slide.dataset.title || '');

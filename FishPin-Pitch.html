@@ -31,93 +31,357 @@
   <aside class="notes">Magandang araw po. I'm Robert Maestro Jr. from Mansalay, Oriental Mindoro. This is FishPin: sea charts that work with no signal.</aside>
 </section>
 
-<!-- 02 hook: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="hook" class="clip" data-time="22">
-  <video class="clip-video" data-src="assets/clips/02-hook.mp4" poster="assets/clips/02-hook.jpg" muted playsinline preload="auto" data-autoplay aria-label="Bancas leave at sunrise, the signal drops to no service, and no one knows where you are."></video>
+<!-- ===== Slides 02-16: FishPin Pitch 2026, scene by scene, as slides. Problem (02-04) -> solution (05-10) -> growth (11-16).
+     Each slide is the finished frame of the video's scene; only the details animate (data-rise / data-pop with data-at,
+     data-count, data-grow and the slide's ANIM in deck.js). Every figure is bound to deck-data.js. ===== -->
+
+<!-- 02 hook: a lone banca, the signal gone, and no one knows where you are -->
+<section id="hook" class="photo" data-time="22">
+  <img class="bg" src="assets/pitch/still-hook.jpg" alt="A lone banca far out on a grey sea">
+  <div class="shade shade-top"></div>
+  <h1 class="hook-title" data-rise data-at="1.4">No one knows<br>where you are</h1>
+  <div class="no-service" data-rise>
+    <svg class="bars" viewBox="0 0 44 34" aria-hidden="true"><rect x="2" y="23" width="7" height="9" rx="2"/><rect x="13" y="16" width="7" height="16" rx="2"/><rect x="24" y="9" width="7" height="23" rx="2"/><rect x="35" y="2" width="7" height="30" rx="2"/><line class="slash" x1="3" y1="3" x2="41" y2="31" pathLength="1"/></svg>
+    <b>No service</b>
+    <span class="pill-danger">mobile data unavailable</span>
+  </div>
   <aside class="notes">Every morning, more than a hundred fishermen leave the shore of our barangay. A few kilometers out, mobile data is gone. There's no chart. No tracking. And if something goes wrong, no one knows where you are.</aside>
 </section>
 
-<!-- 03 problem-gps: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="problem-gps" class="clip" data-time="20">
-  <video class="clip-video" data-src="assets/clips/03-problem-gps.mp4" poster="assets/clips/03-problem-gps.jpg" muted playsinline preload="auto" data-autoplay aria-label="About 103 fishermen in our barangay, 10 own a GPS, and a marine GPS costs 8,000 to 30,000 pesos."></video>
+<!-- 03 problem: about 103 fishermen, 10 own a GPS, and a GPS costs PHP 8,000-30,000 -->
+<section id="problem" class="photo" data-time="20">
+  <img class="bg" src="assets/pitch/still-beach.jpg" alt="Bancas pulled up on the beach in Mansalay">
+  <div class="shade shade-left"></div>
+  <div class="p-stats">
+    <p class="v-eyebrow" data-rise>In our barangay</p>
+    <div class="p-nums">
+      <div class="p-col" data-rise>
+        <div class="p-row"><span class="v-mono p-about">about</span><span class="p-big num" data-k="market.barangayFishermen" data-f="int" data-count data-count-dur="1.1"></span></div>
+        <span class="v-mono p-lbl">fishermen</span>
+      </div>
+      <div class="p-col" data-rise data-at="1.0">
+        <span class="p-big amber num" data-k="market.barangayGps" data-f="int" data-count data-from="103" data-count-at="1.0" data-count-dur="1.1"></span>
+        <span class="v-mono p-lbl">own a GPS</span>
+      </div>
+    </div>
+  </div>
+  <div class="p-cost">
+    <p class="v-eyebrow" data-rise data-at="1.7">A marine GPS costs</p>
+    <p class="p-price num" data-rise data-at="1.8"><span data-k="market.plotterMin" data-f="peso"></span><span class="dash">–</span><span class="amber" data-k="market.plotterMax" data-f="peso" data-count data-from="8000" data-count-at="2.0" data-count-dur="0.9"></span></p>
+    <p class="p-tail" data-rise data-at="2.6"><span class="v-pill sm">depends on the brand</span><span class="v-mono">Out of reach for most small fishers.</span></p>
+  </div>
+  <img class="p-garmin" src="assets/pitch/gps-handheld.svg" alt="A handheld marine GPS" data-rise data-at="0.6">
   <aside class="notes">Most small fishers still navigate from memory. Our barangay has about 103 fishermen, but only 10 own a GPS, because a marine GPS plotter costs 8,000 to 30,000 pesos. Out of reach for most small fishers.</aside>
 </section>
 
-<!-- 04 problem-signal: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="problem-signal" class="clip" data-time="20">
-  <video class="clip-video" data-src="assets/clips/04-problem-signal.mp4" poster="assets/clips/04-problem-signal.jpg" muted playsinline preload="auto" data-autoplay aria-label="Phone apps need mobile data, small boats have no tracking or safety net, and life is getting harder."></video>
+<!-- 04 signal: no data, no safety net, and life is getting harder -->
+<section id="signal" class="photo" data-time="20">
+  <img class="bg" src="assets/pitch/still-moored.jpg" alt="Bancas moored off the shore">
+  <div class="shade shade-left"></div>
+  <div class="s-cards">
+    <div class="glass s-card" data-rise><i class="tile" data-icon="wifi-off"></i><div><b>Phone apps need mobile data</b><span class="v-mono">A few kilometers out, there is none.</span></div></div>
+    <div class="glass s-card" data-rise data-at="0.7"><i class="tile" data-icon="siren"></i><div><b>No tracking. No safety net.</b><span class="v-mono">Small boats aren't covered by any vessel monitoring.</span></div></div>
+  </div>
+  <div class="glass s-harder">
+    <h2 class="s-head" data-rise data-at="1.3">Life is getting harder.</h2>
+    <div class="s-stat" data-rise data-at="1.6">
+      <p class="v-mono s-lbl">Fisherfolk poverty · MIMAROPA</p>
+      <p class="s-big num"><span data-k="market.mimaropaPovertyRisePts" data-f="pts"></span><small>points</small></p>
+      <svg class="s-line" viewBox="0 0 420 90" aria-hidden="true" data-ui><path d="M6 78 C 120 74, 250 56, 414 12" pathLength="1"/><circle cx="414" cy="12" r="7"/><text x="0" y="90">2021</text><text x="380" y="90">2023</text></svg>
+    </div>
+    <div class="s-stat" data-rise data-at="2.0">
+      <p class="v-mono s-lbl">Municipal catch · Oriental Mindoro</p>
+      <p class="s-big red num" data-k="market.catchDropPct" data-f="drop"></p>
+      <div class="s-bars">
+        <span class="v-mono">2023</span><i class="track"><i id="catch23" data-grow data-grow-at="2.2"></i></i><span class="v-mono"><span data-k="market.catch2023" data-f="int"></span> MT</span>
+        <span class="v-mono">2024</span><i class="track"><i id="catch24" class="red" data-grow data-grow-at="2.4"></i></i><span class="v-mono"><span data-k="market.catch2024" data-f="int"></span> MT</span>
+      </div>
+    </div>
+    <p class="v-mono s-src" data-ui>Sources: PSA MIMAROPA poverty statistics 2021-2023 · PSA Oriental Mindoro fisheries 2024</p>
+  </div>
   <aside class="notes">Phone apps don't help. They need mobile data that isn't there. And small boats have no tracking or safety system at all. Life is getting harder: in MIMAROPA, fisherfolk poverty rose ten points, and Oriental Mindoro's municipal catch fell forty-three percent.</aside>
 </section>
 
-<!-- 05 demo-chart: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="demo-chart" class="clip" data-time="18">
-  <video class="clip-video" data-src="assets/clips/05-demo-chart.mp4" poster="assets/clips/05-demo-chart.jpg" muted playsinline preload="auto" data-autoplay aria-label="FishPin's offline sea chart in airplane mode: map, depth chart and GPS keep working."></video>
+<!-- 05 demo: offline sea chart -->
+<section id="demo-chart" class="contour demo" data-time="18">
+  <img class="d-phone" src="assets/pitch/phone-map.png" alt="FishPin's offline sea chart with saved spots" data-rise>
+  <div class="d-col">
+    <p class="d-chap num" data-rise>01 / 05</p>
+    <h2 class="d-title" data-rise>Offline sea chart</h2>
+    <div class="d-list">
+      <p class="v-check" data-pop data-at="0.5"><i data-icon="check"></i>On any Android phone</p>
+      <div class="air" data-rise data-at="0.9"><i class="air-ic" data-icon="plane"></i><div><b>Airplane mode</b><span class="v-mono">no signal · no data</span></div><span class="toggle" id="airToggle"><i></i></span></div>
+      <div class="d-row">
+        <p class="v-check sm" data-pop data-at="1.7"><i data-icon="check"></i>Map</p>
+        <p class="v-check sm" data-pop data-at="1.85"><i data-icon="check"></i>Depth chart</p>
+        <p class="v-check sm" data-pop data-at="2.0"><i data-icon="check"></i>GPS</p>
+      </div>
+      <span class="v-pill" data-pop data-at="2.4">Keeps working with no signal</span>
+    </div>
+  </div>
   <aside class="notes">FishPin turns any Android phone into an offline sea chart. This phone is in airplane mode: the map, the depth chart and the GPS keep working.</aside>
 </section>
 
-<!-- 06 demo-spot: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="demo-spot" class="clip" data-time="12">
-  <video class="clip-video" data-src="assets/clips/06-demo-spot.mp4" poster="assets/clips/06-demo-spot.jpg" muted playsinline preload="auto" data-autoplay aria-label="Save a spot with one tap; FishPin points straight back with distance and arrival time."></video>
+<!-- 06 demo: save a spot, find it again -->
+<section id="demo-spot" class="contour demo" data-time="12">
+  <img class="d-phone" src="assets/pitch/phone-eta.png" alt="FishPin navigating back to a saved spot: 2.6 nm, 25 minutes" data-rise>
+  <div class="d-col">
+    <p class="d-chap num" data-rise>02 / 05</p>
+    <h2 class="d-title" data-rise>Save a spot, find it again</h2>
+    <div class="d-list">
+      <p class="v-check" data-pop data-at="0.5"><i data-icon="check"></i>One tap saves the spot</p>
+      <p class="v-check" data-pop data-at="0.9"><i data-icon="check"></i>Points you straight back</p>
+      <div class="d-stats">
+        <div class="d-stat" data-rise data-at="1.3"><span class="v-mono">Distance</span><b class="num"><span data-k="demo.distanceNm" data-f="dec1" data-count data-count-at="1.3"></span><small>nm</small></b></div>
+        <div class="d-stat" data-rise data-at="1.5"><span class="v-mono">Arrival</span><b class="num"><span data-k="demo.etaMin" data-f="int" data-count data-count-at="1.5"></span><small>min</small></b></div>
+      </div>
+    </div>
+  </div>
   <aside class="notes">Save a spot with one tap, and on the next trip FishPin points you straight back, with distance and arrival time.</aside>
 </section>
 
-<!-- 07 demo-trip: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="demo-trip" class="clip" data-time="14">
-  <video class="clip-video" data-src="assets/clips/07-demo-trip-score.mp4" poster="assets/clips/07-demo-trip-score.jpg" muted playsinline preload="auto" data-autoplay aria-label="Every trip recorded, and the fishing score shows the best hours to go out."></video>
+<!-- 07 demo: trips and the fishing score -->
+<section id="demo-trip" class="contour demo" data-time="14">
+  <img class="d-phone back" src="assets/pitch/phone-trail.png" alt="" data-rise>
+  <img class="d-phone front" src="assets/pitch/phone-score-40.png" alt="FishPin's fishing score: 40 of 100, risky, thunderstorms" data-rise data-at="0.3">
+  <div class="d-col">
+    <p class="d-chap num" data-rise>03 / 05</p>
+    <h2 class="d-title" data-rise>Trips and fishing score</h2>
+    <div class="d-list">
+      <p class="v-check" data-pop data-at="0.5"><i data-icon="check"></i>Records every trip, screen off</p>
+      <div class="d-score" data-rise data-at="0.9"><b class="num amber">90</b><span class="v-mono">/ 100</span><em class="amber">Excellent: calm seas</em></div>
+      <div class="d-pills"><span class="v-pill" data-pop data-at="1.3">Wind</span><span class="v-pill" data-pop data-at="1.4">Waves</span><span class="v-pill" data-pop data-at="1.5">Current</span></div>
+      <div class="d-score" data-rise data-at="1.8"><b class="num red">40</b><span class="v-mono">/ 100</span><em class="red">Risky: thunderstorms</em></div>
+      <p class="v-check" data-pop data-at="2.2"><i data-icon="check"></i>Best hours to go out</p>
+    </div>
+  </div>
   <aside class="notes">Every trip is recorded, even with the screen off. Before leaving, the fishing score reads wind, waves and current, and shows the best hours to go out.</aside>
 </section>
 
-<!-- 08 demo-sos: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="demo-sos" class="clip" data-time="20">
-  <video class="clip-video" data-src="assets/clips/08-demo-anchor-sos.mp4" poster="assets/clips/08-demo-anchor-sos.jpg" muted playsinline preload="auto" data-autoplay aria-label="The anchor alarm wakes the crew; the SOS sends your exact location by plain SMS."></video>
+<!-- 08 demo: anchor alarm and SOS by plain SMS -->
+<section id="demo-sos" class="contour demo" data-time="20">
+  <img class="d-phone back" src="assets/pitch/phone-anchor.png" alt="" data-rise>
+  <img class="d-phone front" src="assets/pitch/phone-sos.png" alt="FishPin's SOS screen: hold for three seconds" data-rise data-at="0.3">
+  <div class="sms" data-rise data-at="2.0" data-ui>
+    <p class="sms-to"><span class="sms-tag">SOS</span>to Kuya Ben · Tatay</p>
+    <p class="sms-msg">EMERGENCY! I need help at sea. Please send rescue assistance.</p>
+    <p class="sms-loc num">Location: maps.google.com/?q=12.5012,121.5108<br>Lat: 12.5012 · Lng: 121.5108<br>Time: 5:42 AM</p>
+    <p class="sms-via">Sent via FishPin SOS</p>
+  </div>
+  <div class="d-col">
+    <p class="d-chap num" data-rise>04 / 05</p>
+    <h2 class="d-title" data-rise>Anchor alarm and SOS</h2>
+    <div class="d-list">
+      <span class="v-pill danger" data-pop data-at="0.5">Loud alarm if the boat drifts</span>
+      <p class="v-check" data-pop data-at="1.0"><i data-icon="check"></i><span>Hold SOS for <span class="num" data-k="product.sosHoldSeconds" data-f="int"></span> seconds</span></p>
+      <p class="v-check" data-pop data-at="1.3"><i data-icon="check"></i><span>Texts <span class="num" data-k="product.sosContactsMin" data-f="int"></span> to <span class="num" data-k="product.sosContactsMax" data-f="int"></span> contacts</span></p>
+      <p class="v-check" data-pop data-at="1.6"><i data-icon="check"></i>With your exact location</p>
+      <span class="v-pill" data-pop data-at="2.4">Plain SMS · no data needed</span>
+    </div>
+  </div>
   <aside class="notes">At anchor, if the boat drifts, a loud alarm wakes the crew. In an emergency, a three-second press opens an SOS text to three to five contacts with your exact location, by plain SMS. No mobile data needed.</aside>
 </section>
 
-<!-- 09 demo-catch: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="demo-catch" class="clip" data-time="16">
-  <video class="clip-video" data-src="assets/clips/09-demo-catch.mp4" poster="assets/clips/09-demo-catch.jpg" muted playsinline preload="auto" data-autoplay aria-label="Log the catch, the AI names the fish, and a guide of 300 Philippine species in local names."></video>
+<!-- 09 demo: catch log and AI fish ID -->
+<section id="demo-catch" class="contour demo" data-time="16">
+  <img class="d-phone back" src="assets/pitch/phone-chart.png" alt="" data-rise>
+  <img class="d-phone front" src="assets/pitch/phone-guide.png" alt="FishPin's species guide with local names" data-rise data-at="0.3">
+  <div class="d-col">
+    <p class="d-chap num" data-rise>05 / 05</p>
+    <h2 class="d-title" data-rise>Catch log and AI fish ID</h2>
+    <div class="d-list">
+      <p class="v-check" data-pop data-at="0.5"><i data-icon="check"></i>Log the catch</p>
+      <p class="v-check" data-pop data-at="0.8"><i data-icon="check"></i>AI names the fish</p>
+      <div class="d-species" data-rise data-at="1.1"><b class="num amber" data-k="product.species" data-f="int" data-count data-count-at="1.1"></b><span class="v-mono">Philippine species</span></div>
+      <p class="v-mono d-split" data-rise data-at="1.4"><span data-k="product.saltwater" data-f="int"></span> saltwater · <span data-k="product.freshwater" data-f="int"></span> freshwater</p>
+      <div class="d-names" id="fishChips"></div>
+    </div>
+  </div>
   <aside class="notes">Back on shore, log the catch, and FishPin's AI names the fish, with a guide of 300 Philippine species in local names. From the shore, to the spot, and safely home.</aside>
 </section>
 
-<!-- 10 value: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="value" class="clip" data-time="18">
-  <video class="clip-video" data-src="assets/clips/10-value.mp4" poster="assets/clips/10-value.jpg" muted playsinline preload="auto" data-autoplay aria-label="Safer trips, less fuel and searching, and every catch on record."></video>
+<!-- 10 value: what that adds for a fisher -->
+<section id="value" class="contour" data-time="18">
+  <div class="v-head">
+    <p class="v-eyebrow" data-rise>Value added</p>
+    <h2 class="v-title" data-rise>What does that add for a fisher?</h2>
+  </div>
+  <div class="v-cards">
+    <div class="v-card" data-rise data-at="0.5">
+      <i class="tile big" data-icon="shield-check"></i>
+      <h3>Safer trips.</h3>
+      <p class="v-mono">An SOS by plain SMS and an anchor alarm, on the phone he already carries.</p>
+      <div class="v-chips"><span class="v-pill ghost">SOS by SMS</span><span class="v-pill ghost">Anchor alarm</span></div>
+    </div>
+    <div class="v-card" data-rise data-at="1.0">
+      <i class="tile big" data-icon="route"></i>
+      <h3>Less fuel. <span class="amber">Less searching.</span></h3>
+      <p class="v-mono">Straight back to proven spots instead of searching the sea.</p>
+      <svg class="v-route" viewBox="0 0 440 150" aria-hidden="true">
+        <path class="search" d="M20 130 L70 70 L110 110 L160 40 L200 100 L250 55 L290 120 L330 60 L380 95" pathLength="1"/>
+        <path class="straight" d="M20 130 L410 22" pathLength="1"/>
+        <circle cx="20" cy="130" r="8" class="home"/><circle cx="410" cy="22" r="10" class="spot"/>
+      </svg>
+      <p class="v-legend v-mono"><i class="lg-search"></i>searching <i class="lg-straight"></i>straight back</p>
+    </div>
+    <div class="v-card" data-rise data-at="1.5">
+      <i class="tile big" data-icon="book-open"></i>
+      <h3>Every catch, <span class="amber">on record.</span></h3>
+      <p class="v-mono">For the fisher and the cooperative.</p>
+      <div class="v-log" data-ui>
+        <p><b>Talakitok</b><span class="num">6:20 AM</span></p>
+        <p><b>Galunggong</b><span class="num">7:05 AM</span></p>
+        <p><b>Tulingan</b><span class="num">8:40 AM</span></p>
+      </div>
+    </div>
+  </div>
   <aside class="notes">What does that add for a fisher? Safer trips. Less fuel and time spent searching, because you go straight back to proven spots. And a record of every catch, for the fisher and the cooperative.</aside>
 </section>
 
-<!-- 11 status-live: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="status-live" class="clip" data-time="18">
-  <video class="clip-video" data-src="assets/clips/11-status-live.mp4" poster="assets/clips/11-status-live.jpg" muted playsinline preload="auto" data-autoplay aria-label="FishPin is live on Google Play, built and supported in Mansalay, Oriental Mindoro."></video>
+<!-- 11 status: not an idea, live on Google Play -->
+<section id="status-live" class="contour" data-time="18">
+  <div class="l-copy">
+    <p class="l-idea" data-rise>An idea.<i class="strike" data-grow data-grow-at="0.6"></i></p>
+    <h2 class="l-title" data-rise data-at="0.8">Live on<br>Google Play.</h2>
+    <p class="l-where v-mono" data-rise data-at="1.2"><i data-icon="map-pin"></i>Built and supported in Mansalay, Oriental Mindoro</p>
+  </div>
+  <div class="l-fan">
+    <img class="fan-l" src="assets/pitch/phone-score-90.png" alt="" data-rise data-at="0.9">
+    <img class="fan-r" src="assets/pitch/phone-navigate.png" alt="" data-rise data-at="1.0">
+    <img class="fan-c" src="assets/pitch/phone-login.png" alt="FishPin's sign-in screen" data-rise data-at="0.5">
+    <span class="v-pill chip-offline" data-pop data-at="1.6"><i data-icon="cloud-off"></i>Works offline</span>
+    <span class="v-pill chip-score" data-pop data-at="1.8"><i data-icon="star"></i>Fishing score 90</span>
+    <span class="v-pill chip-spot" data-pop data-at="2.0"><i data-icon="route"></i>4.6 nm to your spot</span>
+    <span class="live" data-pop data-at="2.3"><i></i>LIVE</span>
+  </div>
   <aside class="notes">FishPin isn't an idea. It's live on Google Play, built and supported here in Mansalay, with 118 accounts as of 22 October.</aside>
 </section>
 
-<!-- 12 status-road: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="status-road" class="clip" data-time="16">
-  <video class="clip-video" data-src="assets/clips/12-status-grants.mp4" poster="assets/clips/12-status-grants.jpg" muted playsinline preload="auto" data-autoplay aria-label="The provincial prize funded the build; the trial, Lifetime and the regional win followed; the iPhone version is next."></video>
+<!-- 12 status: the road so far -->
+<section id="status-road" class="contour" data-time="16">
+  <p class="r-eyebrow v-eyebrow" data-rise>Status of implementation</p>
+  <h2 class="r-title" data-rise>Try it at sea, then <span class="amber">pay once.</span></h2>
+  <div class="r-line"><i class="r-fill" data-grow data-grow-at="0.4"></i></div>
+  <ol class="r-steps">
+    <li class="done" data-pop data-at="0.5"><i><span data-icon="check"></span></i><b>Built in Mansalay</b></li>
+    <li class="done" data-pop data-at="0.75"><i><span data-icon="check"></span></i><b>Live on Google Play</b></li>
+    <li class="done" data-pop data-at="1.0"><i><span data-icon="check"></span></i><b>Provincial winner</b><span class="num amber" data-k="fin.grantProvincial" data-f="peso"></span></li>
+    <li class="done" data-pop data-at="1.25"><i><span data-icon="check"></span></i><b>7-day trial, then Lifetime</b></li>
+    <li class="done" data-pop data-at="1.5"><i><span data-icon="check"></span></i><b>Regional winner</b><span class="num amber" data-k="fin.grantRegional" data-f="peso"></span></li>
+    <li class="next" data-pop data-at="1.9"><i><span data-icon="check"></span></i><b>iPhone version (planned)</b><span class="v-mono">NEXT</span></li>
+  </ol>
+  <p class="r-funds" data-rise data-at="2.2"><span class="v-mono">The provincial prize funded the build:</span><span class="v-pill ghost">Development PC</span><span class="v-pill ghost">AI subscriptions</span><span class="v-pill ghost">Demo phones</span></p>
   <aside class="notes">The provincial prize funded the build: a development PC, AI subscriptions and demo phones. Since then we launched the seven-day trial and Lifetime purchase, hired two field staff, and won the MIMAROPA regional round. Next, the iPhone version.</aside>
 </section>
 
-<!-- 13 business: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="business" class="clip" data-time="18">
-  <video class="clip-video" data-src="assets/clips/13-business.mp4" poster="assets/clips/13-business.jpg" muted playsinline preload="auto" data-autoplay aria-label="Try it at sea for seven days, then a one-time Lifetime purchase through Google Play. No subscription."></video>
+<!-- 13 business model: try it, pay once, keep it for life -->
+<section id="business" class="contour" data-time="18">
+  <p class="b-eyebrow v-eyebrow" data-rise>Business model</p>
+  <h2 class="b-title" data-rise>Simple.</h2>
+  <div class="b-flow">
+    <div class="b-trial" data-rise data-at="0.4">
+      <div class="days" id="trialDays"></div>
+      <span class="v-mono">Try it at sea first</span>
+    </div>
+    <i class="b-arrow" data-icon="arrow-right" data-rise data-at="0.9"></i>
+    <div class="b-life" data-pop data-at="1.1">
+      <span class="inf"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c-2-2.67-4-4-6-4a4 4 0 1 0 0 8c2 0 4-1.33 6-4Zm0 0c2 2.67 4 4 6 4a4 4 0 0 0 0-8c-2 0-4 1.33-6 4Z"/></svg></span>
+      <b>Lifetime</b><span class="v-mono">one-time purchase</span>
+    </div>
+    <i class="b-arrow" data-icon="arrow-right" data-rise data-at="1.4"></i>
+    <div class="b-pay" data-rise data-at="1.6" data-ui>
+      <div class="pay-head"><img src="assets/pitch/play-icon.png" alt=""><div><b>FishPin Lifetime</b><span>One-time purchase</span></div></div>
+      <p class="pay-with">Pay with</p>
+      <p class="pay-row"><i class="gcash"></i>GCash<em></em></p>
+      <p class="pay-row on"><i class="maya"></i>Maya<em></em></p>
+      <p class="pay-row"><i class="load"></i>Load<em></em></p>
+    </div>
+  </div>
+  <div class="b-close">
+    <span class="stamp" data-pop data-at="2.1">No subscription</span>
+    <p class="b-line" data-rise data-at="2.3">Pay once. <span class="amber">Keep it for life.</span></p>
+  </div>
   <aside class="notes">The model is simple: try it at sea for seven days, then a one-time Lifetime purchase through Google Play, paid with GCash, Maya or load. No subscription, no renewals to miss.</aside>
 </section>
 
-<!-- 14 gtm: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="gtm" class="clip" data-time="14">
-  <video class="clip-video" data-src="assets/clips/14-gtm.mp4" poster="assets/clips/14-gtm.jpg" muted playsinline preload="auto" data-autoplay aria-label="Cooperative sessions at the landing sites of five towns in southern Oriental Mindoro, with demo phones, Tagalog guides and SOS cards."></video>
+<!-- 14 go-to-market: reach fishers where they are -->
+<section id="gtm" class="contour" data-time="14">
+  <svg class="g-map" viewBox="80 20 620 900" aria-hidden="true" data-ui>
+    <path class="land" d="M474 60 C476.2 73.3, 477.8 102.5, 487 140 C496.2 177.5, 515.0 240.3, 529 285 C543.0 329.7, 565.0 373.7, 571 408 C577.0 442.3, 575.2 469.0, 565 491 C554.8 513.0, 528.0 527.0, 510 540 C492.0 553.0, 471.0 549.8, 457 569 C443.0 588.2, 436.8 627.3, 426 655 C415.2 682.7, 404.0 710.2, 392 735 C380.0 759.8, 374.3 786.3, 354 804 C333.7 821.7, 304.2 830.8, 270 841 C235.8 851.2, 169.2 861.0, 149 865 L 100 880 L 100 40 L 474 40 Z"/>
+    <path class="coast" d="M474 60 C476.2 73.3, 477.8 102.5, 487 140 C496.2 177.5, 515.0 240.3, 529 285 C543.0 329.7, 565.0 373.7, 571 408 C577.0 442.3, 575.2 469.0, 565 491 C554.8 513.0, 528.0 527.0, 510 540 C492.0 553.0, 471.0 549.8, 457 569 C443.0 588.2, 436.8 627.3, 426 655 C415.2 682.7, 404.0 710.2, 392 735 C380.0 759.8, 374.3 786.3, 354 804 C333.7 821.7, 304.2 830.8, 270 841 C235.8 851.2, 169.2 861.0, 149 865" pathLength="1"/>
+    <text class="region" x="130" y="470">SOUTHERN</text><text class="region" x="130" y="494">ORIENTAL MINDORO</text>
+  </svg>
+  <div class="g-towns" id="gtmTowns"></div>
+  <div class="g-plan">
+    <p class="v-eyebrow" data-rise>Go-to-market plan</p>
+    <h2 class="g-title" data-rise>We'll reach fishers <span class="amber">where they are.</span></h2>
+    <div class="g-sessions" data-rise data-at="0.6"><b class="num amber" data-k="gtm.coopSessions" data-f="int" data-count data-count-at="0.6"></b><span>cooperative sessions</span></div>
+    <div class="g-tally" id="gtmTally" data-rise data-at="0.8"></div>
+    <p class="v-mono g-where" data-rise data-at="1.0">at the landing sites of <span class="amber" data-k="gtm.townCount" data-f="int"></span> towns</p>
+    <p class="v-mono g-demos" data-rise data-at="1.3"><i data-icon="users"></i>Weekly landing demos by two field staff</p>
+  </div>
+  <div class="g-kit">
+    <p class="v-eyebrow" data-rise data-at="1.6">We'll bring</p>
+    <div class="kit" data-rise data-at="1.8"><img src="assets/pitch/phone-map.png" alt=""><span>Demo phones</span></div>
+    <div class="kit" data-rise data-at="1.95"><i class="guide" data-ui><b>FishPin</b><em>Gabay sa paggamit</em></i><span>Tagalog guides</span></div>
+    <div class="kit" data-rise data-at="2.1"><i class="sos-card" data-ui><b>SOS</b><em>Hold 3 s</em></i><span>SOS cards</span></div>
+  </div>
   <aside class="notes">We'll reach fishers where they are: weekly landing demos by our two field staff, and 8 cooperative sessions in five towns, with demo phones, Tagalog guides and SOS cards.</aside>
 </section>
 
-<!-- 15 financials: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="financials" class="clip" data-time="22">
-  <video class="clip-video" data-src="assets/clips/15-financials.mp4" poster="assets/clips/15-financials.jpg" muted playsinline preload="auto" data-autoplay aria-label="Total investment from the three grants and our counterpart; 2,000 licences in year one, payback in about seven months, and the return on investment."></video>
+<!-- 15 financials: total investment and year one -->
+<section id="financials" class="contour" data-time="22">
+  <div class="f-top">
+    <p class="v-eyebrow" data-rise>Total investment</p>
+    <p class="f-total num" data-rise><span data-k="fin.total" data-f="peso" data-count data-count-dur="1.2"></span></p>
+  </div>
+  <div class="f-bar">
+    <i class="seg prov" data-grow data-grow-at="0.6" id="segProv"></i><i class="seg reg" data-grow data-grow-at="0.8" id="segReg"></i><i class="seg nat" data-grow data-grow-at="1.0" id="segNat"></i><i class="seg cp" data-grow data-grow-at="1.2" id="segCp"></i>
+  </div>
+  <div class="f-legend">
+    <div data-rise data-at="0.6"><p class="v-mono"><i class="prov"></i>Provincial grant</p><b class="num prov" data-k="fin.grantProvincial" data-f="peso"></b></div>
+    <div data-rise data-at="0.8"><p class="v-mono"><i class="reg"></i>Regional grant</p><b class="num reg" data-k="fin.grantRegional" data-f="peso"></b></div>
+    <div data-rise data-at="1.0"><p class="v-mono"><i class="nat"></i>National grant</p><b class="num nat" data-k="fin.grantNational" data-f="peso"></b></div>
+    <div data-rise data-at="1.2"><p class="v-mono"><i class="cp"></i>Our counterpart</p><b class="num cp" data-k="fin.counterpart" data-f="peso"></b><span class="v-mono note"><span data-k="fin.counterpartInKind" data-f="peso"></span> in kind · <span data-k="fin.counterpartCash" data-f="peso"></span> from sales</span></div>
+  </div>
+  <p class="f-year v-eyebrow" data-rise data-at="1.5">Year one</p>
+  <div class="f-cards">
+    <div class="f-card" data-rise data-at="1.6">
+      <p class="v-mono f-lbl">Licences sold</p>
+      <b class="num f-num" data-k="fin.unitsY1" data-f="int" data-count data-count-at="1.6"></b>
+      <div class="f-ramp" id="finRamp"></div>
+      <p class="f-ramp-lbl v-mono" data-ui><span>month 1 · <span data-k="fin.ramp.0" data-f="int"></span></span><span class="amber">month 12 · <span data-k="fin.ramp.11" data-f="int"></span></span></p>
+    </div>
+    <div class="f-card hi" data-rise data-at="1.9">
+      <p class="v-mono f-lbl">Pays back in</p>
+      <div class="cal" data-ui><span class="cal-top">MONTH</span><b class="num" id="paybackMonth"></b><span class="v-mono">of 12</span><em class="paid">PAID BACK</em></div>
+      <p class="f-pay"><b class="amber"><span id="paybackMonths"></span> months</b><span class="v-mono"><span data-k="fin.payback" data-f="dec2"></span> of a year</span></p>
+    </div>
+    <div class="f-card" data-rise data-at="2.2">
+      <p class="v-mono f-lbl">Return on investment</p>
+      <b class="num f-num" data-k="fin.roi" data-f="pct1" data-count data-count-at="2.2"></b>
+      <p class="f-roi"><i class="tile" data-icon="trending-up"></i><span class="v-mono">in year one</span></p>
+    </div>
+  </div>
   <aside class="notes">Total investment is 566,855 pesos: the provincial, regional and national grants, and our counterpart. With 2,000 licences in year one, the project pays back in about seven months, a 162 percent return.</aside>
 </section>
 
-<!-- 16 close: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
-<section id="close" class="clip" data-time="20">
-  <video class="clip-video" data-src="assets/clips/16-close.mp4" poster="assets/clips/16-close.jpg" muted playsinline preload="auto" data-autoplay aria-label="Robert looks out at the bancas; the MIMAROPA map; FishPin, safer seas for every Filipino fisher."></video>
+<!-- 16 close: help us bring FishPin to every fisher -->
+<section id="close" class="photo" data-time="20">
+  <img class="bg" src="assets/pitch/still-lookout.jpg" alt="Robert looks out at the bancas from the shore">
+  <div class="shade shade-left strong"></div>
+  <div class="c-copy">
+    <p class="v-eyebrow" data-rise>The ask</p>
+    <h2 class="c-title" data-rise>Help us bring FishPin to every fisher in <span class="amber">MIMAROPA.</span></h2>
+  </div>
+  <div class="c-map" data-rise data-at="0.6">
+    <img src="assets/pitch/mimaropa.svg" alt="Map of MIMAROPA with Oriental Mindoro highlighted">
+    <span class="c-pin" id="mansalayPin" data-pop data-at="1.2"><i></i><b>Mansalay</b></span>
+  </div>
+  <div class="c-end" data-rise data-at="1.6">
+    <img src="assets/brand/logo/fishpin-horizontal-dark.svg" alt="FishPin">
+    <p>Safer seas for every <span class="amber">Filipino fisher.</span></p>
+  </div>
   <aside class="notes">Help us bring FishPin to every fisher in MIMAROPA, and then to every Filipino fisher. FishPin: safer seas for every Filipino fisher. Salamat po.</aside>
 </section>
 
