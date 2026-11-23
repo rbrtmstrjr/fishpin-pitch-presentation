@@ -1,0 +1,9 @@
+{
+  "name": "fishpin-deck-qa",
+  "private": true,
+  "type": "module",
+  "description": "Browser QA for the FishPin national pitch deck (drives the installed Google Chrome)",
+  "devDependencies": {
+    "playwright-core": "1.49.1"
+  }
+}
