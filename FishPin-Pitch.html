@@ -87,6 +87,65 @@
   <aside class="notes"></aside>
 </section>
 
+<!-- 04 offline: airplane mode, still navigating -->
+<section id="offline" data-time="25" class="contour air-on">
+  <div class="frame offline">
+    <div class="off-phone" data-rise>
+      <div class="phone"><div class="screen"><img src="assets/screens/navigate.png" alt="Navigation running with no signal"></div>
+        <div class="statusbar" data-ui aria-hidden="true"><span class="bars"><i></i><i></i><i></i><i></i></span><i class="plane" data-icon="plane"></i></div>
+      </div>
+    </div>
+    <div class="off-copy">
+      <p class="eyebrow" data-rise>Proof, not promise</p>
+      <h2 class="h2" data-rise>Airplane mode.<br><span class="amber">Still navigating.</span></h2>
+      <div class="air-row" data-rise>
+        <button id="airSwitch" class="air-switch" type="button" role="switch" aria-checked="true" aria-label="Airplane mode"><span class="knob"><i data-icon="plane"></i></span></button>
+        <span id="airCaption" class="mono">Airplane mode on</span>
+      </div>
+      <div class="off-cols">
+        <div class="card" data-rise><h3 class="h3">Keeps working</h3>
+          <ul class="checks">
+            <li><i data-icon="check"></i>Sea chart (downloaded)</li>
+            <li><i data-icon="check"></i>GPS position</li>
+            <li><i data-icon="check"></i>Saved spots</li>
+            <li><i data-icon="check"></i>Trip recording</li>
+            <li><i data-icon="check"></i>Navigation</li>
+            <li><i data-icon="check"></i>Catch logbook</li>
+            <li><i data-icon="check"></i>Fish guide</li>
+          </ul></div>
+        <div class="card" data-rise><h3 class="h3">Waits for a connection</h3>
+          <ul class="waits">
+            <li><i data-icon="cloud-off"></i>Weather forecast</li>
+            <li><i data-icon="cloud-off"></i>AI fish ID</li>
+            <li><i data-icon="cloud-off"></i>Map downloads</li>
+            <li><i data-icon="cloud-off"></i>Cloud backup</li>
+          </ul></div>
+      </div>
+    </div>
+    <img class="mascot off-mascot" src="assets/brand/mascots/map.svg" alt="">
+  </div>
+  <aside class="notes"></aside>
+</section>
+
+<!-- 05 novelty: our seas, our words -->
+<section id="novelty" data-time="25" class="contour">
+  <div class="frame novelty">
+    <p class="eyebrow" data-rise>Built for Philippine waters</p>
+    <h2 class="h2" data-rise>Our seas. Our words.</h2>
+    <div class="nov-hero" data-rise>
+      <span class="hero-num" data-k="product.localNames" data-f="int" data-count></span>
+      <p>local fish names in <span class="num" data-k="product.languages" data-f="int"></span> languages, across <span class="num" data-k="product.species" data-f="int"></span> species</p>
+    </div>
+    <div class="marquee" data-bleed aria-hidden="true"><div class="track"></div><div class="track rev"></div></div>
+    <div class="nov-cards">
+      <div class="card nov-card" data-rise><i class="icon-sq" data-icon="waves"></i><div><h3 class="h3">Philippine depth chart</h3><p>Built into the app, so depth shows with no signal.</p></div></div>
+      <div class="card nov-card" data-rise><i class="icon-sq" data-icon="anchor"></i><div><h3 class="h3">Anchor-drag alarm</h3><p>Rings even on silent if the banca drifts.</p></div></div>
+      <div class="card nov-card" data-rise><i class="icon-sq" data-icon="siren"></i><div><h3 class="h3">SOS with load codes</h3><p>Texts <span data-k="product.sosContactsMin" data-f="int"></span> to <span data-k="product.sosContactsMax" data-f="int"></span> contacts, with the borrow-load code for Globe, Smart or DITO.</p></div></div>
+    </div>
+  </div>
+  <aside class="notes"></aside>
+</section>
+
 <!-- ===== main slides end ===== -->
 
 <!-- ===== appendix end ===== -->

@@ -165,6 +165,40 @@
     every(1800, () => { i = (i + 1) % tiles.length; show(i); }, 2400);
   };
 
+  /* 04 offline: the switch flips, signal bars fall, online-only items strike through, checks pulse */
+  function setAirplane(on) {
+    const s = $('#offline');
+    if (!s) return;
+    s.classList.toggle('air-on', on);
+    $('#airSwitch').setAttribute('aria-checked', String(on));
+    $('#airCaption').textContent = on ? 'Airplane mode on' : 'Signal on';
+    if (on && !still) gsap.fromTo($$('.checks [data-icon]', s), { scale: 0.6 }, { scale: 1, duration: 0.35, ease: 'back.out(3)', stagger: 0.06, clearProps: 'transform' });
+  }
+  ACTIONS.airplane = () => {
+    const s = $('#offline');
+    if (s) setAirplane(!s.classList.contains('air-on'));
+  };
+  RENDER.push(function airplaneSwitch() {
+    const sw = $('#airSwitch');
+    if (sw) sw.addEventListener('click', () => ACTIONS.airplane());
+  });
+  ANIM.offline = () => {
+    setAirplane(false);
+    later(1400, () => setAirplane(true));
+  };
+
+  /* 05 novelty: 6,337 counts up while two rows of real local fish names drift */
+  RENDER.push(function fishNames() {
+    $$('#novelty .track').forEach((track, row) => {
+      const names = row ? [...DECK.fishNames].reverse() : DECK.fishNames;
+      const html = names.map(n => `<span>${n}</span>`).join('');
+      track.innerHTML = html + html;
+    });
+  });
+  ANIM.novelty = (s, t) => {
+    t.fromTo($('.marquee', s), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.4);
+  };
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */
