@@ -1,0 +1,7 @@
+docs/
+scripts/
+tests/
+tools/
+exports/
+*.md
+.gstack/

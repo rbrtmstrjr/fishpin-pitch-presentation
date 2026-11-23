@@ -1,0 +1,6 @@
+tools/qa/node_modules/
+tools/qa/out/
+exports/
+__pycache__/
+.pytest_cache/
+.playwright-mcp/
