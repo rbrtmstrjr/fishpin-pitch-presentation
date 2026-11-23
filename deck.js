@@ -389,6 +389,42 @@
       .fromTo($('.home-mark', s), { scale: 0 }, { scale: 1, duration: 0.4, ease: 'back.out(3)', clearProps: 'transform' }, 2.1);
   };
 
+  /* Q&A appendix: tables and the licence ramp are built from DECK so they can never drift */
+  RENDER.push(function appendixTables() {
+    const f = DECK.fin;
+    const php = v => 'PHP ' + nf(v, Number.isInteger(v) ? 0 : 2);
+    const rows = items => items.map(i => `<tr><td>${i.label}</td><td class="num">${php(i.amount)}</td></tr>`).join('');
+    const capex = $('#q-costs .capex tbody');
+    if (capex) capex.innerHTML = rows(f.capexItems) + `<tr class="total"><td>Capital expense</td><td class="num">${php(f.capex)}</td></tr>`;
+    const opex = $('#q-costs .opex tbody');
+    if (opex) opex.innerHTML = rows(f.opexItems) + `<tr class="total"><td>Operating expense, 12 months</td><td class="num">${php(f.opex)}</td></tr>`;
+
+    const ramp = $('#q-cashflow .ramp');
+    if (ramp) {
+      const max = Math.max(...f.ramp);
+      ramp.innerHTML = f.ramp.map((v, i) => `<div class="rb"><b>${v}</b><i style="height:${(v / max * 78).toFixed(1)}%"></i><span>M${i + 1}</span></div>`).join('');
+    }
+
+    const sens = $('#q-sensitivity .sens tbody');
+    if (sens) {
+      sens.innerHTML = f.sensitivity.map(r => `<tr${r.units === f.unitsY1 ? ' class="headline"' : ''}><td>${nf(r.units)}</td><td class="num">${php(r.net)}</td><td class="num">${nf(r.roi, 2)}%</td><td class="num">${nf(r.payback, 2)} yrs</td></tr>`).join('');
+    }
+
+    const comp = $('#q-competitors .comp');
+    if (comp) {
+      const cols = [
+        { name: 'FishPin', us: true, price: `${php(DECK.price)} once`, model: `One-time, after a ${DECK.trialDays}-day free trial`, five: php(DECK.price), built: 'Filipino municipal fishermen' },
+        ...DECK.competitors.map(c => c.min
+          ? { name: c.name, price: `${php(c.min)} to ${nf(c.max)}`, model: c.model, five: `${php(c.min)} to ${nf(c.max)}`, built: c.builtFor }
+          : { name: c.name, price: `${php(c.perYear)} a year`, model: c.model, five: php(c.fiveYear), built: c.builtFor }),
+      ];
+      const cell = (c, v, tag = 'td') => `<${tag}${c.us ? ' class="us"' : ''}>${v}</${tag}>`;
+      $('thead', comp).innerHTML = `<tr><th></th>${cols.map(c => cell(c, c.name, 'th')).join('')}</tr>`;
+      $('tbody', comp).innerHTML = [['Price', 'price'], ['Pricing', 'model'], ['Five-year cost', 'five'], ['Built for', 'built']]
+        .map(([label, key]) => `<tr><td>${label}</td>${cols.map(c => cell(c, c[key])).join('')}</tr>`).join('');
+    }
+  });
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */

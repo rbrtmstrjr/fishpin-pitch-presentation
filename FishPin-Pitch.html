@@ -331,6 +331,140 @@
 
 <!-- ===== main slides end ===== -->
 
+<!-- Q1 BMC -->
+<section id="q-bmc" class="appx" data-appendix data-title="Business Model Canvas">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Business Model Canvas, 2 Nov 2026</p>
+    <div class="bmc">
+      <div class="b-kp"><h4>Key partners</h4><p>BFAR extension workers, fisherfolk cooperatives, Municipal Agriculture Offices and barangays of the five towns (channels being built); Google Play; licensed cloud, map, weather and AI providers.</p></div>
+      <div class="b-ka"><h4>Key activities</h4><p>Done: live on Google Play, field testing, demonstrations. This cycle: DTI, BIR and Mayor's Permit; the trial and one-time purchase; iOS release (planned Dec 2026); <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions; ads; printed guides.</p></div>
+      <div class="b-kr"><h4>Key resources</h4><p>Solo developer-founder, anak ng mangingisda. Laptop, two Android handsets, a test iPhone for the iOS build. Home office in Mansalay. Licensed Supabase, MapTiler, Open-Meteo, Gemini API.</p></div>
+      <div class="b-vp"><h4>Value proposition</h4><p>Plotters cost <span data-k="market.plotterMin" data-f="php"></span> to <span data-k="market.plotterMax" data-f="int"></span> and other apps need a signal that doesn't exist at sea. FishPin: offline sea chart with PH depths, spot saving, trip recording, anchor alarm, AI fish ID and one-tap SOS. <span data-k="price" data-f="php"></span> once after a <span data-k="trialDays" data-f="int"></span>-day free trial, no subscription. Fishermen own their data; it is never sold.</p></div>
+      <div class="b-cr"><h4>Customer relationships</h4><p>A free trial at sea before paying once, so there is no renewal to lose. Lifetime updates, in-app bug reports, direct support by Messenger and SMS.</p></div>
+      <div class="b-ch"><h4>Channels</h4><p>Google Play (GCash, Maya, card, load). <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions across <span data-k="gtm.townCount" data-f="int"></span> towns, Facebook and TikTok ads at <span data-k="gtm.adsPerMonth" data-f="php"></span> a month, <span data-k="gtm.guides" data-f="int"></span> printed Tagalog guides and SOS cards.</p></div>
+      <div class="b-cs"><h4>Customer segments</h4><p>Smartphone-owning municipal fishermen of Mansalay, Bulalacao, Roxas, Bongabong and Bansud, then MIMAROPA, Visayas and Bicol. Secondary: recreational anglers. TAM <span data-k="market.tamM" data-f="phpM"></span>, SAM <span data-k="market.samM" data-f="phpM"></span> (<span data-k="market.smartphoneShare" data-f="share"></span> ownership, an assumption), SOM <span data-k="market.somM" data-f="phpM"></span>.</p></div>
+      <div class="b-co"><h4>Cost structure</h4><p>Capex <span data-k="fin.capex" data-f="php"></span> &middot; opex <span data-k="fin.opex" data-f="php"></span> &middot; total <span data-k="fin.total" data-f="php"></span>, funded by grants of <span data-k="fin.grantProvincial" data-f="php"></span> and <span data-k="fin.grantRegional" data-f="php"></span> plus a <span data-k="fin.counterpart" data-f="php"></span> counterpart. Mostly fixed, so margin improves as users grow.</p></div>
+      <div class="b-rv"><h4>Revenue streams</h4><p>One stream by design: FishPin Lifetime at <span data-k="price" data-f="php"></span>. <span data-k="fin.unitsY1" data-f="int"></span> licences: <span data-k="fin.gross" data-f="php"></span> gross, <span data-k="fin.net" data-f="php"></span> net, ROI <span data-k="fin.roi" data-f="pct"></span>, payback <span data-k="fin.payback" data-f="yrs"></span>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q2 costs -->
+<section id="q-costs" class="appx" data-appendix data-title="Investment cost and funding">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Investment cost, 12-month cycle</p>
+    <div class="cost-grid">
+      <div>
+        <h3 class="h3">Capital expense</h3>
+        <table class="capex"><tbody></tbody></table>
+        <h3 class="h3 mt">Fund source</h3>
+        <table class="funds"><tbody>
+          <tr><td>Provincial grant</td><td class="num" data-k="fin.grantProvincial" data-f="php"></td></tr>
+          <tr><td>Regional grant (additional)</td><td class="num" data-k="fin.grantRegional" data-f="php"></td></tr>
+          <tr><td>Counterpart (<span data-k="fin.counterpartInKind" data-f="php"></span> in kind, <span data-k="fin.counterpartCash" data-f="php"></span> cash)</td><td class="num" data-k="fin.counterpart" data-f="php"></td></tr>
+          <tr class="total"><td>Total investment</td><td class="num" data-k="fin.total" data-f="php"></td></tr>
+        </tbody></table>
+      </div>
+      <div>
+        <h3 class="h3">Operating expense</h3>
+        <table class="opex"><tbody></tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Q3 cash flow -->
+<section id="q-cashflow" class="appx" data-appendix data-title="12-month cash flow">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Cash flow, months 1 to 12</p>
+    <h2 class="h2">Licences sold each month</h2>
+    <div class="ramp"></div>
+    <div class="cash-row">
+      <div class="card"><b class="num" data-k="fin.openingCash" data-f="php"></b><span>opening cash: both grants plus <span data-k="fin.counterpartCash" data-f="php"></span> counterpart cash</span></div>
+      <div class="card"><b class="num" data-k="fin.endingCashM12" data-f="php"></b><span>ending cash, month 12</span></div>
+      <div class="card"><b class="num" data-k="fin.netPerSale" data-f="php2"></b><span>to FishPin from each <span data-k="price" data-f="php"></span> sale, after the Play fee and VAT</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q4 sensitivity -->
+<section id="q-sensitivity" class="appx" data-appendix data-title="Sensitivity analysis">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Sensitivity at <span data-k="price" data-f="php"></span> one-time</p>
+    <h2 class="h2">Viable at half the target.</h2>
+    <table class="sens"><thead><tr><th>Licences sold</th><th class="num">Net income</th><th class="num">Return on investment</th><th class="num">Payback</th></tr></thead><tbody></tbody></table>
+    <p class="lede">Stricter view, also deducting every operating expense (ads, co-op sessions, internet, development tools, printed guides): ROI <b class="num" data-k="fin.roiStrict" data-f="pct"></b>, payback <b class="num" data-k="fin.paybackStrict" data-f="yrs"></b>.</p>
+  </div>
+</section>
+
+<!-- Q5 competitors -->
+<section id="q-competitors" class="appx" data-appendix data-title="Competitor comparison">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Competitors, published prices</p>
+    <h2 class="h2">Built for a different customer.</h2>
+    <table class="comp"><thead></thead><tbody></tbody></table>
+  </div>
+</section>
+
+<!-- Q6 offline -->
+<section id="q-offline" class="appx" data-appendix data-title="What works with no signal">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Offline, honestly</p>
+    <h2 class="h2">What works with no signal.</h2>
+    <div class="two-col">
+      <div class="card"><h3 class="h3">Works with no signal</h3><ul class="list ok"><li>Sea chart (after a map download)</li><li>GPS position, speed and compass</li><li>Saved spots and trails</li><li>Trip recording, screen off</li><li>Navigation and route ETA</li><li>Catch logbook</li><li>Fish guide</li></ul></div>
+      <div class="card"><h3 class="h3">Needs a connection</h3><ul class="list wait"><li>Weather and fishing forecast</li><li>AI fish ID</li><li>Place search</li><li>Map downloads</li><li>Cloud backup</li><li>First sign-in</li><li>SOS needs a cellular signal for SMS, not mobile data</li></ul></div>
+    </div>
+    <p class="lede">FishPin is a navigation aid, not a replacement for official charts, radio or the Coast Guard.</p>
+  </div>
+</section>
+
+<!-- Q7 data -->
+<section id="q-data" class="appx" data-appendix data-title="Data ownership and privacy">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Data and ethics</p>
+    <h2 class="h2">His spots are his.</h2>
+    <div class="three-col">
+      <div class="card"><i class="icon-sq" data-icon="map-pin"></i><h3 class="h3">Fishermen own their data</h3><p>Spots, trails and catch records belong to the fisherman who saved them.</p></div>
+      <div class="card"><i class="icon-sq" data-icon="shield-check"></i><h3 class="h3">Never sold</h3><p>Fishing records are never sold to buyers who could use them against fishermen in price talks.</p></div>
+      <div class="card"><i class="icon-sq" data-icon="siren"></i><h3 class="h3">SOS goes where he says</h3><p>Emergency texts go only to the <span data-k="product.sosContactsMin" data-f="int"></span> to <span data-k="product.sosContactsMax" data-f="int"></span> contacts he chooses.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Q8 risks -->
+<section id="q-risks" class="appx" data-appendix data-title="Risks and mitigations">
+  <div class="frame">
+    <p class="eyebrow">Q&amp;A &middot; Risks</p>
+    <h2 class="h2">What could go wrong, and the plan.</h2>
+    <table class="risks"><thead><tr><th>Risk</th><th>Mitigation</th></tr></thead><tbody>
+      <tr><td>One-time price, no recurring revenue</td><td>Year one carries the whole capital cost; from cycle two only recurring services remain, while targets grow to <span data-k="fin.targets.1" data-f="int"></span> and <span data-k="fin.targets.2" data-f="int"></span> paid users.</td></tr>
+      <tr><td>No-cost map and weather tiers fail at scale</td><td>Commercial MapTiler, Open-Meteo and Supabase licences are in the budget. MapTiler's no-cost plan already ran out on 30 Oct 2026 and the charts were down until 1 Nov.</td></tr>
+      <tr><td>Fewer fishermen own smartphones than assumed</td><td>The <span data-k="market.smartphoneShare" data-f="share"></span> ownership figure is an assumption, measured in the <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions; the plan stays viable at <span data-k="fin.sensitivity.0.units" data-f="int"></span> licences.</td></tr>
+      <tr><td>Solo founder</td><td>Six years as a professional developer, an AI development assistant in the budget, and co-op officers trained first so adoption does not rest on one person.</td></tr>
+      <tr><td>Over-reliance at sea</td><td>FishPin is a navigation aid, not a replacement for official charts, radio or the Coast Guard; SOS needs a cellular signal for SMS.</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<!-- Q9 founder -->
+<section id="q-founder" class="appx" data-appendix data-title="The founder">
+  <div class="frame founder">
+    <figure class="founder-photo"><img src="assets/photos/robert-portrait.jpg" alt="Robert S. Maestro Jr. beside a banca"></figure>
+    <div>
+      <p class="eyebrow">Q&amp;A &middot; Founder</p>
+      <h2 class="h2">Robert S. Maestro Jr.</h2>
+      <ul class="list founder-list">
+        <li>Anak ng mangingisda from Mansalay, Oriental Mindoro</li>
+        <li>Six years as a professional software developer</li>
+        <li>BS Information Technology</li>
+        <li>Builds FishPin solo: Android app, cloud, maps and AI fish ID</li>
+        <li>Provincial and MIMAROPA regional YFC winner</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <!-- ===== appendix end ===== -->
 
 </div></div>
