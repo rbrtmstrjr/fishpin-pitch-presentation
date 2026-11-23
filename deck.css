@@ -268,7 +268,8 @@ html, body { margin: 0; background: var(--navy-deep); }
 .tiers b { display: block; font-size: 40px; font-weight: 700; line-height: 1.15; }
 .tiers b .num { font-weight: 600; }
 .tiers li > div > span { display: block; margin-top: 4px; font-size: 28px; color: var(--mist-2); }
-.path { font-family: var(--words); margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 28px; color: var(--mist-2); }
+.path { display: flex; flex-direction: column; gap: 10px; margin-top: auto; font-family: var(--words); font-size: 28px; color: var(--mist-2); }
+.path .leg { display: flex; align-items: center; gap: 14px; white-space: nowrap; }
 .path [data-icon] { width: 28px; height: 28px; color: var(--blue-on-navy); }
 .rings { position: relative; align-self: end; height: 760px; }
 .ring { position: absolute; bottom: 0; border-radius: 50%; box-sizing: border-box; }
