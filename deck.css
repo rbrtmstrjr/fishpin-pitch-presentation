@@ -130,8 +130,8 @@ html, body { margin: 0; background: var(--navy-deep); }
 .problem { padding-left: 744px; }
 .hero-row { display: flex; align-items: flex-end; gap: 32px; margin-bottom: 24px; }
 .hero-of { padding-bottom: 18px; font-size: 40px; font-weight: 600; line-height: 1.2; }
-.dots { display: grid; grid-template-columns: repeat(21, 24px); gap: 12px; margin-bottom: 28px; }
-.dot { display: block; width: 24px; height: 24px; border-radius: 50%; background: rgba(159, 179, 217, .22); }
+.dots { display: grid; width: 100%; grid-template-columns: repeat(21, 28px); justify-content: space-between; gap: 12px; row-gap: 14px; margin-bottom: 28px; }
+.dot { display: block; width: 28px; height: 28px; border-radius: 50%; background: rgba(159, 179, 217, .22); }
 .dot.gps { background: var(--amber); transform: scale(1.25); }
 .problem .lede { margin-bottom: 28px; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -139,7 +139,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 .fact [data-icon] { width: 40px; height: 40px; flex: none; color: var(--blue-on-navy); }
 .fact p { font-size: 28px; line-height: 1.35; color: var(--mist-2); }
 .fact b { font-weight: 600; color: var(--mist); }
-.problem .note { margin-top: auto; }
+.problem .note { margin-top: 36px; color: var(--mist-2); }
 
 /* ---------- 03 solution ---------- */
 .solution { display: grid; grid-template-columns: 520px 1fr; gap: 96px; align-items: center; }

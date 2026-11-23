@@ -131,7 +131,10 @@
     if (!box) return;
     const total = DECK.market.barangayFishermen;
     const lit = DECK.market.barangayGps;
-    const litAt = new Set(Array.from({ length: lit }, (_, k) => Math.floor((k + 0.5) * total / lit)));
+    let seed = 20261123;
+    const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    const litAt = new Set();
+    for (let n = 0; litAt.size < lit && n < 10000; n++) litAt.add(Math.floor(rnd() * total));
     box.innerHTML = Array.from({ length: total }, (_, i) => `<i class="dot${litAt.has(i) ? ' gps' : ''}"></i>`).join('');
     $('#gpsCount').dataset.from = String(total);
   });
