@@ -134,14 +134,14 @@ html, body { margin: 0; background: var(--navy-deep); }
   linear-gradient(90deg, rgba(6, 18, 51, .95) 20%, rgba(6, 18, 51, .66) 50%, rgba(6, 18, 51, .22) 70%, rgba(6, 18, 51, 0) 90%),
   linear-gradient(rgba(10, 36, 97, .16), rgba(10, 36, 97, .16)); }
 .cover { padding: 0; display: block; }
-.cover-logo { position: absolute; left: 128px; top: 118px; width: 311px; height: auto; display: block; }
-.cover-copy { position: absolute; left: 128px; top: 268px; width: 1100px; }
-.cover-title { font-weight: 800; font-size: 119px; line-height: .95; color: var(--amber); }
-.cover-title span { display: block; }
-.cover-lede { margin-top: 6px; font-weight: 300; font-size: 57px; line-height: 1.65; color: #fff; }
+.cover-mark { position: absolute; left: 128px; top: 116px; width: 127px; height: auto; display: block; }
+.cover-copy { position: absolute; left: 128px; top: 297px; width: 1100px; }
+.cover-title { font-weight: 800; font-size: 167px; line-height: .95; color: #fff; }
+.cover-lede { margin-top: 11px; font-weight: 300; font-size: 58px; line-height: 1.25; color: #fff; }
 .cover-foot { position: absolute; left: 128px; top: 792px; }
 .cover-rule { display: block; width: 64px; height: 3px; background: var(--amber); }
 .cover-meta { list-style: none; margin: 29px 0 0; padding: 0; font-family: var(--nums); font-weight: 500; font-size: 28px; line-height: 1.5; color: var(--mist-2); }
+.cover-meta li:first-child { color: var(--amber); }
 
 /* ---------- 02 problem ---------- */
 .photo-panel { position: absolute; left: 0; top: 0; bottom: 0; width: 640px; }
