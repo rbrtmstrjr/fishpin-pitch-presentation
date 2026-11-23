@@ -313,16 +313,29 @@ async function exportBackups(slides) {
   still.errors.forEach(e => fail('export png', e));
   await still.context.close();
 
-  const print = await open('?print-pdf');
-  await print.page.waitForFunction(() => window.__pdfReady === true, null, { timeout: 30000 })
-    .catch(() => fail('export pdf', 'Reveal never reported pdf-ready'));
-  await sleep(1500);
+  // The PDF is assembled from the slide PNGs, not from Reveal's print layout:
+  // reveal.css's @media print forces black 20pt paragraphs and its own heading
+  // sizes, which wrecks the navy slides. Images give a PDF identical to the screen.
+  const files = slides.map(s => join(EXPORTS, 'png', `${pad(s.i + 1)}-${s.id}.png`));
+  const imgs = files.map((f, i) => `<img src="${pathToFileURL(f).href}"${i === files.length - 1 ? ' class="last"' : ''}>`).join('');
+  const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+@page { size: 1920px 1080px; margin: 0 }
+html, body { margin: 0 }
+img { display: block; width: 1920px; height: 1080px; page-break-after: always; break-after: page }
+img.last { page-break-after: auto; break-after: auto }
+</style></head><body>${imgs}</body></html>`;
+  const htmlPath = join(OUT, 'pdf-source.html');
+  writeFileSync(htmlPath, html);
+  const pdfCtx = await browser.newContext({ viewport: { width: 1920, height: 1080 } });
+  const pdfPage = await pdfCtx.newPage();
+  await pdfPage.goto(pathToFileURL(htmlPath).href);
+  await pdfPage.waitForFunction(() => [...document.images].every(i => i.complete && i.naturalWidth > 0), null, { timeout: 30000 })
+    .catch(() => fail('export pdf', 'slide images did not all load'));
   const file = join(EXPORTS, 'FishPin-Pitch.pdf');
-  await print.page.pdf({ path: file, printBackground: true, preferCSSPageSize: true });
+  await pdfPage.pdf({ path: file, width: '1920px', height: '1080px', printBackground: true, preferCSSPageSize: true });
   const pages = (readFileSync(file, 'latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
   if (pages !== slides.length) fail('export pdf', `PDF has ${pages} pages, expected ${slides.length}`);
-  print.errors.forEach(e => fail('export pdf', e));
-  await print.context.close();
+  await pdfCtx.close();
 }
 
 let slides = [];
