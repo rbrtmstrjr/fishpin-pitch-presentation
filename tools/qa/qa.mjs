@@ -58,6 +58,9 @@ const warn = (where, msg) => warnings.push(`${where}: ${msg}`);
 const pad = n => String(n).padStart(2, '0');
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const run = id => !only || only.includes(id);
+async function phase(name, fn) {
+  try { return await fn(); } catch (e) { fail(name, `crashed: ${String(e && e.message || e).split('\n')[0]}`); return undefined; }
+}
 
 const browser = await chromium.launch({ channel: 'chrome' });
 
@@ -100,7 +103,7 @@ function inspect(minFont) {
   const box = sec.getBoundingClientRect();
   const k = box.width / 1920;
   const name = el => el.id ? `#${el.id}` : `${el.tagName.toLowerCase()}${el.classList.length ? '.' + [...el.classList].join('.') : ''}`;
-  const shown = el => { const cs = getComputedStyle(el); return cs.display !== 'none' && cs.visibility !== 'hidden'; };
+  const shown = el => (typeof el.checkVisibility === 'function') ? el.checkVisibility({ visibilityProperty: true, checkVisibilityCSS: true }) : (getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden');
   const exempt = el => el.closest('aside.notes, [data-bleed], [data-ui]');
   const els = [...sec.querySelectorAll('*')].filter(el => !el.closest('aside.notes'));
   const overflow = els.filter(el => {
@@ -125,8 +128,18 @@ function inspect(minFont) {
 
 async function checkSlides() {
   const { context, page, errors, ready } = await open();
-  if (!ready) { errors.forEach(e => fail('runtime', e)); await context.close(); return []; }
+  try {
+    return await checkSlidesInner(page, ready);
+  } finally {
+    errors.forEach(e => fail('runtime', e));
+    await context.close();
+  }
+}
+
+async function checkSlidesInner(page, ready) {
+  if (!ready) return [];
   const slides = await slideList(page);
+  if (!slides.length) { fail('slides', 'deck has no slides'); return []; }
   const mains = slides.filter(s => !s.appendix);
   if (only) only.filter(id => !slides.some(s => s.id === id)).forEach(id => fail('slides', `no slide with id "${id}"`));
 
@@ -169,12 +182,15 @@ async function checkSlides() {
   }
   if (!only) {
     const total = mains.reduce((t, s) => t + s.time, 0);
-    if (total > MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; budget is ${MAIN_SECONDS}s`);
+    if (has('notes')) {
+      if (mains.length !== 12) fail('deck shape', `expected 12 main slides, found ${mains.length}`);
+      if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
+    } else if (total > MAIN_SECONDS) {
+      fail('timing', `main slides add up to ${total}s; budget is ${MAIN_SECONDS}s`);
+    }
   }
   writeFileSync(join(OUT, 'rendered.txt'), rendered, 'utf8');
-  await checkInteractions(page, slides);
-  errors.forEach(e => fail('runtime', e));
-  await context.close();
+  await phase('interactions', () => checkInteractions(page, slides));
   return slides;
 }
 
@@ -195,11 +211,15 @@ async function checkInteractions(page, slides) {
     await goTo(page, 'impact'); await sleep(5200);
     if (await attr('#sos', 'data-state') !== 'sent') fail('impact', 'SOS demo did not finish on its own');
     const b = await page.locator('#sosBtn').boundingBox();
-    await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
-    await page.mouse.down(); await sleep(800); await page.mouse.up(); await sleep(700);
-    if (await attr('#sos', 'data-state') !== 'idle') fail('impact', 'a short press did not reset the SOS ring');
-    await page.mouse.down(); await sleep(3400); await page.mouse.up(); await sleep(400);
-    if (await attr('#sos', 'data-state') !== 'sent') fail('impact', 'a full hold did not send');
+    if (!b) {
+      fail('impact', '#sosBtn has no bounding box');
+    } else {
+      await page.mouse.move(b.x + b.width / 2, b.y + b.height / 2);
+      await page.mouse.down(); await sleep(800); await page.mouse.up(); await sleep(700);
+      if (await attr('#sos', 'data-state') !== 'idle') fail('impact', 'a short press did not reset the SOS ring');
+      await page.mouse.down(); await sleep(3400); await page.mouse.up(); await sleep(400);
+      if (await attr('#sos', 'data-state') !== 'sent') fail('impact', 'a full hold did not send');
+    }
   }
 
   const appx = slides.find(s => s.appendix);
@@ -307,12 +327,12 @@ async function exportBackups(slides) {
 
 let slides = [];
 try {
-  slides = await checkSlides();
+  slides = (await phase('slides', checkSlides)) ?? [];
   if (slides.length) {
-    await checkStatic();
-    if (has('viewports')) await checkViewports();
-    if (has('notes')) await checkSpeakerView();
-    if (has('export')) await exportBackups(slides);
+    await phase('static', checkStatic);
+    if (has('viewports')) await phase('viewports', checkViewports);
+    if (has('notes')) await phase('speaker view', checkSpeakerView);
+    if (has('export')) await phase('export', () => exportBackups(slides));
   }
 } finally {
   await browser.close();
