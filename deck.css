@@ -35,10 +35,26 @@ html, body { margin: 0; background: var(--navy-deep); }
 :where(.reveal) :where(h1, h2, h3, h4, p, figure) { margin: 0; }
 .frame { position: absolute; inset: 0; padding: 104px 128px 136px; box-sizing: border-box; display: flex; flex-direction: column; }
 
-/* contour texture on every navy slide */
-.contour::before { content: ''; position: absolute; inset: 0; background: url('assets/brand/texture/contour.svg') 0 0 / 420px 560px repeat; opacity: .22; pointer-events: none; }
-.contour.drift::before { animation: drift 90s linear infinite; }
-@keyframes drift { to { background-position: 420px 0; } }
+/* sea backdrop on every navy slide: the same recipe as the video pitch's ContourField
+   (fishpin-brand/15-video/src/pitch/kit.tsx): a navy radial glow, drifting wave lines,
+   rising specks and a soft vignette. deck.js injects the .sea layer; --gx/--gy place the glow. */
+.reveal .slides > section.contour { background: radial-gradient(120% 95% at var(--gx, 70%) var(--gy, 40%), var(--navy) 0%, var(--navy-deep) 72%); }
+.sea { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.sea svg { position: absolute; left: 0; top: 0; display: block; overflow: visible; }
+.sea .waves { width: 3840px; height: 1080px; animation: seaWaves 30s linear infinite; }
+.sea .waves path { fill: none; stroke: rgba(125, 195, 255, .34); stroke-width: 2; opacity: .5; }
+.sea .specks { width: 1920px; height: 2160px; animation: seaSpecks 60s linear infinite; }
+.sea .specks circle { fill: var(--mist); }
+.sea::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 52%, rgba(2, 6, 20, .5) 100%); }
+@keyframes seaWaves { to { transform: translateX(-960px); } }
+@keyframes seaSpecks { to { transform: translateY(-1080px); } }
+#cover { --gx: 50%; --gy: 42%; }
+#problem { --gx: 74%; --gy: 45%; }
+#solution, #offline, #impact { --gx: 30%; --gy: 45%; }
+#traction { --gx: 40%; --gy: 45%; }
+#market, #gtm { --gx: 62%; --gy: 45%; }
+#financials { --gx: 50%; --gy: 55%; }
+#close { --gx: 50%; --gy: 40%; }
 
 /* ---------- type ---------- */
 .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; font-family: var(--nums); font-weight: 600; font-size: 28px; letter-spacing: .14em; text-transform: uppercase; color: var(--mist-2); }

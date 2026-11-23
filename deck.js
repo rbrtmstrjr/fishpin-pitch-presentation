@@ -425,6 +425,28 @@
     }
   });
 
+  /* Sea backdrop for every navy slide, matching the video pitch: ten wave lines whose
+     shape repeats every 960px (so a -960px CSS drift loops seamlessly) and 36 specks
+     drawn twice, 1080px apart (so a -1080px CSS rise loops seamlessly). */
+  RENDER.push(function seaBackdrop() {
+    const W = 3840, P = 960;
+    const waves = Array.from({ length: 10 }, (_, i) => {
+      const y0 = 60 + i * 108;
+      let d = '';
+      for (let x = 0; x <= W; x += 24) {
+        const y = y0 + Math.sin((2 * Math.PI * x) / P + i * 0.7) * (16 + i * 2) + Math.sin((4 * Math.PI * x) / P - i * 1.2) * 5;
+        d += `${x ? ' L' : 'M'} ${x} ${y.toFixed(1)}`;
+      }
+      return `<path d="${d}"/>`;
+    }).join('');
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    const dots = Array.from({ length: 36 }, () => ({ x: rnd() * 1920, y: rnd() * 1080, r: 1.5 + rnd() * 3.2, o: 0.12 + rnd() * 0.3 }));
+    const specks = dots.map(d => [0, 1080].map(dy => `<circle cx="${d.x.toFixed(0)}" cy="${(d.y + dy).toFixed(0)}" r="${d.r.toFixed(1)}" opacity="${d.o.toFixed(2)}"/>`).join('')).join('');
+    const html = `<div class="sea" data-bleed aria-hidden="true"><svg class="waves" viewBox="0 0 ${W} 1080">${waves}</svg><svg class="specks" viewBox="0 0 1920 2160">${specks}</svg></div>`;
+    $$('.reveal .slides > section.contour').forEach(s => s.insertAdjacentHTML('afterbegin', html));
+  });
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */
