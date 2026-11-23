@@ -166,6 +166,7 @@
   };
 
   /* 04 offline: the switch flips, signal bars fall, online-only items strike through, checks pulse */
+  let airTouched = false;
   function setAirplane(on) {
     const s = $('#offline');
     if (!s) return;
@@ -176,6 +177,7 @@
   }
   ACTIONS.airplane = () => {
     const s = $('#offline');
+    airTouched = true;
     if (s) setAirplane(!s.classList.contains('air-on'));
   };
   RENDER.push(function airplaneSwitch() {
@@ -183,8 +185,9 @@
     if (sw) sw.addEventListener('click', () => ACTIONS.airplane());
   });
   ANIM.offline = () => {
+    airTouched = false;
     setAirplane(false);
-    later(1400, () => setAirplane(true));
+    later(1400, () => { if (!airTouched) setAirplane(true); });
   };
 
   /* 05 novelty: 6,337 counts up while two rows of real local fish names drift */
