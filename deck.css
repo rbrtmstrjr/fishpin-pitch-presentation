@@ -335,9 +335,9 @@ html, body { margin: 0; background: var(--navy-deep); }
 .viable [data-icon] { width: 36px; height: 36px; flex: none; color: var(--ok); }
 .viable b { font-weight: 600; color: var(--mist); }
 
-[data-f="php"], [data-f="php2"], [data-f="phpM"], [data-f="yrs"], .bar-val { word-spacing: -0.35em; }
+/* tighten "PHP 599" / "0.65 yrs" only where the figure is set in IBM Plex Mono */
+:is(.num, .hero-num, .eyebrow, .channel b span, .target b)[data-f], :is(.num, .hero-num, .eyebrow) [data-f], .channel b span[data-f], .bar-val { word-spacing: -0.35em; }
 .viable span, .pl-row > span:first-child { text-wrap: balance; }
-:is(.pl-row > span, .tiers li > div > span, .fund-rows small) [data-f] { word-spacing: normal; }
 .viable { margin-top: 36px; }
 
 /* ---------- 11 impact ---------- */
@@ -431,5 +431,4 @@ html, body { margin: 0; background: var(--navy-deep); }
 .founder-photo { height: 820px; border-radius: var(--r-sheet); overflow: hidden; }
 .founder-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .founder-list { margin-top: 12px; gap: 18px; font-size: 30px; }
-.appx td.num { word-spacing: -0.35em; }
 .appx th.num { color: var(--ink-3); }
