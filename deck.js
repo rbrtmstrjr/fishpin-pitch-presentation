@@ -208,6 +208,9 @@
     if (!ol) return;
     ol.innerHTML = DECK.traction.milestones.map(m =>
       `<li class="ms${m.planned ? ' planned' : ''}"><span class="ms-dot"><i data-icon="${m.icon}"></i></span><b>${m.when}</b><span>${m.what}</span></li>`).join('');
+    const ms = DECK.traction.milestones;
+    const last = ms.map(m => !m.planned).lastIndexOf(true);
+    $('#traction .tl-wrap').style.setProperty('--fill-end', `calc(${Math.max(0, last)} / ${ms.length} * (100% + 16px))`);
     const impl = $('#traction .impl');
     const items = DECK.traction.implemented;
     impl.hidden = !items.length;
@@ -216,9 +219,14 @@
   ANIM.traction = (s, t) => {
     const dots = $$('.ms-dot', s);
     const span = 1.4;
+    const track = $('.tl-fill', s).getBoundingClientRect();
     t.fromTo($('.tr-photo', s), { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out', clearProps: 'transform' }, 0.15)
-      .fromTo($('.tl-fill', s), { scaleX: 0 }, { scaleX: 1, duration: span, ease: 'none', clearProps: 'transform' }, 0.5)
-      .fromTo(dots, { scale: 0 }, { scale: 1, duration: 0.35, ease: 'back.out(2.5)', stagger: span / Math.max(1, dots.length - 1), clearProps: 'transform' }, 0.5);
+      .fromTo($('.tl-fill', s), { scaleX: 0 }, { scaleX: 1, duration: span, ease: 'none', clearProps: 'transform' }, 0.5);
+    dots.forEach(d => {
+      const r = d.getBoundingClientRect();
+      const f = Math.min(1, Math.max(0, (r.left + r.width / 2 - track.left) / track.width));
+      t.fromTo(d, { scale: 0 }, { scale: 1, duration: 0.35, ease: 'back.out(2.5)', clearProps: 'transform' }, 0.5 + f * span - 0.1);
+    });
   };
 
   /* 07 model: competitor five-year bars grow long, then FishPin's arrives last and tiny */

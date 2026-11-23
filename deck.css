@@ -218,7 +218,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 .tl-wrap { position: relative; margin-top: auto; padding-top: 28px; }
 .tl-track, .tl-fill { position: absolute; left: 28px; right: 28px; top: 54px; height: 3px; display: block; }
 .tl-track { background: var(--line-strong); }
-.tl-fill { background: var(--blue-on-navy); transform-origin: left; }
+.tl-fill { right: auto; width: var(--fill-end, calc(100% - 56px)); background: var(--blue-on-navy); transform-origin: left; }
 .timeline { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .ms { position: relative; padding-top: 74px; }
 .ms-dot { position: absolute; left: 0; top: 0; width: 56px; height: 56px; box-sizing: border-box; border-radius: 50%; background: var(--navy); border: 3px solid var(--blue-on-navy); display: grid; place-items: center; color: var(--mist); }
@@ -236,7 +236,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 
 /* ---------- 07 model ---------- */
 .model { display: grid; grid-template-columns: 1fr 860px; gap: 80px; align-items: center; }
-.model-price { margin-top: 28px; font-size: 150px; }
+.model-price { margin-top: 28px; font-size: 150px; word-spacing: -0.4em; }
 .price-sub { margin: 14px 0 40px; font-family: var(--nums); font-size: 30px; color: var(--mist-2); }
 .reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
 .reasons li { display: flex; gap: 18px; font-size: 30px; line-height: 1.35; color: var(--mist-2); }
@@ -244,8 +244,8 @@ html, body { margin: 0; background: var(--navy-deep); }
 .reasons b { color: var(--mist); }
 .cost-card { padding: 40px 44px; }
 .cost-card .sub { margin: 8px 0 28px; font-size: 28px; color: var(--mist-3); }
-.bar-row { display: grid; grid-template-columns: 220px 1fr; align-items: center; gap: 20px; margin: 18px 0; }
-.bar-row .who { font-size: 30px; font-weight: 600; }
+.bar-row { display: grid; grid-template-columns: 260px 1fr; align-items: center; gap: 20px; margin: 18px 0; }
+.bar-row .who { font-size: 30px; font-weight: 600; white-space: nowrap; }
 .bar-track { position: relative; height: 56px; border-radius: 12px; background: rgba(255, 255, 255, .04); }
 .bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 12px; background: var(--mist-2); }
 .bar-range { position: absolute; top: 0; bottom: 0; box-sizing: border-box; border: 2px dashed var(--mist-3); border-left: 0; border-radius: 0 12px 12px 0; }
