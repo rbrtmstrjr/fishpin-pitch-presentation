@@ -236,7 +236,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 
 /* ---------- 07 model ---------- */
 .model { display: grid; grid-template-columns: 1fr 860px; gap: 80px; align-items: center; }
-.model-price { margin-top: 28px; font-size: 150px; word-spacing: -0.4em; }
+.model-price { margin-top: 28px; font-size: 150px; }
 .price-sub { margin: 14px 0 40px; font-family: var(--nums); font-size: 30px; color: var(--mist-2); }
 .reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px; }
 .reasons li { display: flex; gap: 18px; font-size: 30px; line-height: 1.35; color: var(--mist-2); }
@@ -268,7 +268,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 .tiers b { display: block; font-size: 40px; font-weight: 700; line-height: 1.15; }
 .tiers b .num { font-weight: 600; }
 .tiers li > div > span { display: block; margin-top: 4px; font-size: 28px; color: var(--mist-2); }
-.path { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 28px; color: var(--mist-2); }
+.path { font-family: var(--words); margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 28px; color: var(--mist-2); }
 .path [data-icon] { width: 28px; height: 28px; color: var(--blue-on-navy); }
 .rings { position: relative; align-self: end; height: 760px; }
 .ring { position: absolute; bottom: 0; border-radius: 50%; box-sizing: border-box; }
@@ -281,9 +281,11 @@ html, body { margin: 0; background: var(--navy-deep); }
 .gtm { display: grid; grid-template-columns: 560px 1fr; gap: 72px; }
 .coast { margin: -24px 0; }
 .coast svg { display: block; width: 560px; height: 840px; overflow: visible; }
-.land { fill: var(--navy-card); stroke: var(--blue-on-navy); stroke-width: 3; }
-.region { font: 500 28px var(--nums); letter-spacing: .06em; fill: var(--mist-3); }
-.town .route { fill: none; stroke: rgba(159, 179, 217, .55); stroke-width: 3; stroke-linecap: round; }
+.land { fill: var(--navy-card); stroke: none; }
+.coast-line, .coast-hl { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.coast-line { stroke: rgba(64, 162, 255, .35); stroke-width: 3; }
+.coast-hl { stroke: var(--blue-on-navy); stroke-width: 4; }
+.region { font: 500 28px var(--words); fill: var(--mist-3); }
 .town .pin { fill: var(--navy); stroke: var(--blue-on-navy); stroke-width: 4; }
 .town.home .pin { fill: var(--blue-on-navy); stroke: #fff; }
 .town .ripple { fill: none; stroke: var(--blue-on-navy); stroke-width: 3; opacity: 0; }
@@ -302,10 +304,10 @@ html, body { margin: 0; background: var(--navy-deep); }
 .target span { display: block; margin-top: 8px; font-size: 28px; color: var(--mist-3); }
 
 /* ---------- 10 financials ---------- */
-.fin-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 760px 1fr; gap: 64px; }
+.fin-grid { align-items: start; flex: 1; min-height: 0; display: grid; grid-template-columns: 760px 1fr; gap: 64px; }
 .fund { display: flex; flex-direction: column; padding: 44px 48px; }
 .fund-label { font-family: var(--nums); font-weight: 600; font-size: 28px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); }
-.fund-total { margin: 8px 0 24px; font-size: 88px; font-weight: 600; line-height: 1.05; letter-spacing: -.03em; word-spacing: -0.4em; color: var(--ink); }
+.fund-total { margin: 8px 0 24px; font-size: 88px; font-weight: 600; line-height: 1.05; letter-spacing: -.03em; color: var(--ink); }
 .stack { display: flex; gap: 3px; height: 64px; margin-bottom: 20px; border-radius: 12px; overflow: hidden; }
 .stack i { display: block; height: 100%; }
 .stack .s1, .key.s1 { background: var(--navy); }
@@ -331,3 +333,8 @@ html, body { margin: 0; background: var(--navy-deep); }
 .viable { margin-top: auto; display: flex; gap: 16px; align-items: center; padding: 18px 24px; border: 1px dashed var(--line-strong); border-radius: var(--r-card); font-size: 28px; color: var(--mist-2); }
 .viable [data-icon] { width: 36px; height: 36px; flex: none; color: var(--ok); }
 .viable b { font-weight: 600; color: var(--mist); }
+
+[data-f="php"], [data-f="php2"], [data-f="phpM"], [data-f="yrs"], .bar-val { word-spacing: -0.35em; }
+.viable span, .pl-row > span:first-child { text-wrap: balance; }
+:is(.pl-row > span, .tiers li > div > span, .fund-rows small) [data-f] { word-spacing: normal; }
+.viable { margin-top: 36px; }

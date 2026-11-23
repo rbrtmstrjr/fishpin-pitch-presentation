@@ -97,6 +97,8 @@
       onUpdate: () => { el.textContent = format(el, whole ? Math.round(o.v) : o.v); },
       onComplete: () => { el.textContent = format(el, end); },
     }, Number(el.dataset.countAt || 0.15));
+    const at = Number(el.dataset.countAt || 0.15);
+    if (at > 0.4) tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.out', clearProps: 'opacity' }, at);
   }
 
   let tl = null;
@@ -266,35 +268,52 @@
     t.fromTo($$('.ring', s), { scale: 0, transformOrigin: '50% 100%' }, { scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.3, clearProps: 'transform' }, 0.25);
   };
 
-  /* 09 go-to-market: the coast draws, Mansalay's pin drops first, then routes reach the other towns */
-  const COAST = { Bansud: [262, 120], Bongabong: [300, 285], Roxas: [336, 450], Mansalay: [372, 610], Bulalacao: [340, 765] };
+  /* 09 go-to-market: the coast lights outward from Mansalay, pins and names appear as the light reaches them */
+  const COAST_SEGS = [[238,0,246,40,236,80,252,118],[252,118,266,150,286,190,290,232],[290,232,294,270,310,300,304,338],[304,338,298,378,322,410,330,446],[330,446,338,484,330,520,348,556],[348,556,362,586,384,600,374,640],[374,640,364,684,382,716,366,752],[366,752,352,786,330,806,318,840]];
+  const COAST_Y = { Bansud: 118, Bongabong: 285, Roxas: 450, Mansalay: 640, Bulalacao: 770 };
+  function coastX(y) {
+    let best = [0, 1e9];
+    COAST_SEGS.forEach(([x0, y0, x1, y1, x2, y2, x3, y3]) => {
+      for (let i = 0; i <= 200; i++) {
+        const u = i / 200, v = 1 - u;
+        const py = v*v*v*y0 + 3*v*v*u*y1 + 3*v*u*u*y2 + u*u*u*y3;
+        if (Math.abs(py - y) < best[1]) best = [v*v*v*x0 + 3*v*v*u*x1 + 3*v*u*u*x2 + u*u*u*x3, Math.abs(py - y)];
+      }
+    });
+    return best[0];
+  }
   RENDER.push(function gtmCoast() {
     const g = $('#gtm .towns');
     if (!g) return;
-    const [hx, hy] = COAST[DECK.gtm.home];
     g.innerHTML = DECK.gtm.towns.map(name => {
-      const [x, y] = COAST[name];
+      const y = COAST_Y[name];
+      const x = Math.round(coastX(y));
       const home = name === DECK.gtm.home;
-      const route = home ? '' : `<path class="route" d="M${hx},${hy} Q${(hx + x) / 2 + 70},${(hy + y) / 2} ${x},${y}"/>`;
-      return `<g class="town${home ? ' home' : ''}">${route}<circle class="ripple" cx="${x}" cy="${y}" r="16"/><circle class="pin" cx="${x}" cy="${y}" r="${home ? 16 : 12}"/><text x="${x + 34}" y="${y + 10}">${name}</text></g>`;
+      return `<g class="town${home ? ' home' : ''}" data-y="${y}"><circle class="ripple" cx="${x}" cy="${y}" r="16"/><circle class="pin" cx="${x}" cy="${y}" r="${home ? 16 : 12}"/><text x="${x + 34}" y="${y + 10}">${name}</text></g>`;
     }).join('');
   });
   ANIM.gtm = (s, t) => {
-    const land = $('.land', s);
-    const len = land.getTotalLength();
-    t.fromTo(land, { strokeDasharray: len, strokeDashoffset: len, fillOpacity: 0 },
-      { strokeDashoffset: 0, fillOpacity: 1, duration: 1, ease: 'power2.inOut', clearProps: 'strokeDasharray,strokeDashoffset,fillOpacity' }, 0.1);
+    const hl = $('.coast-hl', s);
+    const L = hl.getTotalLength();
+    const lenAt = (y) => { let best = 0, bd = 1e9; for (let l = 0; l <= L; l += 2) { const d = Math.abs(hl.getPointAtLength(l).y - y); if (d < bd) { bd = d; best = l; } } return best; };
+    const m = lenAt(COAST_Y[DECK.gtm.home]);
+    t.fromTo($$('.land, .coast-line', s), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power1.out', clearProps: 'opacity' }, 0.1);
+    hl.setAttribute('stroke-dasharray', `0 ${L + 10}`);
     const home = $('.town.home', s);
     t.fromTo($('.pin', home), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.4, ease: 'back.out(3)' }, 0.8)
       .fromTo($('.ripple', home), { scale: 0.5, opacity: 0.9, transformOrigin: '50% 50%' }, { scale: 3, opacity: 0, duration: 1, ease: 'power2.out' }, 0.9)
       .fromTo($('text', home), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.9);
-    $$('.town:not(.home)', s).forEach((g, i) => {
-      const route = $('.route', g);
-      const rl = route.getTotalLength();
-      const at = 1.2 + i * 0.15;
-      t.fromTo(route, { strokeDasharray: `${rl} ${rl}`, strokeDashoffset: rl }, { strokeDashoffset: 0, duration: 0.45, ease: 'power2.out', clearProps: 'strokeDasharray,strokeDashoffset' }, at)
-        .fromTo($('.pin', g), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.35, ease: 'back.out(3)' }, at + 0.4)
-        .fromTo($('text', g), { opacity: 0 }, { opacity: 1, duration: 0.3 }, at + 0.4);
+    const o = { a: m, b: 0 };
+    t.fromTo(o, { a: m, b: 0 }, { a: 0, b: L, duration: 1.2, ease: 'power2.inOut',
+      onUpdate: () => hl.setAttribute('stroke-dasharray', `0 ${o.a} ${o.b} ${L}`),
+      onComplete: () => hl.removeAttribute('stroke-dasharray') }, 0.9);
+    const inv = p => p < 0.5 ? Math.sqrt(p / 2) : 1 - Math.sqrt((1 - p) / 2);
+    $$('.town:not(.home)', s).forEach(g => {
+      const l = lenAt(Number(g.dataset.y));
+      const p = Math.min(1, Math.abs(l - m) / (l < m ? m : L - m));
+      const at = 0.9 + 1.2 * inv(p);
+      t.fromTo($('.pin', g), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.35, ease: 'back.out(3)' }, at)
+        .fromTo($('text', g), { opacity: 0 }, { opacity: 1, duration: 0.3 }, at);
     });
   };
 
