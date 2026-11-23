@@ -1,8 +1,8 @@
 /* FishPin national pitch: every number the slides show, and where it comes from.
    Slides never type a figure. deck.js fills each [data-k="path"] element from DECK.
-   FP   = D. YFC Financials_Work and Financial Plan - FishPin Regional (1).xlsx (2 Nov 2026)
-   BMC  = D. YFC-BMC-TEMPLATE - FishPin Regional (1).docx (2 Nov 2026)
-   NBMC = Narrative BMC - FishPin - Robert Maestro Jr (6).docx (2 Nov 2026)
+   FP   = D. YFC Financials_Work and Financial Plan - FishPin National.xlsx (23 Nov 2026)
+   BMC  = D. YFC-BMC-TEMPLATE - FishPin National.docx (dated 11 Nov 2026, received 23 Nov 2026)
+   NBMC = Narrative BMC - FishPin - Robert Maestro Jr .docx (23 Nov 2026; same text as the 2 Nov version)
    Traction is marked unconfirmed until Robert sends current figures: set
    traction.confirmed.<field> = true once a value is checked. */
 (function (root) {
@@ -14,22 +14,23 @@
     trialDays: 7,
 
     fin: {
-      unitsY1: 1000,
+      unitsY1: 2000,
       playFee: 0.15,
       vatOnFee: 0.12,
       capexItems: [
         { id: 'laptop', label: 'Development laptop (in kind)', amount: 35000 },
         { id: 'play', label: 'Google Play Console account (in kind)', amount: 1525 },
-        { id: 'permits', label: 'Business registration and permits (DTI, BIR, Mayor’s Permit, Barangay)', amount: 6000 },
+        { id: 'permits', label: 'Registration and permits (DTI, BIR, Mayor’s, Barangay)', amount: 6000 },
         { id: 'handsets', label: 'Android test and demo handsets, 2 units', amount: 14000 },
         { id: 'iphone', label: 'Test iPhone for the iOS build', amount: 19000 },
         { id: 'notary', label: 'Notarization', amount: 1000 },
+        { id: 'demokit', label: 'Landing demo kit: banners, table, power banks, pouches', amount: 6000 },
       ],
       opexItems: [
         { id: 'supabase', label: 'Supabase Pro: database, login, backups', amount: 18300, cogs: true },
         { id: 'maptiler', label: 'MapTiler Flex: nautical and night maps', amount: 21960, cogs: true },
         { id: 'mapbox', label: 'Mapbox: offline map packs', amount: 6000, cogs: true },
-        { id: 'gemini', label: 'Google Gemini API: AI fish scan', amount: 3660, cogs: true },
+        { id: 'aiscan', label: 'Anthropic Claude API: AI fish scan', amount: 3660, cogs: true },
         { id: 'openmeteo', label: 'Open-Meteo API Standard: weather and marine data', amount: 24360, cogs: true },
         { id: 'ses', label: 'Amazon SES: password-reset email', amount: 610, cogs: true },
         { id: 'claude', label: 'Claude Pro: AI development assistant', amount: 16800, cogs: false },
@@ -38,34 +39,39 @@
         { id: 'internet', label: 'Internet connectivity', amount: 18000, cogs: false },
         { id: 'ads', label: 'Facebook and TikTok advertising', amount: 60000, cogs: false },
         { id: 'coopMansalay', label: 'Mansalay cooperative sessions (4)', amount: 4000, cogs: false },
-        { id: 'coopExpansion', label: 'Expansion cooperative sessions (8)', amount: 10400, cogs: false },
+        { id: 'coopExpansion', label: 'Expansion cooperative sessions (4)', amount: 5200, cogs: false },
         { id: 'guides', label: 'Printed Tagalog guides and SOS cards (1,000)', amount: 8000, cogs: false },
+        { id: 'chart', label: 'Nautical chart check, Tablas Strait', amount: 600, cogs: false },
+        { id: 'wages', label: 'Wages: 2 field demo and support officers', amount: 240240, cogs: false },
+        { id: 'fuel', label: 'Fuel for weekly landing demos', amount: 14400, cogs: false },
+        { id: 'vlogs', label: 'Paid vlogger videos (14)', amount: 35000, cogs: false },
       ],
-      capex: 76525,
-      opex: 199290,
-      total: 275815,
+      capex: 82525,
+      opex: 484330,
+      total: 566855,
       grantProvincial: 80000,
       grantRegional: 150000,
-      counterpart: 45815,
+      grantNational: 300000,
+      counterpart: 36855,
       counterpartInKind: 36525,
-      counterpartCash: 9290,
-      gross: 599000,
-      cogs: 175522,
-      net: 423478,
-      roi: 153.54,
-      payback: 0.65,
-      roiStrict: 108.43,
-      paybackStrict: 0.92,
+      counterpartCash: 330,
+      gross: 1198000,
+      cogs: 276154,
+      net: 921846,
+      roi: 162.62,
+      payback: 0.61,
+      roiStrict: 90.39,
+      paybackStrict: 1.11,
+      breakEvenStrict: 972,
       netPerSale: 498.37,
       sensitivity: [
-        { units: 500, net: 174294, roi: 63.19, payback: 1.58 },
-        { units: 700, net: 273967.6, roi: 99.33, payback: 1.01 },
-        { units: 1000, net: 423478, roi: 153.54, payback: 0.65 },
+        { units: 1000, net: 423478, roi: 74.71, payback: 1.34 },
+        { units: 1500, net: 672662, roi: 118.67, payback: 0.84 },
+        { units: 2000, net: 921846, roi: 162.62, payback: 0.61 },
       ],
-      targets: [1000, 3000, 5000],
-      ramp: [25, 40, 50, 60, 75, 85, 90, 95, 105, 115, 125, 135],
-      openingCash: 239290,
-      endingCashM12: 498368,
+      ramp: [60, 90, 110, 130, 150, 165, 175, 185, 195, 215, 250, 275],
+      openingCash: 530000,
+      endingCashM12: 996406,
     },
 
     market: {
@@ -88,14 +94,14 @@
       towns: ['Bansud', 'Bongabong', 'Roxas', 'Mansalay', 'Bulalacao'],
       home: 'Mansalay',
       townCount: 5,
-      coopSessions: 12,
+      coopSessions: 8,
       coopMansalay: 4,
-      coopExpansion: 8,
+      coopExpansion: 4,
       costMansalay: 1000,
       costExpansion: 1300,
       fishermenPerSession: 30,
-      reach: 360,
-      costPerReach: 40,
+      reach: 240,
+      costPerReach: 38,
       adsPerMonth: 5000,
       guides: 1000,
       guideCost: 8,
@@ -137,29 +143,30 @@
     },
 
     src: {
-      price: 'FP Investment Cost!E62; BMC general information',
-      trialDays: 'FP Investment Cost!E65 basis note',
-      'fin.capex': 'FP Investment Cost!E16',
-      'fin.opex': 'FP Investment Cost!E34',
-      'fin.total': 'FP Investment Cost!E36',
-      'fin.grantProvincial': 'FP Investment Cost!E39',
-      'fin.grantRegional': 'FP Investment Cost!E40',
-      'fin.counterpart': 'FP Investment Cost!E42',
-      'fin.gross': 'FP Investment Cost!E49',
-      'fin.cogs': 'FP Investment Cost!E47',
-      'fin.net': 'FP Investment Cost!E51',
+      price: 'FP Investment Cost!E68; BMC general information',
+      trialDays: 'FP Investment Cost!C71 basis note',
+      'fin.capex': 'FP Investment Cost!E17',
+      'fin.opex': 'FP Investment Cost!E39',
+      'fin.total': 'FP Investment Cost!E41',
+      'fin.grantProvincial': 'FP Investment Cost!E44',
+      'fin.grantRegional': 'FP Investment Cost!E45',
+      'fin.grantNational': 'FP Investment Cost!E46',
+      'fin.counterpart': 'FP Investment Cost!E48 (in kind PhP 36,525 + PhP 330 reinvested sales)',
+      'fin.gross': 'FP Investment Cost!E55',
+      'fin.cogs': 'FP Investment Cost!E53',
+      'fin.net': 'FP Investment Cost!E57',
       'fin.roi': 'FP Ratios!E4',
       'fin.payback': 'FP Ratios!E5',
       'fin.roiStrict': 'FP Ratios!E7',
       'fin.paybackStrict': 'FP Ratios!E8',
       'fin.sensitivity': 'FP Ratios!C14:F16',
-      'fin.netPerSale': 'FP Investment Cost!E65 basis note',
-      'fin.targets': 'FP Investment Cost!E65 basis note',
-      'fin.ramp': 'FP Cashflow!E20:P20',
+      'fin.breakEvenStrict': 'FP Ratios!D17',
+      'fin.netPerSale': 'FP Investment Cost!C71 basis note',
+      'fin.ramp': 'FP Cashflow!E21:P21',
       'fin.openingCash': 'FP Cashflow!E10',
-      'fin.endingCashM12': 'FP Cashflow!P39',
-      'fin.capexItems': 'FP Investment Cost!C10:E15',
-      'fin.opexItems': 'FP Investment Cost!C20:E33',
+      'fin.endingCashM12': 'FP Cashflow!P44',
+      'fin.capexItems': 'FP Investment Cost!C10:E16',
+      'fin.opexItems': 'FP Investment Cost!C21:E38',
       'market.sector': 'BMC Customer Segments; NBMC 2',
       'market.tamM': 'BMC Customer Segments',
       'market.samM': 'BMC Customer Segments',
@@ -170,10 +177,10 @@
       'market.plotterMin': 'BMC Value Proposition',
       'market.plotterMax': 'BMC Value Proposition',
       'market.povertyPct': 'PSA 2023 fisherfolk poverty incidence (provincial deck)',
-      'gtm.coopSessions': 'FP Work and Financial Plan rows 29-30; BMC Channels',
-      'gtm.reach': 'FP Investment Cost!E65 basis note',
-      'gtm.adsPerMonth': 'FP Investment Cost!E30',
-      'gtm.guides': 'FP Investment Cost!E33',
+      'gtm.coopSessions': 'FP Work and Financial Plan rows 29-30 and note B39; BMC Channels',
+      'gtm.reach': 'FP Investment Cost!C71 basis note',
+      'gtm.adsPerMonth': 'FP Investment Cost!E31',
+      'gtm.guides': 'FP Investment Cost!E34',
       'gtm.towns': 'BMC Customer Segments',
       competitors: 'NBMC 2; fishpin-web lib/comparison.ts',
       'product.species': 'FishPin apps/mobile/data/ph-fish-guide.json',
@@ -205,7 +212,7 @@
     eq('fin.capex', f.capex, sum(f.capexItems.map(i => i.amount)));
     eq('fin.opex', f.opex, sum(f.opexItems.map(i => i.amount)));
     eq('fin.total', f.total, f.capex + f.opex);
-    eq('fund sources', f.grantProvincial + f.grantRegional + f.counterpart, f.total);
+    eq('fund sources', f.grantProvincial + f.grantRegional + f.grantNational + f.counterpart, f.total);
     eq('fin.counterpart', f.counterpart, f.counterpartInKind + f.counterpartCash);
     eq('fin.gross', f.gross, f.unitsY1 * p);
     eq('fin.cogs', f.cogs, Math.round(f.gross * f.playFee * (1 + f.vatOnFee)) + services);
@@ -215,9 +222,9 @@
     eq('fin.roiStrict', f.roiStrict, round((f.net - nonCogs) / f.total * 100, 2));
     eq('fin.paybackStrict', f.paybackStrict, round(f.total / (f.net - nonCogs), 2));
     eq('fin.netPerSale', f.netPerSale, round(p - p * f.playFee * (1 + f.vatOnFee), 2));
-    eq('fin.openingCash', f.openingCash, f.grantProvincial + f.grantRegional + f.counterpartCash);
+    eq('fin.openingCash', f.openingCash, f.grantProvincial + f.grantRegional + f.grantNational); // the cash counterpart comes from sales later
     eq('ramp total', sum(f.ramp), f.unitsY1);
-    eq('fin.targets.0', f.targets[0], f.unitsY1);
+    eq('fin.breakEvenStrict', f.breakEvenStrict, Math.ceil(nonCogs / (p - p * f.playFee * (1 + f.vatOnFee)) + services / (p - p * f.playFee * (1 + f.vatOnFee))));
     f.sensitivity.forEach(r => {
       const net = netAt(r.units);
       eq(`sensitivity ${r.units} net`, r.net, net);
@@ -230,7 +237,6 @@
     eq('market.tamM', m.tamM, Math.round(m.sector * p / 1e6));
     eq('market.samM', m.samM, Math.round(m.sector * p * m.smartphoneShare / 1e6));
     eq('market.somM', m.somM, Math.round(m.somUsers * p / 1e6));
-    eq('market.somUsers', m.somUsers, f.targets[2]);
     eq('market.barangayMemory', m.barangayMemory, m.barangayFishermen - m.barangayGps);
 
     eq('gtm.townCount', g.townCount, g.towns.length);

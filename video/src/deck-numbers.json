@@ -1,0 +1,39 @@
+{
+  "source": "Generated from deck-data.js by scripts/build_clips.mjs. Do not edit by hand.",
+  "barangayFishermen": 103,
+  "barangayGps": 10,
+  "plotterMin": 8000,
+  "plotterMax": 30000,
+  "investmentTotal": 566855,
+  "grantProvincial": 80000,
+  "grantRegional": 150000,
+  "grantNational": 300000,
+  "counterpart": 36855,
+  "counterpartInKind": 36525,
+  "counterpartCash": 330,
+  "yearOneLicences": 2000,
+  "ramp": [
+    60,
+    90,
+    110,
+    130,
+    150,
+    165,
+    175,
+    185,
+    195,
+    215,
+    250,
+    275
+  ],
+  "roi": 162.62,
+  "payback": 0.61,
+  "coopSessions": 8,
+  "towns": [
+    "Bansud",
+    "Bongabong",
+    "Roxas",
+    "Mansalay",
+    "Bulalacao"
+  ]
+}

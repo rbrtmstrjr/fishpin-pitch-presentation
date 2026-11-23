@@ -1,0 +1,257 @@
+{
+  "voice": "ElevenLabs voice C1npRmjB19a6yNkEucvx. Edit text here, then run: npm run vo:eleven -- v01 v02",
+  "lines": [
+    {
+      "id": "v01",
+      "section": 1,
+      "at": 0.5,
+      "text": "Every morning, more than a hundred fishermen leave the shore of our barangay in Mansalay."
+    },
+    {
+      "id": "v02",
+      "section": 1,
+      "at": 6.7,
+      "text": "A few kilometers out... mobile data is gone."
+    },
+    {
+      "id": "v03",
+      "section": 1,
+      "at": 12.4,
+      "text": "There's no chart. No tracking. And if something goes wrong... no one knows where you are.",
+      "captionUntil": 4.5
+    },
+    {
+      "id": "c01",
+      "section": 2,
+      "at": 0,
+      "oncam": true,
+      "text": "Hi, ako si Robert, isa akong software engineer at isa ring mangingisda, at ako ang gumawa ng FishPin."
+    },
+    {
+      "id": "v05",
+      "section": 2,
+      "at": 7.5,
+      "text": "I grew up in a fishing family here in Mansalay, and I build software for a living."
+    },
+    {
+      "id": "v06",
+      "section": 2,
+      "at": 14.2,
+      "text": "So I built the tool our fishermen never had."
+    },
+    {
+      "id": "v07",
+      "section": 3,
+      "at": 0.4,
+      "text": "Most small fishers still navigate from memory."
+    },
+    {
+      "id": "v08",
+      "section": 3,
+      "at": 3.35,
+      "text": "Our barangay has around one hundred fishers, but only about fifteen percent own a Garmin GPS,"
+    },
+    {
+      "id": "v09",
+      "section": 3,
+      "at": 9.95,
+      "text": "because a marine GPS costs from five thousand up to twenty-five thousand pesos, depending on the brand."
+    },
+    {
+      "id": "t1",
+      "section": 3,
+      "at": 18,
+      "oncam": true,
+      "text": "'Yung hindi namin makita yung location ng aming pupuntahan, yung kapag madilim, umulan, gabi, yun ang problema."
+    },
+    {
+      "id": "v10",
+      "section": 3,
+      "at": 30.9,
+      "text": "Phone apps don't help. They need mobile data that isn't there."
+    },
+    {
+      "id": "v11",
+      "section": 3,
+      "at": 35,
+      "text": "And small boats have no tracking or safety system at all."
+    },
+    {
+      "id": "v12",
+      "section": 3,
+      "at": 39.5,
+      "text": "Life is getting harder. In MIMAROPA, fisherfolk poverty rose ten points, and Oriental Mindoro's municipal catch fell forty-three percent."
+    },
+    {
+      "id": "v13",
+      "section": 4,
+      "at": 0.8,
+      "text": "FishPin turns any Android phone into an offline sea chart."
+    },
+    {
+      "id": "v14",
+      "section": 4,
+      "at": 5.4,
+      "text": "This phone is in airplane mode. The map, the depth chart and the GPS keep working."
+    },
+    {
+      "id": "v15",
+      "section": 4,
+      "at": 13.8,
+      "text": "Save a spot with one tap, and on the next trip, FishPin points you straight back, with distance and arrival time."
+    },
+    {
+      "id": "v16",
+      "section": 4,
+      "at": 23.4,
+      "text": "Every trip is recorded, even with the screen off."
+    },
+    {
+      "id": "v17",
+      "section": 4,
+      "at": 28.2,
+      "text": "Before leaving, the fishing score reads wind, waves and current, and shows the best hours to go out."
+    },
+    {
+      "id": "v18",
+      "section": 4,
+      "at": 36.6,
+      "text": "At anchor, if the boat drifts, a loud alarm wakes the crew."
+    },
+    {
+      "id": "v19",
+      "section": 4,
+      "at": 43,
+      "text": "In an emergency, a three-second press opens an SOS text to three to five contacts with your exact location, by plain SMS. No mobile data needed."
+    },
+    {
+      "id": "v20",
+      "section": 4,
+      "at": 56.4,
+      "text": "Back on shore, log the catch, and FishPin's AI names the fish, with a guide of three hundred Philippine species in local names."
+    },
+    {
+      "id": "v38",
+      "section": 4,
+      "at": 67.3,
+      "caption": false,
+      "text": "From the shore, to the spot, and safely home."
+    },
+    {
+      "id": "v21",
+      "section": 5,
+      "at": 0.5,
+      "text": "What does that add for a fisher?"
+    },
+    {
+      "id": "v22",
+      "section": 5,
+      "at": 3.3,
+      "text": "Safer trips."
+    },
+    {
+      "id": "v23",
+      "section": 5,
+      "at": 4.9,
+      "text": "Less fuel and time spent searching, because you go straight back to proven spots."
+    },
+    {
+      "id": "v24",
+      "section": 5,
+      "at": 10.7,
+      "text": "And a record of every catch, for the fisher and the cooperative."
+    },
+    {
+      "id": "t2",
+      "section": 5,
+      "at": 16,
+      "oncam": true,
+      "text": "Ah, malaking tulong ang FishPin, kase unang una, mahal nga ang GPS, tapos pag mayron ka nito ay makikita mo kagad yung location, at hindi kana mamroblema kahit gabi, kahit maulan, madilim, may sigurado ka nang pupuntahan."
+    },
+    {
+      "id": "v25",
+      "section": 6,
+      "at": 0.5,
+      "text": "FishPin isn't an idea. It's live on Google Play, built and supported here in Mansalay."
+    },
+    {
+      "id": "v26",
+      "section": 6,
+      "at": 7.1,
+      "text": "Thirty-five users around the Philippines already use FishPin, and demos at our landing site come next."
+    },
+    {
+      "id": "v27",
+      "section": 6,
+      "at": 14.5,
+      "text": "The provincial prize funds the build: a development PC, AI subscriptions and demo phones."
+    },
+    {
+      "id": "v28",
+      "section": 6,
+      "at": 21.5,
+      "text": "Our next release adds a seven-day trial, so fishers can test it at sea before paying once."
+    },
+    {
+      "id": "v29",
+      "section": 7,
+      "at": 0.5,
+      "text": "The model is simple: try it for seven days, then a one-time Lifetime purchase through Google Play, paid with GCash, Maya or load."
+    },
+    {
+      "id": "v30",
+      "section": 7,
+      "at": 10.9,
+      "text": "No subscription, no renewals to miss."
+    },
+    {
+      "id": "v31",
+      "section": 7,
+      "at": 14.2,
+      "text": "We'll reach fishers where they are: fifteen cooperative sessions at landings in five towns of southern Oriental Mindoro,"
+    },
+    {
+      "id": "v32",
+      "section": 7,
+      "at": 21.95,
+      "text": "with demo phones, Tagalog guides and SOS cards."
+    },
+    {
+      "id": "v33",
+      "section": 8,
+      "at": 0.5,
+      "text": "Total investment is nearly two hundred eighty-five thousand pesos: the provincial grant, this regional grant of one hundred fifty thousand, and our counterpart."
+    },
+    {
+      "id": "v34",
+      "section": 8,
+      "at": 11.2,
+      "text": "With one thousand licences in year one, the project pays back in about eight months."
+    },
+    {
+      "id": "v35",
+      "section": 8,
+      "at": 17,
+      "text": "The regional grant funds our social media campaign, the iPhone version, the commercial weather licence, fifteen cooperative sessions, and Tagalog guides and SOS cards."
+    },
+    {
+      "id": "v36",
+      "section": 9,
+      "at": 0.4,
+      "text": "Help us bring FishPin to every fisher in MIMAROPA."
+    },
+    {
+      "id": "v37",
+      "section": 9,
+      "at": 7.2,
+      "text": "FishPin: safer seas for every Filipino fisher.",
+      "caption": false
+    }
+  ],
+  "elevenVoiceId": "C1npRmjB19a6yNkEucvx",
+  "elevenSettings": {
+    "stability": 0.35,
+    "style": 0.45,
+    "speed": 1
+  }
+}

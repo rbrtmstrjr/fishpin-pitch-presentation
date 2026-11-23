@@ -1,0 +1,7 @@
+{
+  "note": "How the voice should say local words. The voice-over scripts send the respelling; captions keep the real spelling. Lowercase keys; capitalisation is preserved.",
+  "words": {
+    "barangay": "baranggai",
+    "mansalay": "mansalai"
+  }
+}

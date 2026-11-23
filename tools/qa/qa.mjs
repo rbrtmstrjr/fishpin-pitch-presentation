@@ -3,8 +3,8 @@
 // (the venue may have no internet), steps through every slide, and fails on: runtime
 // errors, blocked requests, elements outside the 1920x1080 frame, text under 28px on
 // main slides, unfilled numbers, broken images, text still hidden after the entrance,
-// wrong counters, speaker notes over their time budget, slide-specific facts, and
-// broken interactions (airplane toggle, SOS hold, Q menu, Esc return, clicker guard, timer).
+// wrong counters, speaker notes over their time budget, clip slides without a loaded
+// video or poster, and broken interactions (Q menu, Esc return, clicker guard, timer).
 //
 // Usage (from the deck root):
 //   node tools/qa/qa.mjs                  full check; screenshots + rendered.txt in tools/qa/out/
@@ -29,26 +29,19 @@ const WORDS_PER_MINUTE = 140;
 const MAIN_SECONDS = 280;
 const MIN_FONT = 28;
 const DEFAULT_WAIT = 1800;
-const WAIT = { problem: 2600, offline: 3000, traction: 2600, model: 2200, market: 2200, gtm: 3000, financials: 2400, impact: 5200, close: 2800 };
+const WAIT = {};
 
-/* Slide facts that must hold once the slide has settled. Each returns '' or an error. */
-const CHECKS = {
-  problem: () => {
-    const dots = document.querySelectorAll('#problem .dot').length;
-    const lit = document.querySelectorAll('#problem .dot.gps').length;
-    if (dots !== DECK.market.barangayFishermen) return `expected ${DECK.market.barangayFishermen} dots, found ${dots}`;
-    if (lit !== DECK.market.barangayGps) return `expected ${DECK.market.barangayGps} lit dots, found ${lit}`;
-    return document.getElementById('gpsCount').textContent.trim() === String(DECK.market.barangayGps) ? '' : 'GPS counter did not land on the data value';
-  },
-  solution: () => document.querySelectorAll('#solution [data-tile]').length === 6 && document.querySelectorAll('#solution .scr').length === 6 ? '' : 'solution needs 6 tiles and 6 screens',
-  novelty: () => document.querySelectorAll('#novelty .track span').length >= DECK.fishNames.length * 2 ? '' : 'fish-name rows are not filled',
-  traction: () => document.querySelectorAll('#traction .ms').length === DECK.traction.milestones.length ? '' : 'timeline does not match DECK.traction.milestones',
-  model: () => document.querySelectorAll('#model .bar-row').length === DECK.competitors.length + 1 ? '' : 'cost bars do not match DECK.competitors plus FishPin',
-  market: () => document.querySelectorAll('#market .ring').length === 3 ? '' : 'market needs 3 rings',
-  gtm: () => document.querySelectorAll('#gtm .town').length === DECK.gtm.towns.length ? '' : 'coast map does not show every town',
-  financials: () => document.querySelectorAll('#financials .stack i').length === 3 ? '' : 'funding stack needs 3 segments',
-  impact: () => document.getElementById('sos').dataset.state === 'sent' ? '' : 'SOS demo did not reach the sent state',
-  close: () => { const b = document.querySelector('#close .boat'); return b && b.style.transform ? '' : 'boat is not placed on the route'; },
+/* Slide facts that must hold once the slide has settled. Each returns '' or an error.
+   Slides 02-16 are clips (section.clip): each must have its video attached (Reveal sets src from
+   data-src as the slide nears), a poster for still mode, and no load error. */
+const CHECKS = {};
+const CLIP_CHECK = id => {
+  const v = document.querySelector(`#${id} video.clip-video`);
+  if (!v) return 'clip slide has no video.clip-video';
+  if (!v.getAttribute('poster')) return 'clip video has no poster (its last frame, for still mode)';
+  if (!v.getAttribute('src')) return 'clip video was not loaded from data-src';
+  if (v.error) return `clip video failed to load (code ${v.error.code})`;
+  return '';
 };
 
 const failures = [];
@@ -97,7 +90,7 @@ async function open(query = '', viewport = { width: 1920, height: 1080 }) {
 }
 
 const slideList = page => page.evaluate(() => [...document.querySelectorAll('.reveal .slides > section')]
-  .map((s, i) => ({ i, id: s.id, appendix: s.hasAttribute('data-appendix'), time: Number(s.dataset.time || 0) })));
+  .map((s, i) => ({ i, id: s.id, appendix: s.hasAttribute('data-appendix'), clip: s.classList.contains('clip'), time: Number(s.dataset.time || 0) })));
 const goTo = (page, id) => page.evaluate(id => {
   const all = [...document.querySelectorAll('.reveal .slides > section')];
   Reveal.slide(all.findIndex(s => s.id === id));
@@ -186,13 +179,17 @@ async function checkSlidesInner(page, ready) {
       const msg = await page.evaluate(`(${CHECKS[s.id]})()`);
       if (msg) fail(where, msg);
     }
+    if (s.clip) {
+      const msg = await page.evaluate(`(${CLIP_CHECK})(${JSON.stringify(s.id)})`);
+      if (msg) fail(where, msg);
+    }
     await page.screenshot({ path: join(OUT, `${pad(s.i + 1)}-${s.id}.png`) });
     rendered += `=== ${s.id} [${s.appendix ? 'appendix' : 'main'}] ===\n${r.text}\n--- notes ---\n${r.notes}\n\n`;
   }
   if (!only) {
     const total = mains.reduce((t, s) => t + s.time, 0);
     if (has('notes')) {
-      if (mains.length !== 12) fail('deck shape', `expected 12 main slides, found ${mains.length}`);
+      if (mains.length !== 16) fail('deck shape', `expected 16 main slides (cover + 15 clips), found ${mains.length}`);
       if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
     } else if (total > MAIN_SECONDS) {
       fail('timing', `main slides add up to ${total}s; budget is ${MAIN_SECONDS}s`);

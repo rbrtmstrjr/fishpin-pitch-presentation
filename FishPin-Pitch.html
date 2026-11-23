@@ -12,7 +12,7 @@
 <div class="reveal"><div class="slides">
 
 <!-- 01 cover: Tatay's face in slow motion behind a navy fade (Figma "01 Cover · B + Tatay clip") -->
-<section id="cover" data-time="10">
+<section id="cover" data-time="12">
   <div class="cover-media" data-bleed aria-hidden="true">
     <video class="cover-video" src="assets/video/cover-tatay.mp4" poster="assets/video/cover-tatay.jpg" muted loop playsinline preload="auto" data-autoplay></video>
     <div class="cover-shade"></div>
@@ -31,299 +31,94 @@
   <aside class="notes">Magandang araw po. I'm Robert Maestro Jr. from Mansalay, Oriental Mindoro. This is FishPin: sea charts that work with no signal.</aside>
 </section>
 
-<!-- 02 problem: 103 fishermen, 10 GPS -->
-<section id="problem" data-time="25" class="contour">
-  <figure class="photo-panel"><img src="assets/photos/dusk-banca.jpg" alt="Fishermen pushing a banca out to sea"></figure>
-  <div class="frame problem">
-    <p class="eyebrow" data-rise>The problem &middot; Brgy. B. del Mundo, Mansalay</p>
-    <div class="hero-row" data-rise>
-      <span id="gpsCount" class="hero-num" data-k="market.barangayGps" data-f="int" data-count data-count-at="0.95" data-count-dur="1.2"></span>
-      <p class="hero-of">of about <span class="num" data-k="market.barangayFishermen" data-f="int"></span> fishermen<br>own a GPS.</p>
-    </div>
-    <div id="fisherDots" class="dots" aria-hidden="true"></div>
-    <p class="lede" data-rise>The other <span class="num" data-k="market.barangayMemory" data-f="int"></span> navigate by memory and landmarks.</p>
-    <div class="facts">
-      <div class="card fact" data-rise><i data-icon="wallet"></i><p><b><span class="num" data-k="market.plotterMin" data-f="php"></span> to <span class="num" data-k="market.plotterMax" data-f="int"></span></b> for a marine GPS plotter</p></div>
-      <div class="card fact" data-rise><i data-icon="wifi-off"></i><p><b>No signal at sea,</b> and other apps need one</p></div>
-    </div>
-    <p class="note" data-rise>Fisherfolk poverty incidence: <span class="num" data-k="market.povertyPct" data-f="pct1"></span> (PSA, <span data-k="market.povertyYear" data-f="text"></span>), second highest of all basic sectors.</p>
-  </div>
-  <aside class="notes">In my barangay, B. del Mundo, there are about 103 fishermen. Only 10 own a GPS. The other 93 find their fishing grounds by memory and landmarks. A marine GPS plotter costs 8,000 to 30,000 pesos, and other apps need a signal that is gone at sea. And fisherfolk are among the poorest families in the country.</aside>
+<!-- 02 hook: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="hook" class="clip" data-time="22">
+  <video class="clip-video" data-src="assets/clips/02-hook.mp4" poster="assets/clips/02-hook.jpg" muted playsinline preload="auto" data-autoplay aria-label="Bancas leave at sunrise, the signal drops to no service, and no one knows where you are."></video>
+  <aside class="notes">Every morning, more than a hundred fishermen leave the shore of our barangay. A few kilometers out, mobile data is gone. There's no chart. No tracking. And if something goes wrong, no one knows where you are.</aside>
 </section>
 
-<!-- 03 solution: the phone he already owns, now a marine GPS -->
-<section id="solution" data-time="25" class="contour">
-  <div class="frame solution">
-    <div class="sol-phone at-0" data-rise>
-      <div class="phone"><div class="screen">
-        <img class="scr on" src="assets/screens/map-nautical.png" alt="Nautical chart with Philippine depths">
-        <img class="scr" src="assets/screens/navigate.png" alt="Navigating back to a saved spot">
-        <img class="scr" src="assets/screens/trip.png" alt="Trip recording">
-        <img class="scr" src="assets/screens/anchor-armed.png" alt="Anchor alarm armed">
-        <img class="scr" src="assets/screens/scan-result.png" alt="AI fish ID result">
-        <img class="scr" src="assets/screens/sos.png" alt="Emergency SOS">
-      </div></div>
-      <div class="pin-wrap" aria-hidden="true">
-        <span class="pin-ripple"></span>
-        <svg class="pin-drop" viewBox="0 0 56 76"><path d="M28 2C14 2 3 13 3 27c0 18 25 45 25 45s25-27 25-45C53 13 42 2 28 2z" fill="#FFC857" stroke="#0a2461" stroke-width="3"/><circle cx="28" cy="27" r="9" fill="#0a2461"/></svg>
-      </div>
-    </div>
-    <div class="sol-copy">
-      <p class="eyebrow" data-rise>The solution</p>
-      <h2 class="h2" data-rise>The phone he already owns.<br><span class="blue">Now a marine GPS.</span></h2>
-      <ol class="tiles">
-        <li class="tile on" data-rise data-tile><i class="icon-sq" data-icon="map"></i><span>Sea chart with Philippine depths</span></li>
-        <li class="tile" data-rise data-tile><i class="icon-sq" data-icon="map-pin"></i><span>Save a spot, navigate back</span></li>
-        <li class="tile" data-rise data-tile><i class="icon-sq" data-icon="route"></i><span>Trip recording, screen off</span></li>
-        <li class="tile" data-rise data-tile><i class="icon-sq" data-icon="anchor"></i><span>Anchor-drag alarm</span></li>
-        <li class="tile" data-rise data-tile><i class="icon-sq" data-icon="scan-line"></i><span>AI fish ID</span></li>
-        <li class="tile" data-rise data-tile><i class="icon-sq" data-icon="siren"></i><span>One-tap SOS to family</span></li>
-      </ol>
-    </div>
-  </div>
-  <aside class="notes">FishPin turns the Android phone a fisherman already owns into a marine GPS. A sea chart with Philippine depths. Save a fishing spot and navigate straight back to it. Record the trip, even with the screen off. An anchor alarm. AI that identifies the catch. And one-tap SOS to his family.</aside>
+<!-- 03 problem-gps: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="problem-gps" class="clip" data-time="20">
+  <video class="clip-video" data-src="assets/clips/03-problem-gps.mp4" poster="assets/clips/03-problem-gps.jpg" muted playsinline preload="auto" data-autoplay aria-label="About 103 fishermen in our barangay, 10 own a GPS, and a marine GPS costs 8,000 to 30,000 pesos."></video>
+  <aside class="notes">Most small fishers still navigate from memory. Our barangay has about 103 fishermen, but only 10 own a GPS, because a marine GPS plotter costs 8,000 to 30,000 pesos. Out of reach for most small fishers.</aside>
 </section>
 
-<!-- 04 offline: airplane mode, still navigating -->
-<section id="offline" data-time="25" class="contour air-on">
-  <div class="frame offline">
-    <div class="off-phone" data-rise>
-      <div class="phone"><div class="screen"><img src="assets/screens/navigate.png" alt="Navigation running with no signal"></div>
-        <div class="statusbar" data-ui aria-hidden="true"><span class="bars"><i></i><i></i><i></i><i></i></span><i class="plane" data-icon="plane"></i></div>
-      </div>
-    </div>
-    <div class="off-copy">
-      <p class="eyebrow" data-rise>Proof, not promise</p>
-      <h2 class="h2" data-rise>Airplane mode.<br><span class="amber">Still navigating.</span></h2>
-      <div class="air-row" data-rise>
-        <button id="airSwitch" class="air-switch" type="button" role="switch" aria-checked="true" aria-label="Airplane mode"><span class="knob"><i data-icon="plane"></i></span></button>
-        <span id="airCaption" class="mono">Airplane mode on</span>
-      </div>
-      <div class="off-cols">
-        <div class="card" data-rise><h3 class="h3">Keeps working</h3>
-          <ul class="checks">
-            <li><i data-icon="check"></i>Sea chart (downloaded)</li>
-            <li><i data-icon="check"></i>GPS position</li>
-            <li><i data-icon="check"></i>Saved spots</li>
-            <li><i data-icon="check"></i>Trip recording</li>
-            <li><i data-icon="check"></i>Navigation</li>
-            <li><i data-icon="check"></i>Catch logbook</li>
-            <li><i data-icon="check"></i>Fish guide</li>
-          </ul></div>
-        <div class="card" data-rise><h3 class="h3">Waits for a connection</h3>
-          <ul class="waits">
-            <li><i data-icon="cloud-off"></i>Weather forecast</li>
-            <li><i data-icon="cloud-off"></i>AI fish ID</li>
-            <li><i data-icon="cloud-off"></i>Map downloads</li>
-            <li><i data-icon="cloud-off"></i>Cloud backup</li>
-          </ul></div>
-      </div>
-    </div>
-    <img class="mascot off-mascot" src="assets/brand/mascots/map.svg" alt="">
-  </div>
-  <aside class="notes">Here is what matters at sea. I switch on airplane mode. The chart, his GPS position, saved spots, trip recording, navigation and the fish guide all keep working. The weather forecast, AI fish ID and map downloads wait for a connection. We are honest about that line, because at sea a fisherman's safety depends on it.</aside>
+<!-- 04 problem-signal: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="problem-signal" class="clip" data-time="20">
+  <video class="clip-video" data-src="assets/clips/04-problem-signal.mp4" poster="assets/clips/04-problem-signal.jpg" muted playsinline preload="auto" data-autoplay aria-label="Phone apps need mobile data, small boats have no tracking or safety net, and life is getting harder."></video>
+  <aside class="notes">Phone apps don't help. They need mobile data that isn't there. And small boats have no tracking or safety system at all. Life is getting harder: in MIMAROPA, fisherfolk poverty rose ten points, and Oriental Mindoro's municipal catch fell forty-three percent.</aside>
 </section>
 
-<!-- 05 novelty: our seas, our words -->
-<section id="novelty" data-time="25" class="contour">
-  <div class="frame novelty">
-    <p class="eyebrow" data-rise>Built for Philippine waters</p>
-    <h2 class="h2" data-rise>Our seas. Our words.</h2>
-    <div class="nov-hero" data-rise>
-      <span class="hero-num" data-k="product.localNames" data-f="int" data-count></span>
-      <p>local fish names in <span class="num" data-k="product.languages" data-f="int"></span> languages, across <span class="num" data-k="product.species" data-f="int"></span> species</p>
-    </div>
-    <div class="marquee" data-bleed aria-hidden="true"><div class="track"></div><div class="track rev"></div></div>
-    <div class="nov-cards">
-      <div class="card nov-card" data-rise><i class="icon-sq" data-icon="waves"></i><div><h3 class="h3">Philippine depth chart</h3><p>Built into the app, so depth shows with no signal.</p></div></div>
-      <div class="card nov-card" data-rise><i class="icon-sq" data-icon="anchor"></i><div><h3 class="h3">Anchor-drag alarm</h3><p>Rings even on silent if the banca drifts.</p></div></div>
-      <div class="card nov-card" data-rise><i class="icon-sq" data-icon="siren"></i><div><h3 class="h3">SOS with load codes</h3><p>Texts <span data-k="product.sosContactsMin" data-f="int"></span> to <span data-k="product.sosContactsMax" data-f="int"></span> contacts, with the borrow-load code for Globe, Smart or DITO.</p></div></div>
-    </div>
-  </div>
-  <aside class="notes">And it is built for Philippine waters. A Philippine depth chart is built in. The fish guide covers 300 species with 6,337 local names in 26 languages, so he searches in the words he actually uses. The anchor alarm rings even on silent, and SOS shows the right borrow-load code when he has no load.</aside>
+<!-- 05 demo-chart: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="demo-chart" class="clip" data-time="18">
+  <video class="clip-video" data-src="assets/clips/05-demo-chart.mp4" poster="assets/clips/05-demo-chart.jpg" muted playsinline preload="auto" data-autoplay aria-label="FishPin's offline sea chart in airplane mode: map, depth chart and GPS keep working."></video>
+  <aside class="notes">FishPin turns any Android phone into an offline sea chart. This phone is in airplane mode: the map, the depth chart and the GPS keep working.</aside>
 </section>
 
-<!-- 06 traction: status of implementation -->
-<section id="traction" data-time="30" class="contour">
-  <div class="frame traction">
-    <div class="tr-left">
-      <p class="eyebrow" data-rise>Status of implementation</p>
-      <h2 class="h2" data-rise>Not a plan.<br>Already live.</h2>
-      <div class="tr-hero" data-rise>
-        <span class="hero-num" data-k="traction.accounts" data-f="int" data-count></span>
-        <p>accounts on Google Play<br><span class="chip">as of <span data-k="traction.asOf" data-f="date"></span></span></p>
-      </div>
-      <div class="stats">
-        <div class="card stat" data-rise><span class="num" data-k="traction.foundingAnglers" data-f="int" data-count data-count-at="0.3"></span><span>Founding Anglers from the paid launch</span></div>
-        <div class="card stat" data-rise><span class="num"><span data-k="traction.rating" data-f="dec1"></span><i class="star" data-icon="star"></i></span><span>Google Play rating</span></div>
-        <div class="card stat" data-rise><span class="num">v<span data-k="traction.version" data-f="text"></span></span><span>shipped, with interactive map lessons</span></div>
-      </div>
-      <div class="tl-wrap" data-rise><i class="tl-track"></i><i class="tl-fill"></i><ol class="timeline"></ol></div>
-    </div>
-    <figure class="tr-photo">
-      <img src="assets/photos/robert-and-fisherman.jpg" alt="Robert with a fisherman, both holding FishPin">
-      <figcaption class="card impl" hidden><p class="h3">With the grants so far</p><ul></ul></figcaption>
-    </figure>
-  </div>
-  <aside class="notes">FishPin is not a plan. It is live on Google Play. As of October 22 we had 118 accounts, including 35 Founding Anglers from our paid launch, and a 5.0 rating. Since the provincial win we moved to a 7-day free trial with a one-time purchase and shipped version 1.2.0. After the regional win, the iOS release is planned for December.</aside>
+<!-- 06 demo-spot: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="demo-spot" class="clip" data-time="12">
+  <video class="clip-video" data-src="assets/clips/06-demo-spot.mp4" poster="assets/clips/06-demo-spot.jpg" muted playsinline preload="auto" data-autoplay aria-label="Save a spot with one tap; FishPin points straight back with distance and arrival time."></video>
+  <aside class="notes">Save a spot with one tap, and on the next trip FishPin points you straight back, with distance and arrival time.</aside>
 </section>
 
-<!-- 07 model: pay once, own it -->
-<section id="model" data-time="25" class="contour">
-  <div class="frame model">
-    <div class="model-left">
-      <p class="eyebrow" data-rise>Business model</p>
-      <h2 class="h2" data-rise>Pay once.<br>Own it.</h2>
-      <p class="hero-num model-price" data-rise data-k="price" data-f="php"></p>
-      <p class="price-sub" data-rise>one-time &middot; after a <span data-k="trialDays" data-f="int"></span>-day free trial</p>
-      <ul class="reasons">
-        <li data-rise><i data-icon="wallet"></i><span><b>No subscription.</b> A monthly bill is the first thing dropped when the catch is poor.</span></li>
-        <li data-rise><i data-icon="smartphone"></i><span><b>GCash, Maya, card or load,</b> paid through Google Play.</span></li>
-      </ul>
-    </div>
-    <div class="card cost-card" data-rise>
-      <h3 class="h3">What navigation costs over five years</h3>
-      <p class="sub">Apps: yearly price for five years. Plotter: one-time hardware.</p>
-      <div class="bars"></div>
-      <p class="cost-callout">FishPin costs <b class="ratio"></b> less than <span class="ratio-who"></span> over five years.</p>
-    </div>
-  </div>
-  <aside class="notes">The model is simple: 599 pesos, once, after a 7-day free trial. No subscription, because a monthly bill is the first thing dropped when the catch is poor. He pays with GCash, Maya, a card or load. Over five years Navionics costs 16,250 pesos and Fishbrain 21,000. FishPin stays at 599.</aside>
+<!-- 07 demo-trip: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="demo-trip" class="clip" data-time="14">
+  <video class="clip-video" data-src="assets/clips/07-demo-trip-score.mp4" poster="assets/clips/07-demo-trip-score.jpg" muted playsinline preload="auto" data-autoplay aria-label="Every trip recorded, and the fishing score shows the best hours to go out."></video>
+  <aside class="notes">Every trip is recorded, even with the screen off. Before leaving, the fishing score reads wind, waves and current, and shows the best hours to go out.</aside>
 </section>
 
-<!-- 08 market -->
-<section id="market" data-time="20" class="contour">
-  <div class="frame market">
-    <div class="mk-left">
-      <p class="eyebrow" data-rise>Market</p>
-      <h2 class="h2" data-rise>A <span class="amber num" data-k="market.tamM" data-f="phpM"></span><br>market.</h2>
-      <ul class="tiers">
-        <li data-rise><i class="key tam"></i><div><b>TAM <span class="num" data-k="market.tamM" data-f="phpM"></span></b><span><span data-k="market.sector" data-f="million"></span> municipal fishermen &times; <span data-k="price" data-f="php"></span></span></div></li>
-        <li data-rise><i class="key sam"></i><div><b>SAM <span class="num" data-k="market.samM" data-f="phpM"></span></b><span><span data-k="market.smartphoneShare" data-f="share"></span> smartphone ownership (assumption)</span></div></li>
-        <li data-rise><i class="key som"></i><div><b>SOM <span class="num" data-k="market.somM" data-f="phpM"></span></b><span><span data-k="market.somUsers" data-f="int"></span> paid users by year three</span></div></li>
-      </ul>
-      <div class="path" data-rise><span class="leg">Mansalay <i data-icon="arrow-right"></i> southern Oriental Mindoro</span><span class="leg"><i data-icon="arrow-right"></i> MIMAROPA <i data-icon="arrow-right"></i> Visayas, Bicol</span></div>
-    </div>
-    <div class="rings" aria-hidden="true"></div>
-  </div>
-  <aside class="notes">There are 1.1 million municipal fishermen. At 599 pesos, that is a 659 million peso market. Assuming 70 percent own a smartphone, 461 million is within reach. Our target is 5,000 paid users by year three, about 3 million pesos.</aside>
+<!-- 08 demo-sos: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="demo-sos" class="clip" data-time="20">
+  <video class="clip-video" data-src="assets/clips/08-demo-anchor-sos.mp4" poster="assets/clips/08-demo-anchor-sos.jpg" muted playsinline preload="auto" data-autoplay aria-label="The anchor alarm wakes the crew; the SOS sends your exact location by plain SMS."></video>
+  <aside class="notes">At anchor, if the boat drifts, a loud alarm wakes the crew. In an emergency, a three-second press opens an SOS text to three to five contacts with your exact location, by plain SMS. No mobile data needed.</aside>
 </section>
 
-<!-- 09 go-to-market: start at home, grow town by town -->
-<section id="gtm" data-time="20" class="contour">
-  <div class="frame gtm">
-    <div class="coast" aria-hidden="true">
-      <svg viewBox="0 0 560 840">
-        <path class="land" d="M0,0 L238,0 C246,40 236,80 252,118 C266,150 286,190 290,232 C294,270 310,300 304,338 C298,378 322,410 330,446 C338,484 330,520 348,556 C362,586 384,600 374,640 C364,684 382,716 366,752 C352,786 330,806 318,840 L0,840 Z"/>
-        <path class="coast-line" d="M238,0 C246,40 236,80 252,118 C266,150 286,190 290,232 C294,270 310,300 304,338 C298,378 322,410 330,446 C338,484 330,520 348,556 C362,586 384,600 374,640 C364,684 382,716 366,752 C352,786 330,806 318,840"/>
-        <path class="coast-hl" d="M238,0 C246,40 236,80 252,118 C266,150 286,190 290,232 C294,270 310,300 304,338 C298,378 322,410 330,446 C338,484 330,520 348,556 C362,586 384,600 374,640 C364,684 382,716 366,752 C352,786 330,806 318,840"/>
-        <text class="region" x="28" y="806">Oriental Mindoro</text>
-        <g class="towns"></g>
-      </svg>
-    </div>
-    <div class="gtm-right">
-      <p class="eyebrow" data-rise>Go-to-market</p>
-      <h2 class="h2" data-rise>Start at home.<br>Grow town by town.</h2>
-      <div class="channels">
-        <div class="card channel" data-rise><i class="icon-sq" data-icon="users"></i><div><b><span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions</b><span>one a month, reaching about <span class="num" data-k="gtm.reach" data-f="int"></span> fishermen in person</span></div></div>
-        <div class="card channel" data-rise><i class="icon-sq" data-icon="megaphone"></i><div><b><span data-k="gtm.adsPerMonth" data-f="php"></span> a month</b><span>Facebook and TikTok ads aimed at coastal towns</span></div></div>
-        <div class="card channel" data-rise><i class="icon-sq" data-icon="printer"></i><div><b><span data-k="gtm.guides" data-f="int"></span> printed guides</b><span>Tagalog quick-start guides and SOS cards at fish landings</span></div></div>
-      </div>
-      <div class="targets" data-rise>
-        <div class="target y1"><b data-k="fin.targets.0" data-f="int" data-count data-count-at="1.3"></b><span>paid users, year 1</span></div>
-        <i data-icon="arrow-right"></i>
-        <div class="target"><b data-k="fin.targets.1" data-f="int" data-count data-count-at="1.45"></b><span>year 2</span></div>
-        <i data-icon="arrow-right"></i>
-        <div class="target"><b data-k="fin.targets.2" data-f="int" data-count data-count-at="1.6"></b><span>year 3</span></div>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">We start in five towns of southern Oriental Mindoro. Twelve cooperative sessions, one a month, reach about 360 fishermen. Add Facebook and TikTok ads at 5,000 pesos a month, and 1,000 printed Tagalog guides. Targets: 1,000 paid users this year, 3,000 next, 5,000 by year three.</aside>
+<!-- 09 demo-catch: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="demo-catch" class="clip" data-time="16">
+  <video class="clip-video" data-src="assets/clips/09-demo-catch.mp4" poster="assets/clips/09-demo-catch.jpg" muted playsinline preload="auto" data-autoplay aria-label="Log the catch, the AI names the fish, and a guide of 300 Philippine species in local names."></video>
+  <aside class="notes">Back on shore, log the catch, and FishPin's AI names the fish, with a guide of 300 Philippine species in local names. From the shore, to the spot, and safely home.</aside>
 </section>
 
-<!-- 10 financials: honest math -->
-<section id="financials" data-time="30" class="contour">
-  <div class="frame">
-    <p class="eyebrow" data-rise>Financial projection &middot; year one</p>
-    <div class="fin-grid">
-      <div class="paper fund" data-rise>
-        <p class="fund-label">Total investment</p>
-        <p class="fund-total num" data-k="fin.total" data-f="php" data-count data-count-at="1.5"></p>
-        <div class="stack"></div>
-        <table class="fund-rows"><tbody>
-          <tr><td><i class="key s1"></i>Provincial grant</td><td class="num" data-k="fin.grantProvincial" data-f="php"></td></tr>
-          <tr><td><i class="key s2"></i>Regional grant</td><td class="num" data-k="fin.grantRegional" data-f="php"></td></tr>
-          <tr><td><i class="key s3"></i>My counterpart<small><span data-k="fin.counterpartInKind" data-f="php"></span> of it in kind</small></td><td class="num" data-k="fin.counterpart" data-f="php"></td></tr>
-        </tbody></table>
-      </div>
-      <div class="pl">
-        <h2 class="h2" data-rise>Honest math.</h2>
-        <div class="pl-row" data-rise><span><span data-k="fin.unitsY1" data-f="int"></span> licences &times; <span data-k="price" data-f="php"></span></span><b class="num" data-k="fin.gross" data-f="php"></b></div>
-        <div class="pl-row" data-rise><span>Less Google Play fee, VAT and services</span><b class="num">&minus;<span data-k="fin.cogs" data-f="php"></span></b></div>
-        <div class="pl-row net" data-rise><span>Net income</span><b class="num" data-k="fin.net" data-f="php"></b></div>
-        <div class="kpis">
-          <div class="kpi roi" data-rise><span class="num" data-k="fin.roi" data-f="pct" data-count data-count-at="1.2"></span><span>return on investment</span></div>
-          <div class="kpi" data-rise><span class="num" data-k="fin.payback" data-f="yrs" data-count data-count-at="1.3"></span><span>payback period</span></div>
-        </div>
-        <p class="viable" data-rise><i data-icon="shield-check"></i><span>Still viable at <b class="num" data-k="fin.sensitivity.0.units" data-f="int"></b> licences: <b class="num" data-k="fin.sensitivity.0.roi" data-f="pct"></b> ROI, <b class="num" data-k="fin.sensitivity.0.payback" data-f="yrs"></b> payback</span></p>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">Total investment is 275,815 pesos: 80,000 from the provincial grant, 150,000 from the regional grant, and 45,815 of my own counterpart. A thousand licences bring 599,000 pesos in sales. After Google's fee, VAT, and all cloud, map and AI services, net income is 423,478. That is a 153.54 percent return, with payback in 0.65 years. Even at half the target, it still returns 63 percent.</aside>
+<!-- 10 value: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="value" class="clip" data-time="18">
+  <video class="clip-video" data-src="assets/clips/10-value.mp4" poster="assets/clips/10-value.jpg" muted playsinline preload="auto" data-autoplay aria-label="Safer trips, less fuel and searching, and every catch on record."></video>
+  <aside class="notes">What does that add for a fisher? Safer trips. Less fuel and time spent searching, because you go straight back to proven spots. And a record of every catch, for the fisher and the cooperative.</aside>
 </section>
 
-
-<!-- 11 impact: safety, income, knowledge (live SOS demo) -->
-<section id="impact" data-time="25" class="contour">
-  <div class="frame impact">
-    <div class="sos-col">
-      <div class="phone"><div class="screen sos-screen" id="sos" data-state="sent" data-ui>
-        <p class="sos-e">Emergency</p>
-        <h4>Send my location</h4>
-        <button id="sosBtn" type="button" aria-label="Hold for SOS">
-          <svg viewBox="0 0 260 260"><circle class="track" cx="130" cy="130" r="118"/><circle class="prog" cx="130" cy="130" r="118"/></svg>
-          <span class="core">HOLD<br>FOR SOS</span>
-        </button>
-        <p class="sos-hint">Press and hold for <span data-k="product.sosHoldSeconds" data-f="int"></span> seconds</p>
-        <div class="sos-msg"><b>SOS sent to <span data-k="product.sosContactsMin" data-f="int"></span> contacts</b><span>12.5216 N, 121.4381 E &middot; by SMS</span></div>
-      </div></div>
-      <img class="mascot sos-mascot" src="assets/brand/mascots/storm_bouya.svg" alt="">
-    </div>
-    <div class="impact-copy">
-      <p class="eyebrow" data-rise>Impact</p>
-      <h2 class="h2" data-rise>Safety. Income.<br>Knowledge.</h2>
-      <div class="impacts">
-        <div class="card imp" data-rise><i class="icon-sq" data-icon="shield-check"></i><div><h3 class="h3">Safety at sea</h3><p>Hold SOS for <span class="num" data-k="product.sosHoldSeconds" data-f="int"></span> seconds: his exact position goes by SMS to <span class="num" data-k="product.sosContactsMin" data-f="int"></span> to <span class="num" data-k="product.sosContactsMax" data-f="int"></span> family contacts.</p></div></div>
-        <div class="card imp" data-rise><i class="icon-sq" data-icon="trending-up"></i><div><h3 class="h3">Income, less waste</h3><p>Proven spots mean fewer wasted trips and less fuel. AI fish ID names an unfamiliar catch before he sells it.</p></div></div>
-        <div class="card imp" data-rise><i class="icon-sq" data-icon="book-open"></i><div><h3 class="h3">Knowledge kept</h3><p>Spots and catch logs stay with the family, not lost when the elder retires.</p></div></div>
-      </div>
-    </div>
-  </div>
-  <aside class="notes">The impact is safety, income and knowledge. Hold SOS for three seconds and his exact position goes by text to his family. Proven spots mean fewer wasted trips and less fuel, and AI fish ID names an unfamiliar catch before he sells it. And his spots and catch logs stay with the family, not lost when the elder retires.</aside>
+<!-- 11 status-live: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="status-live" class="clip" data-time="18">
+  <video class="clip-video" data-src="assets/clips/11-status-live.mp4" poster="assets/clips/11-status-live.jpg" muted playsinline preload="auto" data-autoplay aria-label="FishPin is live on Google Play, built and supported in Mansalay, Oriental Mindoro."></video>
+  <aside class="notes">FishPin isn't an idea. It's live on Google Play, built and supported here in Mansalay, with 118 accounts as of 22 October.</aside>
 </section>
 
-<!-- 12 close: every Filipino fisher knows where to fish, and the way home -->
-<section id="close" data-time="20" class="contour drift">
-  <div class="frame close">
-    <img class="close-logo" data-rise src="assets/brand/logo/fishpin-horizontal-dark.svg" alt="FishPin">
-    <h2 class="quote"><span data-rise>Every Filipino fisher</span> <span data-rise>knows where to fish,</span> <span class="amber" data-rise>and the way home.</span></h2>
-    <div class="voyage" aria-hidden="true">
-      <svg viewBox="0 0 1664 260">
-        <defs><clipPath id="voyageClip"><rect x="0" y="-60" width="1664" height="380"/></clipPath></defs>
-        <path class="path" clip-path="url(#voyageClip)" d="M60,190 C420,40 760,250 1080,150 S1450,60 1580,110"/>
-        <g class="spot" transform="translate(60 190)"><path d="M0,-50 C-15,-50 -26,-39 -26,-24 C-26,-6 0,18 0,18 C0,18 26,-6 26,-24 C26,-39 15,-50 0,-50 Z"/><circle cx="0" cy="-24" r="9"/></g>
-      </svg>
-      <span class="home-mark"><i data-icon="house"></i></span>
-      <img class="boat" src="assets/brand/mascots/boat_side.svg" alt="">
-    </div>
-    <div class="nexts" data-rise>
-      <span class="next"><i data-icon="smartphone"></i><span>iOS release <em>&middot; planned Dec <span class="num">2026</span></em></span></span>
-      <span class="next"><i data-icon="book-open"></i><span>Filipino-language interface <em>&middot; planned</em></span></span>
-      <span class="next"><i data-icon="siren"></i><span>SOS live tracking <em>&middot; in development</em></span></span>
-    </div>
-    <div class="thanks" data-rise><b>Maraming salamat po.</b><span class="mono">Robert S. Maestro Jr. &middot; fishpin.app</span></div>
-  </div>
-  <aside class="notes">My dream is simple: every Filipino fisher knows where to fish, and the way home. Next come the iOS release, a Filipino-language interface, and live SOS tracking. Maraming salamat po.</aside>
+<!-- 12 status-road: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="status-road" class="clip" data-time="16">
+  <video class="clip-video" data-src="assets/clips/12-status-grants.mp4" poster="assets/clips/12-status-grants.jpg" muted playsinline preload="auto" data-autoplay aria-label="The provincial prize funded the build; the trial, Lifetime and the regional win followed; the iPhone version is next."></video>
+  <aside class="notes">The provincial prize funded the build: a development PC, AI subscriptions and demo phones. Since then we launched the seven-day trial and Lifetime purchase, hired two field staff, and won the MIMAROPA regional round. Next, the iPhone version.</aside>
+</section>
+
+<!-- 13 business: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="business" class="clip" data-time="18">
+  <video class="clip-video" data-src="assets/clips/13-business.mp4" poster="assets/clips/13-business.jpg" muted playsinline preload="auto" data-autoplay aria-label="Try it at sea for seven days, then a one-time Lifetime purchase through Google Play. No subscription."></video>
+  <aside class="notes">The model is simple: try it at sea for seven days, then a one-time Lifetime purchase through Google Play, paid with GCash, Maya or load. No subscription, no renewals to miss.</aside>
+</section>
+
+<!-- 14 gtm: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="gtm" class="clip" data-time="14">
+  <video class="clip-video" data-src="assets/clips/14-gtm.mp4" poster="assets/clips/14-gtm.jpg" muted playsinline preload="auto" data-autoplay aria-label="Cooperative sessions at the landing sites of five towns in southern Oriental Mindoro, with demo phones, Tagalog guides and SOS cards."></video>
+  <aside class="notes">We'll reach fishers where they are: weekly landing demos by our two field staff, and 8 cooperative sessions in five towns, with demo phones, Tagalog guides and SOS cards.</aside>
+</section>
+
+<!-- 15 financials: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="financials" class="clip" data-time="22">
+  <video class="clip-video" data-src="assets/clips/15-financials.mp4" poster="assets/clips/15-financials.jpg" muted playsinline preload="auto" data-autoplay aria-label="Total investment from the three grants and our counterpart; 2,000 licences in year one, payback in about seven months, and the return on investment."></video>
+  <aside class="notes">Total investment is 566,855 pesos: the provincial, regional and national grants, and our counterpart. With 2,000 licences in year one, the project pays back in about seven months, a 162 percent return.</aside>
+</section>
+
+<!-- 16 close: clip from FishPin Pitch 2026 (video/clips.json), plays once and holds its last frame -->
+<section id="close" class="clip" data-time="20">
+  <video class="clip-video" data-src="assets/clips/16-close.mp4" poster="assets/clips/16-close.jpg" muted playsinline preload="auto" data-autoplay aria-label="Robert looks out at the bancas; the MIMAROPA map; FishPin, safer seas for every Filipino fisher."></video>
+  <aside class="notes">Help us bring FishPin to every fisher in MIMAROPA, and then to every Filipino fisher. FishPin: safer seas for every Filipino fisher. Salamat po.</aside>
 </section>
 
 <!-- ===== main slides end ===== -->
@@ -331,16 +126,16 @@
 <!-- Q1 BMC -->
 <section id="q-bmc" class="appx" data-appendix data-title="Business Model Canvas">
   <div class="frame">
-    <p class="eyebrow">Q&amp;A &middot; Business Model Canvas, 2 Nov 2026</p>
+    <p class="eyebrow">Q&amp;A &middot; Business Model Canvas, national round</p>
     <div class="bmc">
       <div class="b-kp"><h4>Key partners</h4><p>BFAR extension workers, fisherfolk cooperatives, Municipal Agriculture Offices and barangays of the five towns (channels being built); Google Play; licensed cloud, map, weather and AI providers.</p></div>
-      <div class="b-ka"><h4>Key activities</h4><p>Done: live on Google Play, field testing, demonstrations. This cycle: DTI, BIR and Mayor's Permit; the trial and one-time purchase; iOS release (planned Dec 2026); <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions; ads; printed guides.</p></div>
-      <div class="b-kr"><h4>Key resources</h4><p>Solo developer-founder, anak ng mangingisda. Laptop, two Android handsets, a test iPhone for the iOS build. Home office in Mansalay. Licensed Supabase, MapTiler, Open-Meteo, Gemini API.</p></div>
+      <div class="b-ka"><h4>Key activities</h4><p>Done: live on Google Play, the trial and Lifetime purchase, demonstrations, two field staff hired. This cycle: weekly landing demos; <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions; 14 vlogger videos; a depth-chart accuracy check; DTI, BIR and Mayor's Permit; iOS release (planned).</p></div>
+      <div class="b-kr"><h4>Key resources</h4><p>Developer-founder, anak ng mangingisda, with two field staff. Laptop, two Android handsets, a test iPhone for the iOS build, a landing demo kit. Home office in Mansalay. Licensed Supabase, MapTiler, Open-Meteo, Claude API.</p></div>
       <div class="b-vp"><h4>Value proposition</h4><p>Plotters cost <span data-k="market.plotterMin" data-f="php"></span> to <span data-k="market.plotterMax" data-f="int"></span> and other apps need a signal that doesn't exist at sea. FishPin: offline sea chart with PH depths, spot saving, trip recording, anchor alarm, AI fish ID and one-tap SOS. <span data-k="price" data-f="php"></span> once after a <span data-k="trialDays" data-f="int"></span>-day free trial, no subscription. Fishermen own their data; it is never sold.</p></div>
-      <div class="b-cr"><h4>Customer relationships</h4><p>A free trial at sea before paying once, so there is no renewal to lose. Lifetime updates, in-app bug reports, direct support by Messenger and SMS.</p></div>
-      <div class="b-ch"><h4>Channels</h4><p>Google Play (GCash, Maya, card, load). <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions across <span data-k="gtm.townCount" data-f="int"></span> towns, Facebook and TikTok ads at <span data-k="gtm.adsPerMonth" data-f="php"></span> a month, <span data-k="gtm.guides" data-f="int"></span> printed Tagalog guides and SOS cards.</p></div>
+      <div class="b-cr"><h4>Customer relationships</h4><p>Landing demos put the app in his hands, and local staff support him in his own language. A free trial at sea before paying once, so there is no renewal to lose. Lifetime updates, in-app bug reports.</p></div>
+      <div class="b-ch"><h4>Channels</h4><p>Google Play (GCash, Maya, card, load). Weekly landing demos by two local staff, <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions across <span data-k="gtm.townCount" data-f="int"></span> towns, 14 paid vlogger videos, Facebook and TikTok ads at <span data-k="gtm.adsPerMonth" data-f="php"></span> a month, <span data-k="gtm.guides" data-f="int"></span> printed Tagalog guides and SOS cards.</p></div>
       <div class="b-cs"><h4>Customer segments</h4><p>Smartphone-owning municipal fishermen of Mansalay, Bulalacao, Roxas, Bongabong and Bansud, then MIMAROPA, Visayas and Bicol. Secondary: recreational anglers. TAM <span data-k="market.tamM" data-f="phpM"></span>, SAM <span data-k="market.samM" data-f="phpM"></span> (<span data-k="market.smartphoneShare" data-f="share"></span> ownership, an assumption), SOM <span data-k="market.somM" data-f="phpM"></span>.</p></div>
-      <div class="b-co"><h4>Cost structure</h4><p>Capex <span data-k="fin.capex" data-f="php"></span> &middot; opex <span data-k="fin.opex" data-f="php"></span> &middot; total <span data-k="fin.total" data-f="php"></span>, funded by grants of <span data-k="fin.grantProvincial" data-f="php"></span> and <span data-k="fin.grantRegional" data-f="php"></span> plus a <span data-k="fin.counterpart" data-f="php"></span> counterpart. Mostly fixed, so margin improves as users grow.</p></div>
+      <div class="b-co"><h4>Cost structure</h4><p>Capex <span data-k="fin.capex" data-f="php"></span> &middot; opex <span data-k="fin.opex" data-f="php"></span> &middot; total <span data-k="fin.total" data-f="php"></span>, funded by grants of <span data-k="fin.grantProvincial" data-f="php"></span>, <span data-k="fin.grantRegional" data-f="php"></span> and <span data-k="fin.grantNational" data-f="php"></span> plus a <span data-k="fin.counterpart" data-f="php"></span> counterpart, mostly in kind. Wages for the two field staff are the largest cost.</p></div>
       <div class="b-rv"><h4>Revenue streams</h4><p>One stream by design: FishPin Lifetime at <span data-k="price" data-f="php"></span>. <span data-k="fin.unitsY1" data-f="int"></span> licences: <span data-k="fin.gross" data-f="php"></span> gross, <span data-k="fin.net" data-f="php"></span> net, ROI <span data-k="fin.roi" data-f="pct"></span>, payback <span data-k="fin.payback" data-f="yrs"></span>.</p></div>
     </div>
   </div>
@@ -358,7 +153,8 @@
         <table class="funds"><tbody>
           <tr><td>Provincial grant</td><td class="num" data-k="fin.grantProvincial" data-f="php"></td></tr>
           <tr><td>Regional grant (additional)</td><td class="num" data-k="fin.grantRegional" data-f="php"></td></tr>
-          <tr><td>Counterpart (<span data-k="fin.counterpartInKind" data-f="php"></span> in kind, <span data-k="fin.counterpartCash" data-f="php"></span> cash)</td><td class="num" data-k="fin.counterpart" data-f="php"></td></tr>
+          <tr><td>National grant (additional)</td><td class="num" data-k="fin.grantNational" data-f="php"></td></tr>
+          <tr><td>Counterpart (<span data-k="fin.counterpartInKind" data-f="php"></span> in kind, <span data-k="fin.counterpartCash" data-f="php"></span> from sales)</td><td class="num" data-k="fin.counterpart" data-f="php"></td></tr>
           <tr class="total"><td>Total investment</td><td class="num" data-k="fin.total" data-f="php"></td></tr>
         </tbody></table>
       </div>
@@ -377,7 +173,7 @@
     <h2 class="h2">Licences sold each month</h2>
     <div class="ramp"></div>
     <div class="cash-row">
-      <div class="card"><b class="num" data-k="fin.openingCash" data-f="php"></b><span>opening cash: both grants plus <span data-k="fin.counterpartCash" data-f="php"></span> counterpart cash</span></div>
+      <div class="card"><b class="num" data-k="fin.openingCash" data-f="php"></b><span>opening cash: the provincial, regional and national grants</span></div>
       <div class="card"><b class="num" data-k="fin.endingCashM12" data-f="php"></b><span>ending cash, month 12</span></div>
       <div class="card"><b class="num" data-k="fin.netPerSale" data-f="php2"></b><span>to FishPin from each <span data-k="price" data-f="php"></span> sale, after the Play fee and VAT</span></div>
     </div>
@@ -390,7 +186,7 @@
     <p class="eyebrow">Q&amp;A &middot; Sensitivity at <span data-k="price" data-f="php"></span> one-time</p>
     <h2 class="h2">Viable at half the target.</h2>
     <table class="sens"><thead><tr><th>Licences sold</th><th class="num">Net income</th><th class="num">Return on investment</th><th class="num">Payback</th></tr></thead><tbody></tbody></table>
-    <p class="lede">Stricter view, also deducting every operating expense (ads, co-op sessions, internet, development tools, printed guides): ROI <b class="num" data-k="fin.roiStrict" data-f="pct"></b>, payback <b class="num" data-k="fin.paybackStrict" data-f="yrs"></b>.</p>
+    <p class="lede">Stricter view, also deducting every operating expense (staff wages, ads, vlogger videos, co-op sessions, internet, development tools, printed guides): ROI <b class="num" data-k="fin.roiStrict" data-f="pct"></b>, payback <b class="num" data-k="fin.paybackStrict" data-f="yrs"></b>, break-even at <b class="num" data-k="fin.breakEvenStrict" data-f="int"></b> licences.</p>
   </div>
 </section>
 
@@ -435,10 +231,10 @@
     <p class="eyebrow">Q&amp;A &middot; Risks</p>
     <h2 class="h2">What could go wrong, and the plan.</h2>
     <table class="risks"><thead><tr><th>Risk</th><th>Mitigation</th></tr></thead><tbody>
-      <tr><td>One-time price, no recurring revenue</td><td>Year one carries the whole capital cost; from cycle two only recurring services remain, while targets grow to <span data-k="fin.targets.1" data-f="int"></span> and <span data-k="fin.targets.2" data-f="int"></span> paid users.</td></tr>
+      <tr><td>One-time price, no recurring revenue</td><td>Year one carries the whole capital cost; from cycle two only recurring services remain, against an obtainable market of <span data-k="market.somUsers" data-f="int"></span> paid users.</td></tr>
       <tr><td>No-cost map and weather tiers fail at scale</td><td>Commercial MapTiler, Open-Meteo and Supabase licences are in the budget. MapTiler's no-cost plan already ran out on 30 Oct 2026 and the charts were down until 1 Nov.</td></tr>
       <tr><td>Fewer fishermen own smartphones than assumed</td><td>The <span data-k="market.smartphoneShare" data-f="share"></span> ownership figure is an assumption, measured in the <span data-k="gtm.coopSessions" data-f="int"></span> co-op sessions; the plan stays viable at <span data-k="fin.sensitivity.0.units" data-f="int"></span> licences.</td></tr>
-      <tr><td>Solo founder</td><td>Six years as a professional developer, an AI development assistant in the budget, and co-op officers trained first so adoption does not rest on one person.</td></tr>
+      <tr><td>Small team</td><td>Six years as a professional developer, two field staff for demos and support, an AI development assistant in the budget, and co-op officers trained first so adoption does not rest on one person.</td></tr>
       <tr><td>Over-reliance at sea</td><td>FishPin is a navigation aid, not a replacement for official charts, radio or the Coast Guard; SOS needs a cellular signal for SMS.</td></tr>
     </tbody></table>
   </div>

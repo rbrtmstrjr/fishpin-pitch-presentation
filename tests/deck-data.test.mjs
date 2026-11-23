@@ -10,27 +10,33 @@ function load() {
   return win.DECK;
 }
 
-test('headline figures match the 2 Nov 2026 financial plan and BMC', () => {
+test('headline figures match the national financial plan and BMC (23 Nov 2026)', () => {
   const D = load();
   assert.equal(D.price, 599);
   assert.equal(D.trialDays, 7);
-  assert.equal(D.fin.unitsY1, 1000);
-  assert.equal(D.fin.capex, 76525);
-  assert.equal(D.fin.opex, 199290);
-  assert.equal(D.fin.total, 275815);
+  assert.equal(D.fin.unitsY1, 2000);
+  assert.equal(D.fin.capex, 82525);
+  assert.equal(D.fin.opex, 484330);
+  assert.equal(D.fin.total, 566855);
   assert.equal(D.fin.grantProvincial, 80000);
   assert.equal(D.fin.grantRegional, 150000);
-  assert.equal(D.fin.counterpart, 45815);
-  assert.equal(D.fin.gross, 599000);
-  assert.equal(D.fin.cogs, 175522);
-  assert.equal(D.fin.net, 423478);
-  assert.equal(D.fin.roi, 153.54);
-  assert.equal(D.fin.payback, 0.65);
-  assert.deepEqual(D.fin.targets, [1000, 3000, 5000]);
+  assert.equal(D.fin.grantNational, 300000);
+  assert.equal(D.fin.counterpart, 36855);
+  assert.equal(D.fin.gross, 1198000);
+  assert.equal(D.fin.cogs, 276154);
+  assert.equal(D.fin.net, 921846);
+  assert.equal(D.fin.roi, 162.62);
+  assert.equal(D.fin.payback, 0.61);
+  assert.equal(D.fin.roiStrict, 90.39);
+  assert.equal(D.fin.paybackStrict, 1.11);
+  assert.equal(D.fin.breakEvenStrict, 972);
+  assert.equal(D.fin.openingCash, 530000);
+  assert.equal(D.gtm.coopSessions, 8);
   assert.equal(D.market.sector, 1100000);
   assert.equal(D.market.tamM, 659);
   assert.equal(D.market.samM, 461);
   assert.equal(D.market.somM, 3);
+  assert.equal(D.market.somUsers, 5000);
   assert.equal(D.market.barangayFishermen, 103);
   assert.equal(D.market.barangayGps, 10);
 });
@@ -55,21 +61,21 @@ test('verify() catches a cost line that no longer adds up', () => {
 
 test('verify() catches a ramp that misses the year-1 target', () => {
   const D = load();
-  D.fin.ramp[0] = 26;
+  D.fin.ramp[0] = 61;
   assert.ok(D.verify().some(m => m.startsWith('ramp')));
 });
 
 test('verify() catches a sensitivity row that does not recompute', () => {
   const D = load();
   D.fin.sensitivity[0].roi = 64;
-  assert.ok(D.verify().some(m => m.startsWith('sensitivity 500 roi')));
+  assert.ok(D.verify().some(m => m.startsWith('sensitivity 1000 roi')));
 });
 
 test('get() resolves dotted paths, including array indexes', () => {
   const D = load();
-  assert.equal(D.get('fin.roi'), 153.54);
-  assert.equal(D.get('fin.targets.2'), 5000);
-  assert.equal(D.get('fin.sensitivity.0.units'), 500);
+  assert.equal(D.get('fin.roi'), 162.62);
+  assert.equal(D.get('fin.sensitivity.2.units'), 2000);
+  assert.equal(D.get('fin.sensitivity.0.units'), 1000);
   assert.equal(D.get('fin.nope'), undefined);
 });
 

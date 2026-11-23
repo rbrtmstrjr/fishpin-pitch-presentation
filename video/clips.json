@@ -1,0 +1,17 @@
+[
+  { "id": "02-hook", "section": "hook", "from": 5, "to": 25 },
+  { "id": "03-problem-gps", "section": "problem", "from": 45, "to": 63 },
+  { "id": "04-problem-signal", "section": "problem", "from": 75.6, "to": 95 },
+  { "id": "05-demo-chart", "section": "demo", "from": 95, "to": 108.2 },
+  { "id": "06-demo-spot", "section": "demo", "from": 108.4, "to": 117.8 },
+  { "id": "07-demo-trip-score", "section": "demo", "from": 118, "to": 131 },
+  { "id": "08-demo-anchor-sos", "section": "demo", "from": 131.2, "to": 150.8 },
+  { "id": "09-demo-catch", "section": "demo", "from": 151, "to": 167 },
+  { "id": "10-value", "section": "value", "from": 167, "to": 183 },
+  { "id": "11-status-live", "section": "status", "from": 201, "to": 207.6 },
+  { "id": "12-status-grants", "section": "status", "from": 215.55, "to": 230 },
+  { "id": "13-business", "section": "business", "from": 230, "to": 243.6 },
+  { "id": "14-gtm", "section": "business", "from": 244.1, "to": 257 },
+  { "id": "15-financials", "section": "financials", "from": 257, "to": 273.5 },
+  { "id": "16-close", "section": "close", "from": 287, "to": 299 }
+]
