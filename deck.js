@@ -53,7 +53,10 @@
     date: v => new Date(v + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
   };
   const WHOLE = new Set(['int', 'php', 'phpM']);
-  const format = (el, v) => (FORMAT[el.dataset.f] || FORMAT.text)(v);
+  const format = (el, v) => {
+    if (el.dataset.f && !FORMAT[el.dataset.f]) console.error('deck: unknown format "' + el.dataset.f + '" on ' + el.dataset.k);
+    return (FORMAT[el.dataset.f] || FORMAT.text)(v);
+  };
 
   function bind(root) {
     $$('[data-k]', root).forEach(el => {
@@ -88,6 +91,7 @@
     const from = el.dataset.from !== undefined ? Number(el.dataset.from) : 0;
     const whole = WHOLE.has(el.dataset.f);
     const o = { v: from };
+    el.textContent = format(el, whole ? Math.round(from) : from);
     tl.fromTo(o, { v: from }, {
       v: end, duration: Number(el.dataset.countDur || 0.9), ease: 'power2.out',
       onUpdate: () => { el.textContent = format(el, whole ? Math.round(o.v) : o.v); },
@@ -104,7 +108,7 @@
     tl = gsap.timeline();
     const rise = $$('[data-rise]', slide);
     if (rise.length) {
-      tl.fromTo(rise, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: 'power3.out', stagger: 0.035, clearProps: 'transform' }, 0.05);
+      tl.fromTo(rise, { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.32, ease: 'power3.out', stagger: { each: 0.035, amount: Math.min(0.035 * (rise.length - 1), 0.4) }, clearProps: 'transform' }, 0.05);
     }
     $$('[data-count]', slide).forEach(el => countUp(el, tl));
     $$('[data-grow]', slide).forEach((el, i) => {
@@ -131,6 +135,7 @@
     document.documentElement.style.background = bg;
     document.body.style.background = bg;
     document.body.classList.toggle('on-appx', appx);
+    document.body.classList.toggle('no-foot-mark', slide.id === 'cover' || slide.id === 'close');
     const counter = $('#slideCounter');
     if (appx) {
       counter.textContent = 'Q&A · ' + (slide.dataset.title || '');
@@ -228,6 +233,7 @@
     },
     keyboard: {
       8: goBack, 27: goBack, 72: toggleHelp, 81: toggleQ, 82: resetTimer, 84: toggleTimer,
+      35: () => {},
       77: () => { if (ACTIONS.airplane) ACTIONS.airplane(); },
     },
     plugins: [RevealNotes],

@@ -31,8 +31,8 @@ html, body { margin: 0; background: var(--navy-deep); }
 .reveal .slides { text-align: left; }
 .reveal .slides > section { width: 1920px; height: 1080px; padding: 0; top: 0 !important; box-sizing: border-box; background: var(--navy-deep); overflow: hidden; }
 .reveal .slides > section.appx { background: var(--paper); color: var(--ink); }
-.reveal img { margin: 0; max-width: none; max-height: none; }
-.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal p, .reveal figure { margin: 0; }
+:where(.reveal) img { margin: 0; max-width: none; max-height: none; }
+:where(.reveal) :where(h1, h2, h3, h4, p, figure) { margin: 0; }
 .frame { position: absolute; inset: 0; padding: 104px 128px 136px; box-sizing: border-box; display: flex; flex-direction: column; }
 
 /* contour texture on every navy slide */
@@ -70,7 +70,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 #deckFooter { position: fixed; left: 2.4vw; right: 2.4vw; bottom: 2.2vh; display: flex; align-items: center; justify-content: space-between; pointer-events: none; z-index: 30; }
 .foot-mark { height: clamp(18px, 2.1vw, 40px); width: auto; }
 #slideCounter { font-size: clamp(12px, 1.05vw, 20px); letter-spacing: .08em; color: var(--mist-3); }
-.on-appx .foot-mark { visibility: hidden; }
+.on-appx .foot-mark, .no-foot-mark .foot-mark { visibility: hidden; }
 .on-appx #slideCounter { color: var(--ink-3); }
 #progress { position: fixed; left: 0; right: 0; top: 0; height: 4px; z-index: 30; pointer-events: none; }
 #progressFill { display: block; height: 100%; background: var(--amber); transform-origin: left; transform: scaleX(0); transition: transform .32s var(--ease); }
@@ -100,12 +100,13 @@ html, body { margin: 0; background: var(--navy-deep); }
 .is-pending { outline: 3px dashed var(--warn); outline-offset: 6px; }
 
 /* still mode (static, print, reduced motion): final states only */
+.still .swim { display: none; }
 .still *, .still *::before, .still *::after { animation: none !important; transition: none !important; }
 @media print { #deckFooter, #progress, #timer, #qmenu, #help, #checkBanner { display: none !important; } }
 
 /* ---------- 01 cover ---------- */
 .cover { display: grid; grid-template-columns: 1fr 700px; gap: 40px; align-items: center; }
-.reveal .cover-logo { height: 80px; width: auto; display: block; margin-bottom: 64px; }
+.cover-logo { height: 80px; width: auto; display: block; margin-bottom: 64px; }
 .cover-title span { display: block; }
 .cover .lede { margin-top: 32px; max-width: 24ch; }
 .cover-meta { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 36px 0 0; padding: 0; font-family: var(--nums); font-size: 28px; color: var(--mist-2); }
