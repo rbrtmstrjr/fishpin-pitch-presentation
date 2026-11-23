@@ -336,7 +336,7 @@ html, body { margin: 0; background: var(--navy-deep); }
 .viable b { font-weight: 600; color: var(--mist); }
 
 /* tighten "PHP 599" / "0.65 yrs" only where the figure is set in IBM Plex Mono */
-:is(.num, .hero-num, .eyebrow, .channel b span, .target b)[data-f], :is(.num, .hero-num, .eyebrow) [data-f], .channel b span[data-f], .bar-val { word-spacing: -0.35em; }
+:is(.num, .hero-num, .eyebrow, .channel b span, .target b)[data-f], :is(.num, .hero-num, .eyebrow) [data-f], .appx td.num, .bar-val { word-spacing: -0.35em; }
 .viable span, .pl-row > span:first-child { text-wrap: balance; }
 .viable { margin-top: 36px; }
 
