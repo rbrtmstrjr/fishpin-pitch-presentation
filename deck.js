@@ -360,19 +360,24 @@
     }
     btn.addEventListener('pointerdown', e => { e.preventDefault(); start(); });
     ['pointerup', 'pointerleave', 'pointercancel'].forEach(type => btn.addEventListener(type, end));
-    ANIM.impact = () => { reset(); later(1000, start); };
+    ANIM.impact = () => { reset(); later(1000, () => { if (box.dataset.state === 'idle') start(); }); };
   })();
 
   /* 12 close: the route home draws from the fishing spot while the boat sails along it */
   function placeBoat(s, p) {
     const path = $('.voyage .path', s);
     const pt = path.getPointAtLength(path.getTotalLength() * p);
-    $('.voyage .boat', s).style.transform = `translate(${(pt.x - 70).toFixed(1)}px, ${(pt.y - 146).toFixed(1)}px)`;
+    $('.voyage .boat', s).style.transform = `translate(${(pt.x - 70).toFixed(1)}px, ${(pt.y - 122).toFixed(1)}px)`;
     return pt;
   }
   RENDER.push(function voyageEnd() {
     const s = $('#close');
-    if (s) placeBoat(s, 1);
+    if (!s) return;
+    placeBoat(s, 0.93);
+    const path = $('.voyage .path', s), badge = $('.home-mark', s);
+    const end = path.getPointAtLength(path.getTotalLength());
+    badge.style.left = (end.x - 36) + 'px';
+    badge.style.top = (end.y - 36) + 'px';
   });
   ANIM.close = (s, t) => {
     const clip = $('#voyageClip rect');
@@ -380,7 +385,7 @@
     const at = p => { const pt = placeBoat(s, p); clip.setAttribute('width', String(Math.ceil(pt.x + 6))); };
     at(0);
     t.fromTo($('.voyage .spot', s), { scale: 0, transformOrigin: '50% 100%' }, { scale: 1, duration: 0.4, ease: 'back.out(3)' }, 0.3)
-      .to(o, { p: 1, duration: 2, ease: 'power1.inOut', onUpdate: () => at(o.p), onComplete: () => { clip.setAttribute('width', '1664'); placeBoat(s, 1); } }, 0.5)
+      .to(o, { p: 0.93, duration: 2, ease: 'power1.inOut', onUpdate: () => at(o.p), onComplete: () => { clip.setAttribute('width', '1664'); placeBoat(s, 0.93); } }, 0.5)
       .fromTo($('.home-mark', s), { scale: 0 }, { scale: 1, duration: 0.4, ease: 'back.out(3)', clearProps: 'transform' }, 2.1);
   };
 
