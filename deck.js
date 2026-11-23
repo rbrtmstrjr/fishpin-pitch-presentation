@@ -202,6 +202,47 @@
     t.fromTo($('.marquee', s), { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.4);
   };
 
+  /* 06 traction: accounts count up, the timeline draws and each milestone pops as the line reaches it */
+  RENDER.push(function tractionTimeline() {
+    const ol = $('#traction .timeline');
+    if (!ol) return;
+    ol.innerHTML = DECK.traction.milestones.map(m =>
+      `<li class="ms${m.planned ? ' planned' : ''}"><span class="ms-dot"><i data-icon="${m.icon}"></i></span><b>${m.when}</b><span>${m.what}</span></li>`).join('');
+    const impl = $('#traction .impl');
+    const items = DECK.traction.implemented;
+    impl.hidden = !items.length;
+    $('ul', impl).innerHTML = items.map(text => `<li><i data-icon="check"></i><span>${text}</span></li>`).join('');
+  });
+  ANIM.traction = (s, t) => {
+    const dots = $$('.ms-dot', s);
+    const span = 1.4;
+    t.fromTo($('.tr-photo', s), { x: 60, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'power3.out', clearProps: 'transform' }, 0.15)
+      .fromTo($('.tl-fill', s), { scaleX: 0 }, { scaleX: 1, duration: span, ease: 'none', clearProps: 'transform' }, 0.5)
+      .fromTo(dots, { scale: 0 }, { scale: 1, duration: 0.35, ease: 'back.out(2.5)', stagger: span / Math.max(1, dots.length - 1), clearProps: 'transform' }, 0.5);
+  };
+
+  /* 07 model: competitor five-year bars grow long, then FishPin's arrives last and tiny */
+  RENDER.push(function costBars() {
+    const box = $('#model .bars');
+    if (!box) return;
+    const max = Math.max(...DECK.competitors.map(c => c.max || c.fiveYear));
+    const pct = v => `${(v / max * 100).toFixed(2)}%`;
+    const php = v => 'PHP ' + nf(v);
+    const rows = DECK.competitors.map(c => c.min
+      ? `<div class="bar-row"><span class="who">${c.name}</span><span class="bar-track"><i class="bar-fill" data-grow style="width:${pct(c.min)}"></i><i class="bar-range" style="left:${pct(c.min)};width:${pct(c.max - c.min)}"></i><span class="bar-val" style="left:calc(${pct(c.min)} + 18px)">${php(c.min)} to ${nf(c.max)}</span></span></div>`
+      : `<div class="bar-row"><span class="who">${c.name}</span><span class="bar-track"><i class="bar-fill" data-grow style="width:${pct(c.fiveYear)}"></i><span class="bar-val inside" style="left:calc(${pct(c.fiveYear)} - 18px)">${php(c.fiveYear)}</span></span></div>`);
+    rows.push(`<div class="bar-row us"><span class="who">FishPin</span><span class="bar-track"><i class="bar-fill" data-grow data-grow-at="1.0" style="width:${pct(DECK.price)}"></i><span class="bar-val" style="left:calc(${pct(DECK.price)} + 18px)">${php(DECK.price)}</span></span></div>`);
+    box.innerHTML = rows.join('');
+    const top = DECK.competitors.filter(c => c.fiveYear).reduce((a, c) => (c.fiveYear > a.fiveYear ? c : a));
+    $('#model .ratio').textContent = `${Math.floor(top.fiveYear / DECK.price)}x`;
+    $('#model .ratio-who').textContent = top.name;
+  });
+  ANIM.model = (s, t) => {
+    t.fromTo($$('.bar-row:not(.us) .bar-val', s), { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.08 }, 0.7)
+      .fromTo($('.bar-row.us .bar-val', s), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 1.6)
+      .fromTo($('.cost-callout', s), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.8);
+  };
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */
