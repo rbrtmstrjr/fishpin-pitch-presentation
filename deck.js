@@ -251,6 +251,62 @@
       .fromTo($('.cost-callout', s), { opacity: 0 }, { opacity: 1, duration: 0.4 }, 1.8);
   };
 
+  /* 08 market: TAM, SAM, SOM rings grow from the base, largest first (area is proportional) */
+  RENDER.push(function marketRings() {
+    const box = $('#market .rings');
+    if (!box) return;
+    const m = DECK.market;
+    const size = v => Math.max(56, Math.round(720 * Math.sqrt(v / m.tamM)));
+    box.innerHTML = [['tam', m.tamM], ['sam', m.samM], ['som', m.somM]].map(([key, v]) => {
+      const d = size(v);
+      return `<i class="ring ${key}" style="width:${d}px;height:${d}px;left:calc(50% - ${d / 2}px)"><span>${key.toUpperCase()}</span></i>`;
+    }).join('');
+  });
+  ANIM.market = (s, t) => {
+    t.fromTo($$('.ring', s), { scale: 0, transformOrigin: '50% 100%' }, { scale: 1, duration: 0.7, ease: 'power3.out', stagger: 0.3, clearProps: 'transform' }, 0.25);
+  };
+
+  /* 09 go-to-market: the coast draws, Mansalay's pin drops first, then routes reach the other towns */
+  const COAST = { Bansud: [262, 120], Bongabong: [300, 285], Roxas: [336, 450], Mansalay: [372, 610], Bulalacao: [340, 765] };
+  RENDER.push(function gtmCoast() {
+    const g = $('#gtm .towns');
+    if (!g) return;
+    const [hx, hy] = COAST[DECK.gtm.home];
+    g.innerHTML = DECK.gtm.towns.map(name => {
+      const [x, y] = COAST[name];
+      const home = name === DECK.gtm.home;
+      const route = home ? '' : `<path class="route" d="M${hx},${hy} Q${(hx + x) / 2 + 70},${(hy + y) / 2} ${x},${y}"/>`;
+      return `<g class="town${home ? ' home' : ''}">${route}<circle class="ripple" cx="${x}" cy="${y}" r="16"/><circle class="pin" cx="${x}" cy="${y}" r="${home ? 16 : 12}"/><text x="${x + 34}" y="${y + 10}">${name}</text></g>`;
+    }).join('');
+  });
+  ANIM.gtm = (s, t) => {
+    const land = $('.land', s);
+    const len = land.getTotalLength();
+    t.fromTo(land, { strokeDasharray: len, strokeDashoffset: len, fillOpacity: 0 },
+      { strokeDashoffset: 0, fillOpacity: 1, duration: 1, ease: 'power2.inOut', clearProps: 'strokeDasharray,strokeDashoffset,fillOpacity' }, 0.1);
+    const home = $('.town.home', s);
+    t.fromTo($('.pin', home), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.4, ease: 'back.out(3)' }, 0.8)
+      .fromTo($('.ripple', home), { scale: 0.5, opacity: 0.9, transformOrigin: '50% 50%' }, { scale: 3, opacity: 0, duration: 1, ease: 'power2.out' }, 0.9)
+      .fromTo($('text', home), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.9);
+    $$('.town:not(.home)', s).forEach((g, i) => {
+      const route = $('.route', g);
+      const rl = route.getTotalLength();
+      const at = 1.2 + i * 0.15;
+      t.fromTo(route, { strokeDasharray: `${rl} ${rl}`, strokeDashoffset: rl }, { strokeDashoffset: 0, duration: 0.45, ease: 'power2.out', clearProps: 'strokeDasharray,strokeDashoffset' }, at)
+        .fromTo($('.pin', g), { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, duration: 0.35, ease: 'back.out(3)' }, at + 0.4)
+        .fromTo($('text', g), { opacity: 0 }, { opacity: 1, duration: 0.3 }, at + 0.4);
+    });
+  };
+
+  /* 10 financials: the three funding blocks stack to the total, then ROI and payback count up */
+  RENDER.push(function fundingStack() {
+    const stack = $('#financials .stack');
+    if (!stack) return;
+    const f = DECK.fin;
+    stack.innerHTML = [f.grantProvincial, f.grantRegional, f.counterpart]
+      .map((v, i) => `<i class="s${i + 1}" data-grow data-grow-at="${(0.3 + i * 0.45).toFixed(2)}" style="width:${(v / f.total * 100).toFixed(2)}%"></i>`).join('');
+  });
+
   /* ===== end slide code ===== */
 
   /* ---------- footer, letterbox, progress ---------- */
