@@ -79,13 +79,18 @@ for (const id of ids.filter(i => !only.length || only.includes(i))) {
       // left and right from every run; top and bottom from the block's own text, so a mono number inside
       // a Poppins line does not shift the line's measured box
       const v = own.length ? own : rects;
-      const L = Math.min(...rects.map(r => r.left)), T = Math.min(...v.map(r => r.top)), R = Math.max(...rects.map(r => r.right)), B = Math.max(...v.map(r => r.bottom));
+      const L = Math.min(...rects.map(r => r.left)), T = Math.min(...v.map(r => r.top)), R = Math.max(...rects.map(r => r.right));
+      // bottom: the own text's last line, or a later line that only an inline span reaches (a coloured phrase that wraps)
+      const ownLast = Math.max(...v.map(r => r.top));
+      const B = Math.max(...v.map(r => r.bottom), ...rects.filter(r => r.top - ownLast > 12).map(r => r.bottom));
       const cs = getComputedStyle(el);
       // lines: the block's own line boxes, merging tops a few px apart (a mono number sits slightly lower)
       let lines = 0, last = -1e9;
-      for (const t of v.map(r => r.top).sort((p, q) => p - q)) { if (t - last > 12) { lines++; last = t; } }
+      for (const t of rects.map(r => r.top).sort((p, q) => p - q)) { if (t - last > 12) { lines++; last = t; } }
       out.push({ kind: 'text', x: (L - S.left) / k, y: (T - S.top) / k, w: (R - L) / k, h: (B - T) / k, align: cs.textAlign, multi: lines > 1, lines, shadow: cs.textShadow, runs });
     };
+    // corner radius in px (a 50% radius makes a circle)
+    const radiusOf = (cs, w) => { const r = cs.borderTopLeftRadius; return r.endsWith('%') ? (parseFloat(r) / 100) * w : (parseFloat(r) || 0); };
     const walk = el => {
       const cs = getComputedStyle(el);
       if (!visible(el, cs) || el.matches('aside.notes')) return;
@@ -99,7 +104,7 @@ for (const id of ids.filter(i => !only.length || only.includes(i))) {
       if (tag === 'svg') { out.push({ kind: 'svg', svg: inlineSvg(el), ...b, rot }); return; }
       const bg = cs.backgroundColor, bgi = cs.backgroundImage, bw = parseFloat(cs.borderTopWidth) || 0;
       if (el !== sec && ((bg && bg !== 'rgba(0, 0, 0, 0)') || (bgi && bgi !== 'none') || bw > 0)) {
-        out.push({ kind: 'box', ...b, ...size, rot, bg, bgi, bw, bc: cs.borderTopColor, radius: parseFloat(cs.borderTopLeftRadius) || 0, shadow: cs.boxShadow, blur: cs.backdropFilter, opacity: Number(cs.opacity) });
+        out.push({ kind: 'box', ...b, ...size, rot, bg, bgi, bw, bc: cs.borderTopColor, radius: radiusOf(cs, el.offsetWidth || b.w), shadow: cs.boxShadow, blur: cs.backdropFilter, opacity: Number(cs.opacity) });
       }
       const ownText = [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
       if (ownText) { textBlock(el); return; }

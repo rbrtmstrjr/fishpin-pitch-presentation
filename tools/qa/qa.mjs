@@ -37,6 +37,7 @@ const CHECKS = {
   'demo-catch': () => document.querySelectorAll('#fishChips span').length === 8 ? '' : 'fish name chips are not filled',
   business: () => document.querySelectorAll('#trialDays span').length === DECK.trialDays ? '' : 'trial days do not match DECK.trialDays',
   gtm: () => document.querySelectorAll('#gtmTowns .town').length === DECK.gtm.towns.length && document.querySelectorAll('#gtmTally i').length === DECK.gtm.coopSessions ? '' : 'towns or session marks do not match DECK.gtm',
+  competitors: () => document.querySelectorAll('#cpBars .cp-row').length === DECK.competitors.length + 1 ? '' : 'competitor bars do not match DECK.competitors plus FishPin',
   financials: () => document.querySelectorAll('#financials .f-bar .seg').length === 4 && document.querySelectorAll('#finRamp i').length === DECK.fin.ramp.length ? '' : 'funding bar needs 4 segments and the ramp 12 months',
 };
 
@@ -182,7 +183,7 @@ async function checkSlidesInner(page, ready) {
   if (!only) {
     const total = mains.reduce((t, s) => t + s.time, 0);
     if (has('notes')) {
-      if (mains.length !== 16) fail('deck shape', `expected 16 main slides, found ${mains.length}`);
+      if (mains.length !== 15) fail('deck shape', `expected 15 main slides (the national pitch limit), found ${mains.length}`);
       if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
     } else if (total > MAIN_SECONDS) {
       fail('timing', `main slides add up to ${total}s; budget is ${MAIN_SECONDS}s`);

@@ -145,6 +145,10 @@ html, body { margin: 0; background: var(--navy-deep); }
 #status-live { --gx: 70%; --gy: 45%; }
 #gtm { --gx: 30%; --gy: 50%; }
 #financials { --gx: 50%; --gy: 40%; }
+#fisherfolk { --gx: 70%; --gy: 30%; }
+#solution { --gx: 55%; --gy: 50%; }
+#market { --gx: 25%; --gy: 70%; }
+#competitors { --gx: 50%; --gy: 65%; }
 
 /* photo slides: a footage still under a navy shade */
 .reveal .slides > section.photo { background: var(--navy-deep); }
@@ -171,14 +175,83 @@ html, body { margin: 0; background: var(--navy-deep); }
 .glass { background: rgba(6, 18, 51, .72); border: 1px solid rgba(234, 242, 255, .14); border-radius: 24px; backdrop-filter: blur(6px); }
 .red { color: var(--bad); }
 
-/* 02 hook */
-.hook-title { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font: 800 124px/1.02 var(--words); letter-spacing: -1px; text-transform: uppercase; color: #fff; text-shadow: 0 6px 30px rgba(0, 0, 0, .55); }
-.no-service { position: absolute; left: 50%; bottom: 96px; transform: translateX(-50%); display: flex; align-items: center; gap: 24px; padding: 18px 30px; border-radius: 22px; background: rgba(4, 10, 30, .72); border: 1px solid rgba(234, 242, 255, .16); }
-.no-service .bars { width: 66px; height: 51px; overflow: visible; }
-.no-service .bars rect { fill: rgba(234, 242, 255, .28); }
-.no-service .bars .slash { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
-.no-service b { font: 800 52px/1 var(--words); color: #fff; text-transform: uppercase; letter-spacing: 1px; }
-.pill-danger { padding: 8px 16px; border-radius: 10px; background: var(--bad-light); color: #fff; font: 600 28px/1 var(--nums); }
+/* 02 the problems: five photo cards, revealed one by one */
+.pg-head { position: absolute; left: 140px; top: 110px; }
+.pg-title { margin-top: 16px; font: 800 84px/1.05 var(--words); letter-spacing: -1px; color: #fff; }
+.pg-cards { position: absolute; left: 140px; right: 140px; top: 320px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.pg-card { height: 630px; box-sizing: border-box; border-radius: 24px; overflow: hidden; background: var(--navy-card); border: 1px solid rgba(234, 242, 255, .1); }
+.pg-photo { position: relative; height: 260px; overflow: hidden; }
+.pg-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pg-num { margin: 22px 26px 0; font: 600 40px/1 var(--nums); color: var(--amber); }
+.pg-card h3 { margin: 12px 26px 0; font: 800 34px/1.12 var(--words); color: #fff; }
+.pg-line { margin: 12px 26px 0; font: 400 28px/1.35 var(--words); color: var(--mist); }
+.pg-nosvc { position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; background: rgba(4, 10, 30, .82); font: 800 28px/1 var(--words); color: #fff; text-transform: uppercase; }
+.pg-nosvc .bars { width: 36px; height: 28px; overflow: visible; }
+.pg-nosvc .bars rect { fill: rgba(234, 242, 255, .28); }
+.pg-nosvc .bars .slash { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+#problems { --gx: 50%; --gy: 75%; }
+
+/* 08 the fisherfolk */
+.ff-head { position: absolute; left: 140px; top: 120px; }
+.ff-title { margin-top: 16px; font: 800 84px/1.05 var(--words); letter-spacing: -1px; color: #fff; }
+.ff-grid { position: absolute; left: 140px; right: 140px; top: 356px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+.ff-card { height: 272px; box-sizing: border-box; padding: 30px 40px; border-radius: 26px; background: var(--navy-card); border: 1px solid rgba(234, 242, 255, .1); display: flex; flex-direction: column; gap: 8px; }
+.ff-card b { font: 600 100px/1 var(--nums); color: #fff; letter-spacing: -2px; }
+.ff-card b.amber { color: var(--amber); } .ff-card b.red { color: var(--bad); }
+.ff-card b small { margin-left: 14px; font: 500 34px var(--nums); color: var(--mist); letter-spacing: 0; }
+.ff-card p { margin-top: 6px; font: 700 34px/1.2 var(--words); color: #fff; }
+.ff-card .v-mono { font-size: 28px; }
+
+/* 09 the solution */
+.so-copy { position: absolute; left: 140px; top: 200px; width: 700px; }
+.so-title { margin-top: 16px; font: 800 92px/1.04 var(--words); letter-spacing: -2px; color: #fff; }
+.so-line { margin-top: 30px; font: 400 36px/1.4 var(--words); color: var(--mist); }
+.so-phone { position: absolute; left: 850px; top: 110px; height: 860px; width: auto; filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .5)); }
+.so-list { position: absolute; left: 1310px; top: 150px; width: 520px; display: flex; flex-direction: column; gap: 12px; }
+.so-group { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; font: 600 28px var(--nums); letter-spacing: 3px; text-transform: uppercase; color: var(--amber); }
+.so-group [data-icon] { width: 32px; height: 32px; }
+.so-group.second { margin-top: 22px; }
+.so-item { display: flex; align-items: center; gap: 14px; font: 600 32px/1.2 var(--words); color: #fff; }
+.so-item [data-icon] { flex: none; width: 40px; height: 40px; padding: 7px; box-sizing: border-box; border-radius: 10px; background: var(--amber); color: var(--navy); }
+.so-item.soft { color: var(--mist); }
+.so-item.soft [data-icon] { background: rgba(234, 242, 255, .14); color: #fff; }
+
+/* 16 market: circle areas in proportion to the value (SOM is honestly tiny) */
+.mk-head { position: absolute; left: 140px; top: 120px; }
+.mk-title { margin-top: 16px; font: 800 84px/1.05 var(--words); letter-spacing: -1px; color: #fff; }
+.mk-rings { position: absolute; left: 150px; top: 330px; width: 620px; height: 620px; }
+.ring { position: absolute; display: block; box-sizing: border-box; border-radius: 50%; }
+.ring.tam { left: 0; top: 0; width: 620px; height: 620px; background: rgba(64, 162, 255, .12); border: 2px solid rgba(64, 162, 255, .5); }
+.ring.sam { left: 51px; top: 102px; width: 518px; height: 518px; background: rgba(64, 162, 255, .2); border: 2px solid rgba(64, 162, 255, .75); }
+.ring.som { left: 289px; top: 576px; width: 42px; height: 42px; background: var(--amber); box-shadow: 0 0 24px var(--amber); }
+.ring-lbl { position: absolute; left: 0; right: 0; text-align: center; font: 600 28px var(--nums); letter-spacing: 3px; color: var(--mist); }
+.ring-lbl.tam { top: 34px; } .ring-lbl.sam { top: 140px; color: #fff; } .ring-lbl.som { top: 520px; color: var(--amber); }
+.mk-rows { position: absolute; left: 880px; top: 340px; width: 900px; display: flex; flex-direction: column; gap: 34px; }
+.mk-row { display: grid; grid-template-columns: 110px 1fr; column-gap: 24px; align-items: baseline; }
+.mk-tag { font: 600 28px var(--nums); letter-spacing: 3px; color: var(--mist-2); }
+.mk-tag.som { color: var(--amber); }
+.mk-row b { font: 600 84px/1 var(--nums); color: #fff; letter-spacing: -2px; }
+.mk-row b.amber { color: var(--amber); }
+.mk-row p { grid-column: 2; margin-top: 6px; font: 500 28px/1.35 var(--nums); color: var(--mist-2); }
+.mk-path { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font: 600 28px var(--words); color: #fff; }
+.mk-path [data-icon] { width: 30px; height: 30px; color: var(--amber); }
+
+/* 17 competitors: five-year cost bars; the alternatives run long, FishPin arrives last and tiny */
+.cp-head { position: absolute; left: 140px; top: 110px; }
+.cp-title { margin-top: 16px; font: 800 84px/1.05 var(--words); letter-spacing: -1px; color: #fff; }
+.cp-sub { margin-top: 12px; font-size: 28px; }
+.cp-bars { position: absolute; left: 140px; right: 140px; top: 380px; display: flex; flex-direction: column; gap: 22px; }
+.cp-row { display: grid; grid-template-columns: 420px 1fr 330px; align-items: center; column-gap: 28px; padding: 14px 22px; border-radius: 20px; border: 2px solid transparent; }
+.cp-row.us { border-color: var(--amber); background: rgba(255, 200, 87, .07); }
+.cp-name b { display: block; font: 800 40px/1.1 var(--words); color: #fff; }
+.cp-name span { display: block; margin-top: 4px; font: 500 28px/1.25 var(--nums); color: var(--mist-2); }
+.cp-row.us .cp-name b { color: var(--amber); }
+.cp-track { position: relative; height: 54px; border-radius: 14px; background: rgba(234, 242, 255, .06); overflow: hidden; }
+.cp-track i { position: absolute; left: 0; top: 0; bottom: 0; display: block; border-radius: 14px; background: var(--mist-2); }
+.cp-track i.range { background: rgba(159, 179, 217, .4); }
+.cp-row.us .cp-track i { background: var(--amber); min-width: 16px; }
+.cp-val { text-align: right; font: 600 44px var(--nums); color: #fff; white-space: nowrap; }
+.cp-row.us .cp-val { color: var(--amber); }
 
 /* 03 problem */
 .p-stats { position: absolute; left: 140px; top: 150px; }
@@ -195,29 +268,6 @@ html, body { margin: 0; background: var(--navy-deep); }
 .p-tail { display: flex; align-items: center; gap: 24px; margin-top: 30px; }
 .p-tail .v-mono { font-size: 32px; color: var(--mist); }
 .p-garmin { position: absolute; right: 230px; top: 250px; height: 600px; width: auto; transform: rotate(-8deg); filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .55)); }
-
-/* 04 signal */
-.s-cards { position: absolute; left: 120px; top: 110px; display: flex; flex-direction: column; gap: 22px; width: 900px; }
-.s-card { display: flex; align-items: center; gap: 26px; padding: 26px 30px; }
-.s-card b { display: block; font: 700 40px/1.15 var(--words); color: #fff; }
-.s-card .v-mono { display: block; margin-top: 6px; font-size: 28px; }
-.s-harder { position: absolute; left: 120px; right: 120px; top: 520px; height: 440px; padding: 34px 50px; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr auto; column-gap: 80px; }
-.s-head { grid-column: 1 / -1; font: 800 56px/1.1 var(--words); color: #fff; }
-.s-stat { padding-top: 18px; }
-.s-lbl { font-size: 28px; }
-.s-big { margin-top: 10px; font: 600 104px/1 var(--nums); color: var(--amber); letter-spacing: -2px; }
-.s-big small { margin-left: 14px; font: 500 34px var(--nums); color: var(--mist); letter-spacing: 0; }
-.s-big.red { color: var(--bad); }
-.s-line { display: block; width: 420px; height: 96px; margin-top: 10px; overflow: visible; }
-.s-line path { fill: none; stroke: var(--amber); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
-.s-line circle { fill: var(--amber); }
-.s-line text { font: 500 18px var(--nums); fill: var(--mist-3); }
-.s-bars { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px 18px; margin-top: 22px; }
-.s-bars .v-mono { font-size: 28px; }
-.s-bars .track { display: block; height: 18px; border-radius: 9px; background: rgba(234, 242, 255, .1); overflow: hidden; }
-.s-bars .track i { display: block; height: 100%; border-radius: 9px; background: var(--mist-2); }
-.s-bars .track i.red { background: var(--bad); }
-.s-src { grid-column: 1 / -1; align-self: end; font-size: 18px; color: var(--mist-3); }
 
 /* 05-09 demo: the phone at left, the chapter at right (demo.tsx Chapter: left 1060, top 180, width 780) */
 .d-phone { position: absolute; left: 300px; top: 80px; height: 920px; width: auto; filter: drop-shadow(0 30px 50px rgba(0, 0, 0, .5)); }

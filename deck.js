@@ -54,6 +54,7 @@
     dec2: v => nf(v, 2),
     peso: v => '\u20B1' + nf(v),
     pts: v => '+' + nf(v, 1),
+    pesoM: v => '\u20B1' + nf(v) + 'M',
     drop: v => '\u2212' + nf(v, 1) + '%',
   };
   const WHOLE = new Set(['int', 'php', 'phpM', 'peso']);
@@ -168,19 +169,31 @@
   /* draw an SVG stroke (pathLength="1" paths) from nothing to its CSS final state */
   const draw = (t, el, at, dur = 0.9) => el && t.fromTo(el, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: dur, ease: 'power2.inOut', clearProps: 'strokeDashoffset' }, at);
 
-  /* 02 hook: the signal bars drop out one by one, the slash strikes, then the title lands */
-  ANIM.hook = (s, t) => {
-    t.fromTo($$('.bars rect', s), { fill: '#FFFFFF' }, { fill: 'rgba(234,242,255,0.28)', duration: 0.25, stagger: { each: 0.18, from: 'end' }, clearProps: 'fill' }, 0.3);
-    draw(t, $('.bars .slash', s), 1.0, 0.35);
+  /* 02 problems: each card's photo settles slowly as it arrives; on the fifth, the signal drops out */
+  ANIM.problems = (s, t) => {
+    t.fromTo($$('.pg-photo img', s), { scale: 1.14 }, { scale: 1, duration: 5, ease: 'power1.out', stagger: 0.5, clearProps: 'transform' }, 0.5);
+    t.fromTo($$('.pg-nosvc .bars rect', s), { fill: '#FFFFFF' }, { fill: 'rgba(234,242,255,0.28)', duration: 0.25, stagger: { each: 0.16, from: 'end' }, clearProps: 'fill' }, 2.9);
+    draw(t, $('.pg-nosvc .bars .slash', s), 3.5, 0.35);
   };
 
-  /* 04 signal: catch bars sized from DECK; the poverty line draws in */
-  RENDER.push(function catchBars() {
-    const m = DECK.market, a = $('#catch23'), b = $('#catch24');
-    if (a) a.style.width = '100%';
-    if (b) b.style.width = `${(m.catch2024 / m.catch2023) * 100}%`;
+  /* 17 competitors: five-year cost to the fisherman; the alternatives grow long, FishPin arrives last and tiny */
+  RENDER.push(function competitorBars() {
+    const box = $('#cpBars');
+    if (!box) return;
+    const peso = v => '\u20B1' + nf(v);
+    const top = Math.max(...DECK.competitors.map(c => c.max || c.fiveYear));
+    const rows = DECK.competitors.map(c => c.min
+      ? { name: c.name, sub: c.model, lo: c.min, hi: c.max, val: `${peso(c.min)}–${nf(c.max)}` }
+      : { name: c.name, sub: c.model, lo: c.fiveYear, val: peso(c.fiveYear) });
+    rows.push({ us: true, name: 'FishPin', sub: `Pay once, after a ${DECK.trialDays}-day free trial`, lo: DECK.price, val: `${peso(DECK.price)} once` });
+    box.innerHTML = rows.map((r, i) => {
+      const at = (0.5 + i * 0.35).toFixed(2);
+      const bar = r.hi
+        ? `<i class="range" style="width:${(r.hi / top) * 100}%" data-grow data-grow-at="${at}"></i><i style="width:${(r.lo / top) * 100}%" data-grow data-grow-at="${at}"></i>`
+        : `<i style="width:${(r.lo / top) * 100}%" data-grow data-grow-at="${at}"></i>`;
+      return `<div class="cp-row${r.us ? ' us' : ''}" data-rise data-at="${(0.4 + i * 0.35).toFixed(2)}"><p class="cp-name"><b>${r.name}</b><span>${r.sub}</span></p><div class="cp-track">${bar}</div><p class="cp-val num">${r.val}</p></div>`;
+    }).join('');
   });
-  ANIM.signal = (s, t) => { draw(t, $('.s-line path', s), 1.7, 1.0); };
 
   /* 05 demo: airplane mode flips on, then the chart keeps working */
   ANIM['demo-chart'] = (s, t) => {

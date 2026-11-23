@@ -33,12 +33,18 @@ FRAMED = {  # name: (base mockup, capture, shift, fill)
     "login": ("sos.png", "pitch5/img/login-sign-in.png", 0, "#EEF4FB"),
     "eta": ("navigate.png", "mockups/screen-navigate-eta-speed.png", 46, "#FFFFFF"),
 }
-STILLS = {  # name: (clip, second, black and white)
-    "hook": ("pitch5/clips/1-dead-spot.mp4", 2.0, True),
-    "beach": ("pitch5/clips/broll-bancas-beach.mp4", 2.0, False),
-    "moored": ("pitch5/clips/broll-bancas-moored.mp4", 2.5, False),
-    "lookout": ("pitch5/clips/9-ask-lookout.mp4", 2.0, False),
+RAW = Path.home() / "OneDrive" / "Pictures" / "Raw videos"
+STILLS = {  # name: (clip, relative to the video's public folder or absolute; second; grade)
+    "hook": ("pitch5/clips/1-dead-spot.mp4", 2.0, "bw"),
+    "beach": ("pitch5/clips/broll-bancas-beach.mp4", 2.0, None),
+    "moored": ("pitch5/clips/broll-bancas-moored.mp4", 2.5, None),
+    "lookout": ("pitch5/clips/9-ask-lookout.mp4", 2.0, None),
+    # the five problem slides (Robert's own footage)
+    "weather": (RAW / "fisherman-starting-his-boat.mp4", 31.0, "storm"),
+    "spots": (RAW / "New video clip" / "20261122_162004.mp4", 8.0, None),
+    "dark": (RAW / "New video clip" / "20261122_163911.mp4", 2.0, "dusk"),
 }
+PHOTOS = {"catch": RAW / "catch" / "20260515_085444.jpg"}  # cropped to 16:9 from the portrait photo
 
 
 def save_half(im: Image.Image, name: str) -> None:
@@ -61,15 +67,34 @@ def framed(base: str, capture: str, shift: int, fill: str) -> Image.Image:
     return phone
 
 
-def still(clip: str, second: float, bw: bool, name: str) -> None:
+def grade(im: Image.Image, how) -> Image.Image:
+    if how == "bw":
+        return ImageEnhance.Contrast(ImageOps.grayscale(im).convert("RGB")).enhance(1.15)
+    if how == "storm":  # a heavier, cooler sky
+        im = ImageEnhance.Contrast(ImageEnhance.Brightness(im).enhance(0.78)).enhance(1.18)
+        return Image.blend(im, Image.new("RGB", im.size, (16, 34, 72)), 0.18)
+    if how == "dusk":  # golden hour taken down to dusk
+        im = ImageEnhance.Contrast(ImageEnhance.Brightness(im).enhance(0.5)).enhance(1.12)
+        return Image.blend(im, Image.new("RGB", im.size, (8, 22, 64)), 0.3)
+    return im
+
+
+def still(clip, second: float, how, name: str) -> None:
     raw = OUT / f".{name}.png"
-    subprocess.run([FF, "-v", "error", "-y", "-ss", f"{second}", "-i", str(PUB / clip), "-frames:v", "1",
+    src = clip if isinstance(clip, Path) else PUB / clip
+    subprocess.run([FF, "-v", "error", "-y", "-ss", f"{second}", "-i", str(src), "-frames:v", "1",
                     "-vf", "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080", str(raw)], check=True)
-    im = Image.open(raw).convert("RGB")
-    if bw:
-        im = ImageEnhance.Contrast(ImageOps.grayscale(im).convert("RGB")).enhance(1.15)
-    im.save(OUT / f"still-{name}.jpg", quality=84, optimize=True, progressive=True)
+    grade(Image.open(raw).convert("RGB"), how).save(OUT / f"still-{name}.jpg", quality=84, optimize=True, progressive=True)
     raw.unlink()
+    print(f"write assets/pitch/still-{name}.jpg")
+
+
+def photo(src: Path, name: str) -> None:
+    im = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
+    w, h = im.size
+    ch = round(w * 9 / 16)
+    top = max(0, (h - ch) // 2)
+    im.crop((0, top, w, top + ch)).resize((1920, 1080), Image.LANCZOS).save(OUT / f"still-{name}.jpg", quality=84, optimize=True, progressive=True)
     print(f"write assets/pitch/still-{name}.jpg")
 
 
@@ -81,6 +106,8 @@ def main() -> None:
         save_half(framed(*args), f"phone-{name}")
     for name, args in STILLS.items():
         still(*args, name)
+    for name, src in PHOTOS.items():
+        photo(src, name)
     award = Image.open(PUB / "pitch5" / "img" / "fishpin_maestro_robert.png").convert("RGBA")
     award.resize((540, 675), Image.LANCZOS).save(OUT / "award.png", optimize=True)
     Image.open(PUB / "pitch" / "play-store-icon-512.png").resize((160, 160), Image.LANCZOS).save(OUT / "play-icon.png", optimize=True)
