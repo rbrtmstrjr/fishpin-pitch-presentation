@@ -123,7 +123,8 @@
   /* ===== slide code: each later task inserts its slide's RENDER/ANIM above the end marker ===== */
 
   /* 01 cover: Tatay's face surfaces out of the navy and settles while the title rises over it.
-     The video itself loops in slow motion (Reveal plays it via data-autoplay); still mode
+     The video (face, banca heading out, fisherman at sea, FishPin navigating) loops until the slide changes
+     (Reveal plays it via data-autoplay and pauses it on leave); still mode
      keeps it paused on its poster so print and static screenshots match the Figma frame. */
   RENDER.push(function coverVideo() {
     if (!still) return;

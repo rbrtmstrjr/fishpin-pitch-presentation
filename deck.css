@@ -121,11 +121,13 @@ html, body { margin: 0; background: var(--navy-deep); }
 @media print { #deckFooter, #progress, #timer, #qmenu, #help, #checkBanner { display: none !important; } }
 
 /* ---------- 01 cover ---------- */
-/* Tatay's close-up loops in slow motion (forward then backward, baked into the file by
-   scripts/build_cover_video.py) while a slow push-in breathes on top. Still mode shows the
-   poster, which is the loop's first frame. Overlays match the Figma frame layer for layer. */
+/* Four ~3 s shots loop behind the title, each with its subject on the right: Tatay's face, a
+   banca heading out, the fisherman at sea, FishPin navigating on his phone (dissolves baked
+   into the file by scripts/build_cover_video.py, so the loop has no jump) while a slow push-in
+   breathes on top. Still mode shows the poster, the loop's first frame. Overlays match the
+   Figma frame layer for layer. */
 .cover-media { position: absolute; inset: 0; overflow: hidden; background: var(--navy-deep); }
-.cover-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 68% 42%; animation: coverPush 24.12s ease-in-out infinite alternate; }
+.cover-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 68% 42%; animation: coverPush 12s ease-in-out infinite alternate; }
 @keyframes coverPush { from { transform: scale(1); } to { transform: scale(1.06); } }
 .cover-shade { position: absolute; inset: 0; background:
   linear-gradient(180deg, rgba(6, 18, 51, 0) 55%, rgba(6, 18, 51, .6) 100%),
