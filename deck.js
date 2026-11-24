@@ -68,6 +68,7 @@
   function bind(root) {
     $$('[data-k]', root).forEach(el => {
       const v = DECK.get(el.dataset.k);
+      if (v === null && 'dash' in el.dataset) { el.textContent = '\u2013'; delete el.dataset.count; return; }
       if (v === undefined || v === null || v === '') { console.error(`deck: no data for "${el.dataset.k}"`); return; }
       el.textContent = format(el, v);
       if (typeof v === 'number') el.dataset.v = String(v);

@@ -137,10 +137,11 @@
 
     traction: {
       asOf: '2026-10-22',
-      accounts: 118,
+      accounts: 300,
       foundingAnglers: 35,
       rating: 5.0,
       version: '1.2.0',
+      lifetimeSales: null,
       milestones: [
         { when: 'Aug 2026', what: 'Provincial winner', icon: 'award' },
         { when: '17 Oct 2026', what: 'Free to try, then Lifetime', icon: 'rocket' },
@@ -148,7 +149,7 @@
         { when: 'Dec 2026', what: 'iOS release (planned)', icon: 'calendar', planned: true },
       ],
       implemented: [],
-      confirmed: { asOf: false, accounts: false, foundingAnglers: false, rating: false, version: false, milestones: false, implemented: false },
+      confirmed: { asOf: false, accounts: false, foundingAnglers: false, rating: false, version: false, lifetimeSales: false, milestones: false, implemented: false },
     },
 
     src: {
@@ -199,9 +200,10 @@
       'product.species': 'FishPin apps/mobile/data/ph-fish-guide.json',
       'product.localNames': 'FishPin apps/mobile/data/ph-fish-guide.json',
       'product.languages': 'FishPin apps/mobile/data/ph-fish-guide.json',
-      'traction.accounts': 'FishPin docs/marketing/facebook-ads.md (22 Oct 2026)',
+      'traction.accounts': 'Robert, Figma frame 11 (24 Nov 2026); asOf not yet updated to match',
       'traction.foundingAnglers': 'FishPin CLAUDE.md (paid-download era, to 17 Oct 2026)',
       'traction.rating': 'Google Play ratings export, Oct 2026',
+      'traction.lifetimeSales': 'Google Play Console orders (Robert to fill in)',
       fishNames: 'FishPin apps/mobile/data/ph-fish-guide.json',
     },
   };
