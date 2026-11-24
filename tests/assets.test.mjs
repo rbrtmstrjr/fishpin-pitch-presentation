@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 
 const REQUIRED = [
-  'assets/vendor/reveal/reveal.js', 'assets/vendor/reveal/reveal.css', 'assets/vendor/reveal/notes.js',
+  'assets/vendor/reveal/reveal.js', 'assets/vendor/reveal/reveal.css',
+  'assets/pitch/hero-phones.webp', 'assets/pitch/feature-sea.webp', 'assets/pitch/feature-chart.webp', 'assets/pitch/feature-trip.webp', 'assets/pitch/feature-fish.webp', 'assets/pitch/feature-safe.webp',
   'assets/vendor/gsap/gsap.min.js', 'assets/icons.js',
   'assets/brand/logo/fishpin-horizontal-dark.svg', 'assets/brand/logo/fishpin-horizontal-light.svg',
   'assets/brand/logo/fishpin-mark-dark.svg',

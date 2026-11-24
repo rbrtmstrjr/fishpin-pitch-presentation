@@ -5,12 +5,14 @@ Reads (never writes) fishpin-brand/15-video/public. Writes assets/pitch/:
   phone-anchor/guide/login/eta.png  bare app captures set into the phone frame the same way
                 the video's <Framed> does (screen outline from video/src/pitch5/screen-shape.json)
   still-*.jpg   footage stills for photo slides (the hook one in black and white)
+  hero-phones.webp, feature-*.webp  the website's hero and feature images (fishpin-brand/13-website)
   award.png, play-icon.png (the handheld GPS is assets/pitch/gps-handheld.svg, drawn unbranded:
                 no competitor logos on the slides)
 
 Run: python scripts/import_pitch_assets.py   (needs Pillow and imageio-ffmpeg)
 """
 import json
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -19,6 +21,15 @@ from PIL import Image, ImageDraw, ImageEnhance, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
 PUB = Path.home() / "OneDrive" / "Documents" / "fishpin-brand" / "15-video" / "public"
+WEB = Path.home() / "OneDrive" / "Documents" / "fishpin-brand" / "13-website"
+WEBSITE = {  # brand file: deck file (slide 05 and the three feature chapters, 06-08)
+    "hero-phones.webp": "hero-phones.webp",
+    "features/features1.webp": "feature-sea.webp",
+    "features/features2.webp": "feature-chart.webp",
+    "features/features3.webp": "feature-trip.webp",
+    "features/features4.webp": "feature-fish.webp",
+    "features/features5.webp": "feature-safe.webp",
+}
 OUT = ROOT / "assets" / "pitch"
 SHAPE = json.loads((ROOT / "video" / "src" / "pitch5" / "screen-shape.json").read_text(encoding="utf-8"))
 FF = imageio_ffmpeg.get_ffmpeg_exe()
@@ -112,6 +123,9 @@ def main() -> None:
     award.resize((540, 675), Image.LANCZOS).save(OUT / "award.png", optimize=True)
     Image.open(PUB / "pitch" / "play-store-icon-512.png").resize((160, 160), Image.LANCZOS).save(OUT / "play-icon.png", optimize=True)
     print("write assets/pitch/award.png, play-icon.png")
+    for src, dst in WEBSITE.items():
+        shutil.copyfile(WEB / src, OUT / dst)
+    print("copy the website hero and feature images")
 
 
 if __name__ == "__main__":

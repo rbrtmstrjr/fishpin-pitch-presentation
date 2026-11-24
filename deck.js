@@ -1,5 +1,5 @@
 /* FishPin national pitch: presentation engine.
-   Scripts load in this order: reveal.js, notes.js, gsap, assets/icons.js, deck-data.js, deck.js.
+   Scripts load in this order: reveal.js, gsap, assets/icons.js, deck-data.js, deck.js.
    On load: slide code builds data-driven markup (RENDER) -> icons are inlined -> every
    [data-k] element is filled from DECK -> Reveal starts -> each slide's entrance and
    signature motion (ANIM) run when it is shown.
@@ -206,7 +206,10 @@
     }).join('');
   });
 
-  /* 05 demo: airplane mode flips on, then the chart keeps working */
+  /* 05 the solution: the three phones lift and settle */
+  ANIM.solution = (s, t) => t.fromTo($('.so-phones', s), { scale: 0.94 }, { scale: 1, duration: 1.4, ease: 'power2.out', clearProps: 'transform' }, 0.25);
+
+  /* backup: airplane mode flips on, then the chart keeps working */
   ANIM['demo-chart'] = (s, t) => {
     const tog = $('#airToggle', s);
     tog.classList.add('off');
@@ -416,7 +419,6 @@
       35: () => {},
       77: () => { if (ACTIONS.airplane) ACTIONS.airplane(); },
     },
-    plugins: [RevealNotes],
   }).then(() => {
     onSlide(Reveal.getCurrentSlide());
     window.__deckReady = true;

@@ -3,13 +3,12 @@
 // (the venue may have no internet), steps through every slide, and fails on: runtime
 // errors, blocked requests, elements outside the 1920x1080 frame, text under 28px on
 // main slides, unfilled numbers, broken images, text still hidden after the entrance,
-// wrong counters, speaker notes over their time budget, slide-specific facts, and
+// wrong counters, speaker notes (the national deck has none), slide-specific facts, and
 // broken interactions (Q menu, Esc return, clicker guard, timer).
 //
 // Usage (from the deck root):
 //   node tools/qa/qa.mjs                  full check; screenshots + rendered.txt in tools/qa/out/
 //   node tools/qa/qa.mjs --only=cover     only these slide ids (comma separated)
-//   node tools/qa/qa.mjs --notes          also require speaker notes on every main slide
 //   node tools/qa/qa.mjs --viewports      also check 16:10 and 4:3 letterboxing
 //   node tools/qa/qa.mjs --export         also write exports/png/*.png and exports/FishPin-Pitch.pdf
 import { chromium } from 'playwright-core';
@@ -166,16 +165,13 @@ async function checkSlidesInner(page, ready) {
     if (r.unbound.length) fail(where, `unfilled data: ${r.unbound.join(', ')}`);
     if (r.broken.length) fail(where, `broken images: ${r.broken.join(', ')}`);
     if (r.hidden.length) fail(where, `still hidden after ${wait}ms: ${r.hidden.join(', ')}`);
+    if (r.notes) fail(where, 'has speaker notes; the national deck has none (Robert presents from memory, with the timer)');
     if (s.appendix) {
       if (!r.counter.startsWith('Q&A')) fail(where, `counter shows "${r.counter}", expected Q&A`);
     } else {
       const want = `${pad(mains.findIndex(m => m.id === s.id) + 1)} / ${pad(mains.length)}`;
       if (r.counter !== want) fail(where, `counter shows "${r.counter}", expected "${want}"`);
       if (!s.time) fail(where, 'main slide has no data-time');
-      const words = r.notes ? r.notes.split(/\s+/).length : 0;
-      const budget = Math.ceil(s.time * WORDS_PER_MINUTE / 60);
-      if (words > budget) fail(where, `speaker notes are ${words} words; budget is ${budget} for ${s.time}s`);
-      if (has('notes') && !words) fail(where, 'speaker notes missing');
     }
     if (CHECKS[s.id]) {
       const msg = await page.evaluate(`(${CHECKS[s.id]})()`);
@@ -183,16 +179,12 @@ async function checkSlidesInner(page, ready) {
     }
 
     await page.screenshot({ path: join(OUT, `${pad(s.i + 1)}-${s.id}.png`) });
-    rendered += `=== ${s.id} [${s.appendix ? 'appendix' : 'main'}] ===\n${r.text}\n--- notes ---\n${r.notes}\n\n`;
+    rendered += `=== ${s.id} [${s.appendix ? 'appendix' : 'main'}] ===\n${r.text}\n\n`;
   }
   if (!only) {
     const total = mains.reduce((t, s) => t + s.time, 0);
-    if (has('notes')) {
-      if (mains.length !== 15) fail('deck shape', `expected 15 main slides (the national pitch limit), found ${mains.length}`);
-      if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
-    } else if (total > MAIN_SECONDS) {
-      fail('timing', `main slides add up to ${total}s; budget is ${MAIN_SECONDS}s`);
-    }
+    if (mains.length !== 15) fail('deck shape', `expected 15 main slides (the national pitch limit), found ${mains.length}`);
+    if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
   }
   writeFileSync(join(OUT, 'rendered.txt'), rendered, 'utf8');
   await phase('interactions', () => checkInteractions(page, slides));
@@ -317,21 +309,6 @@ async function checkViewports() {
   }
 }
 
-async function checkSpeakerView() {
-  const { context, page, errors } = await open();
-  try {
-    const [popup] = await Promise.all([context.waitForEvent('page', { timeout: 6000 }), page.keyboard.press('s')]);
-    await sleep(3000);
-    const text = await popup.evaluate(() => document.body.innerText);
-    if (!/notes/i.test(text)) warn('speaker view', 'opened but shows no notes panel');
-    await popup.close();
-  } catch (e) {
-    warn('speaker view', `did not open over file:// (${e.message.split('\n')[0]}). Use the Vercel link or "python -m http.server" for speaker view.`);
-  }
-  errors.forEach(e => fail('speaker view runtime', e));
-  await context.close();
-}
-
 async function exportBackups(slides) {
   rmSync(EXPORTS, { recursive: true, force: true });
   mkdirSync(join(EXPORTS, 'png'), { recursive: true });
@@ -374,7 +351,6 @@ try {
   if (slides.length) {
     await phase('static', checkStatic);
     if (has('viewports')) await phase('viewports', checkViewports);
-    if (has('notes')) await phase('speaker view', checkSpeakerView);
     if (has('export')) await phase('export', () => exportBackups(slides));
   }
 } finally {
