@@ -35,33 +35,34 @@
      problems 02-06 -> the fisherfolk 07-08 -> the solution 09-15 -> market 16 -> competitors 17 -> growth 18-23.
      CSS holds each slide's finished frame; only the details animate. Every figure is bound to deck-data.js. ===== -->
 
-<!-- 02 the problems: five cards, Robert's footage, revealed one by one while he names each -->
+<!-- 02 the problems: five cards from Robert's footage; each click reveals the next one while he names it -->
 <section id="problems" class="contour" data-time="36">
   <div class="pg-head">
     <p class="v-eyebrow" data-rise>The problem</p>
     <h2 class="pg-title" data-rise>Every trip is a gamble.</h2>
   </div>
+  <!-- one card per click (Reveal fragments); the card being talked about wears the amber border -->
   <div class="pg-cards">
-    <div class="pg-card" data-rise data-at="0.5">
-      <div class="pg-photo"><img src="assets/pitch/still-weather.jpg" alt="A banca heads out under a building sky"></div>
-      <p class="pg-num num">01</p><h3>Hard to read the weather</h3><p class="pg-line">No forecast at sea. Storms arrive without warning.</p>
+    <div class="pg-card fragment">
+      <div class="pg-photo"><img src="assets/pitch/still-weather.jpg" alt="A banca heads out under a building sky" style="object-position: 58% 50%"></div>
+      <div class="pg-cap"><p class="pg-num num">01<i></i></p><h3>Hard to read the weather</h3></div>
     </div>
-    <div class="pg-card" data-rise data-at="1.0">
-      <div class="pg-photo"><img src="assets/pitch/still-spots.jpg" alt="A lone banca on open sea"></div>
-      <p class="pg-num num">02</p><h3>Hard to remember spots</h3><p class="pg-line">Good grounds live only in memory.</p>
+    <div class="pg-card fragment">
+      <div class="pg-photo"><img src="assets/pitch/still-spots.jpg" alt="A lone banca on open sea" style="object-position: 83% 50%"></div>
+      <div class="pg-cap"><p class="pg-num num">02<i></i></p><h3>Hard to remember spots</h3></div>
     </div>
-    <div class="pg-card" data-rise data-at="1.5">
-      <div class="pg-photo"><img src="assets/pitch/still-dark.jpg" alt="Fishermen launch a banca at dusk"></div>
-      <p class="pg-num num">03</p><h3>Hard to navigate in the dark</h3><p class="pg-line">Night and fog erase the landmarks.</p>
+    <div class="pg-card fragment">
+      <div class="pg-photo"><img src="assets/pitch/still-dark.jpg" alt="Fishermen launch a banca at dusk" style="object-position: 53% 50%"></div>
+      <div class="pg-cap"><p class="pg-num num">03<i></i></p><h3>Hard to navigate in the dark</h3></div>
     </div>
-    <div class="pg-card" data-rise data-at="2.0">
-      <div class="pg-photo"><img src="assets/pitch/still-catch.jpg" alt="A tub of the morning's catch"></div>
-      <p class="pg-num num">04</p><h3>Hard to identify the catch</h3><p class="pg-line">Unknown fish sell for less.</p>
+    <div class="pg-card fragment">
+      <div class="pg-photo"><img src="assets/pitch/still-catch.jpg" alt="A tub of the morning's catch" style="object-position: 50% 50%"></div>
+      <div class="pg-cap"><p class="pg-num num">04<i></i></p><h3>Hard to identify the catch</h3></div>
     </div>
-    <div class="pg-card" data-rise data-at="2.5">
-      <div class="pg-photo"><img src="assets/pitch/still-hook.jpg" alt="A lone banca far out on a grey sea">
+    <div class="pg-card fragment">
+      <div class="pg-photo"><img src="assets/pitch/still-hook.jpg" alt="A lone banca far out on a grey sea" style="object-position: 47% 50%">
         <span class="pg-nosvc"><svg class="bars" viewBox="0 0 44 34" aria-hidden="true"><rect x="2" y="23" width="7" height="9" rx="2"/><rect x="13" y="16" width="7" height="16" rx="2"/><rect x="24" y="9" width="7" height="23" rx="2"/><rect x="35" y="2" width="7" height="30" rx="2"/><line class="slash" x1="3" y1="3" x2="41" y2="31" pathLength="1"/></svg>No service</span></div>
-      <p class="pg-num num">05</p><h3>Hard to call for help</h3><p class="pg-line">Out of signal, no way to reach the shore.</p>
+      <div class="pg-cap"><p class="pg-num num">05<i></i></p><h3>Hard to call<br>for help</h3></div>
     </div>
   </div>
   <aside class="notes">Every trip is a gamble. First, the weather: with no forecast at sea, storms arrive without warning. Second, good spots live only in memory. Third, at night and in fog the landmarks disappear. Fourth, unknown fish sell for less. And fifth, out of signal, a stranded boat cannot call for help.</aside>

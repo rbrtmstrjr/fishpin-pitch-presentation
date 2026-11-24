@@ -99,6 +99,8 @@ html, body { margin: 0; background: var(--navy-deep); }
 
 /* still mode (static, print, reduced motion): final states only */
 .still *, .still *::before, .still *::after { animation: none !important; transition: none !important; }
+/* static and print: every click step shows at once */
+.show-all .reveal .slides section .fragment { opacity: 1; visibility: inherit; transform: none; }
 @media print { #deckFooter, #progress, #timer, #qmenu, #help, #checkBanner { display: none !important; } }
 
 /* ---------- 01 cover ---------- */
@@ -178,14 +180,19 @@ html, body { margin: 0; background: var(--navy-deep); }
 /* 02 the problems: five photo cards, revealed one by one */
 .pg-head { position: absolute; left: 140px; top: 110px; }
 .pg-title { margin-top: 16px; font: 800 84px/1.05 var(--words); letter-spacing: -1px; color: #fff; }
-.pg-cards { position: absolute; left: 140px; right: 140px; top: 320px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
-.pg-card { height: 630px; box-sizing: border-box; border-radius: 24px; overflow: hidden; background: var(--navy-card); border: 1px solid rgba(234, 242, 255, .1); }
-.pg-photo { position: relative; height: 260px; overflow: hidden; }
+.pg-cards { position: absolute; left: 140px; right: 140px; top: 310px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.pg-card { position: relative; height: 650px; box-sizing: border-box; border-radius: 28px; background: var(--navy-card); border: 1px solid rgba(234, 242, 255, .12); }
+.pg-photo { position: relative; height: 410px; margin: 9px 9px 0; border-radius: 20px; overflow: hidden; }
 .pg-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.pg-num { margin: 22px 26px 0; font: 600 40px/1 var(--nums); color: var(--amber); }
-.pg-card h3 { margin: 12px 26px 0; font: 800 34px/1.12 var(--words); color: #fff; }
-.pg-line { margin: 12px 26px 0; font: 400 28px/1.35 var(--words); color: var(--mist); }
-.pg-nosvc { position: absolute; left: 14px; bottom: 14px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; background: rgba(4, 10, 30, .82); font: 800 28px/1 var(--words); color: #fff; text-transform: uppercase; }
+.pg-cap { padding: 24px 23px 0; }
+.pg-num { display: flex; align-items: center; gap: 16px; font: 600 56px/1 var(--nums); color: var(--amber); }
+.pg-num i { display: block; flex: 1; height: 2px; border-radius: 2px; background: rgba(255, 200, 87, .55); }
+.pg-card h3 { margin: 14px 0 0; font: 800 34px/1.1 var(--words); color: #fff; }
+/* click steps: each card rises in on its click; the current one is outlined in amber */
+.reveal .slides section .pg-card.fragment { transform: translateY(36px); transition: opacity .45s ease, transform .5s cubic-bezier(.2, .8, .2, 1), border-color .3s ease, box-shadow .3s ease; }
+.reveal .slides section .pg-card.fragment.visible { transform: none; }
+.reveal .slides section .pg-card.current-fragment { border-color: var(--amber); box-shadow: 0 0 0 2px var(--amber), 0 18px 48px rgba(255, 200, 87, .18); }
+.pg-nosvc { position: absolute; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 10px; background: rgba(4, 10, 30, .82); font: 800 28px/1 var(--words); color: #fff; text-transform: uppercase; }
 .pg-nosvc .bars { width: 36px; height: 28px; overflow: visible; }
 .pg-nosvc .bars rect { fill: rgba(234, 242, 255, .28); }
 .pg-nosvc .bars .slash { stroke: var(--bad); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }

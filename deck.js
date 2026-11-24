@@ -15,6 +15,7 @@
   const isCheck = query.get('check') === '1';
   const still = isPrint || isStatic || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (still) document.documentElement.classList.add('still');
+  if (isPrint || isStatic) document.documentElement.classList.add('show-all');
 
   /* Headless print jobs can starve requestAnimationFrame, and Reveal's PDF layout waits on it.
      In print mode, race each frame against a short timeout so the layout always finishes. */
@@ -169,12 +170,20 @@
   /* draw an SVG stroke (pathLength="1" paths) from nothing to its CSS final state */
   const draw = (t, el, at, dur = 0.9) => el && t.fromTo(el, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: dur, ease: 'power2.inOut', clearProps: 'strokeDashoffset' }, at);
 
-  /* 02 problems: each card's photo settles slowly as it arrives; on the fifth, the signal drops out */
-  ANIM.problems = (s, t) => {
-    t.fromTo($$('.pg-photo img', s), { scale: 1.14 }, { scale: 1, duration: 5, ease: 'power1.out', stagger: 0.5, clearProps: 'transform' }, 0.5);
-    t.fromTo($$('.pg-nosvc .bars rect', s), { fill: '#FFFFFF' }, { fill: 'rgba(234,242,255,0.28)', duration: 0.25, stagger: { each: 0.16, from: 'end' }, clearProps: 'fill' }, 2.9);
-    draw(t, $('.pg-nosvc .bars .slash', s), 3.5, 0.35);
-  };
+  /* 02 problems: one card per click (Reveal fragments). As each card lands its photo settles and its line
+     draws; on the fifth the signal bars drop out one by one, then the slash strikes */
+  Reveal.on('fragmentshown', e => {
+    const card = e.fragment;
+    if (still || !card.classList.contains('pg-card')) return;
+    const t = gsap.timeline();
+    t.fromTo($('.pg-photo img', card), { scale: 1.12 }, { scale: 1, duration: 3, ease: 'power1.out', clearProps: 'transform' }, 0);
+    t.fromTo($('.pg-num i', card), { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power3.out', transformOrigin: 'left center', clearProps: 'transform' }, 0.2);
+    const bars = $$('.pg-nosvc .bars rect', card);
+    if (bars.length) {
+      t.fromTo(bars, { fill: '#FFFFFF' }, { fill: 'rgba(234,242,255,0.28)', duration: 0.25, stagger: { each: 0.16, from: 'end' }, clearProps: 'fill' }, 0.5);
+      draw(t, $('.pg-nosvc .bars .slash', card), 1.1, 0.35);
+    }
+  });
 
   /* 17 competitors: five-year cost to the fisherman; the alternatives grow long, FishPin arrives last and tiny */
   RENDER.push(function competitorBars() {

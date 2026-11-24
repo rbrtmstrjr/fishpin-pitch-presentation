@@ -37,6 +37,7 @@ const CHECKS = {
   'demo-catch': () => document.querySelectorAll('#fishChips span').length === 8 ? '' : 'fish name chips are not filled',
   business: () => document.querySelectorAll('#trialDays span').length === DECK.trialDays ? '' : 'trial days do not match DECK.trialDays',
   gtm: () => document.querySelectorAll('#gtmTowns .town').length === DECK.gtm.towns.length && document.querySelectorAll('#gtmTally i').length === DECK.gtm.coopSessions ? '' : 'towns or session marks do not match DECK.gtm',
+  problems: () => document.querySelectorAll('#problems .pg-card.fragment').length === 5 ? '' : 'expected 5 click-step cards',
   competitors: () => document.querySelectorAll('#cpBars .cp-row').length === DECK.competitors.length + 1 ? '' : 'competitor bars do not match DECK.competitors plus FishPin',
   financials: () => document.querySelectorAll('#financials .f-bar .seg').length === 4 && document.querySelectorAll('#finRamp i').length === DECK.fin.ramp.length ? '' : 'funding bar needs 4 segments and the ramp 12 months',
 };
@@ -154,6 +155,10 @@ async function checkSlidesInner(page, ready) {
     await goTo(page, s.id);
     const wait = WAIT[s.id] ?? DEFAULT_WAIT;
     await sleep(wait);
+    // click steps (Reveal fragments): reveal them all so the checks and the screenshot see the whole slide
+    const steps = await page.evaluate(() => Reveal.getCurrentSlide().querySelectorAll('.fragment').length);
+    for (let k = 0; k < steps; k++) { await page.evaluate(() => Reveal.nextFragment()); await sleep(450); }
+    if (steps) await sleep(1600);
     const r = await page.evaluate(inspect, MIN_FONT);
     const where = `${pad(s.i + 1)} ${s.id}`;
     if (r.overflow.length) fail(where, `outside the 1920x1080 frame: ${r.overflow.join(', ')}`);
@@ -236,6 +241,31 @@ async function checkInteractions(page, slides) {
     if (await currentId(page) !== appx.id) fail('q-menu', 'number key 1 did not open the first backup slide');
     await page.keyboard.press('Backspace'); await sleep(700);
     if (await currentId(page) !== home.id) fail('q-menu', `Backspace did not return to ${home.id}`);
+  }
+
+  if (ids.has('problems')) {
+    // slide 02: no cards until the first click, then one per click; the current card is outlined in amber
+    const at = slides.findIndex(s => s.id === 'problems');
+    if (at > 0) { await goTo(page, slides[at - 1].id); await sleep(400); }
+    await goTo(page, 'problems'); await sleep(600);
+    const state = () => page.evaluate(() => {
+      const cards = [...document.querySelectorAll('#problems .pg-card')];
+      const cur = cards.find(c => c.classList.contains('current-fragment'));
+      return { shown: cards.filter(c => c.classList.contains('visible')).length, current: cards.indexOf(cur), ring: cur ? getComputedStyle(cur).borderTopColor : '' };
+    });
+    let st = await state();
+    if (st.shown !== 0) fail('problems', `${st.shown} card(s) showing before the first click`);
+    for (let k = 1; k <= 5; k++) {
+      await page.keyboard.press('ArrowRight'); await sleep(600);
+      st = await state();
+      if (st.shown !== k || st.current !== k - 1) fail('problems', `click ${k}: ${st.shown} card(s) showing, current card ${st.current + 1}`);
+      if (st.ring !== 'rgb(255, 200, 87)') fail('problems', `click ${k}: current card border is ${st.ring || 'missing'}, expected amber`);
+    }
+    await page.keyboard.press('ArrowLeft'); await sleep(600);
+    st = await state();
+    if (st.shown !== 4 || st.current !== 3) fail('problems', `back: ${st.shown} card(s) showing, current card ${st.current + 1}`);
+    await page.keyboard.press('ArrowRight'); await sleep(500); await page.keyboard.press('ArrowRight'); await sleep(700);
+    if (slides[at + 1] && await currentId(page) !== slides[at + 1].id) fail('problems', 'next after the fifth card did not move on');
   }
 
   if (ids.has('close') && !only) {
