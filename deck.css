@@ -201,13 +201,24 @@ html, body { margin: 0; background: var(--navy-deep); }
 /* 08 the fisherfolk */
 .ff-head { position: absolute; left: 140px; top: 120px; }
 .ff-title { margin-top: 16px; font: 800 84px/1.05 var(--words); letter-spacing: -1px; color: #fff; }
-.ff-grid { position: absolute; left: 140px; right: 140px; top: 356px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-.ff-card { height: 272px; box-sizing: border-box; padding: 30px 40px; border-radius: 26px; background: var(--navy-card); border: 1px solid rgba(234, 242, 255, .1); display: flex; flex-direction: column; gap: 8px; }
-.ff-card b { font: 600 100px/1 var(--nums); color: #fff; letter-spacing: -2px; }
-.ff-card b.amber { color: var(--amber); } .ff-card b.red { color: var(--bad); }
-.ff-card b small { margin-left: 14px; font: 500 34px var(--nums); color: var(--mist); letter-spacing: 0; }
-.ff-card p { margin-top: 6px; font: 700 34px/1.2 var(--words); color: #fff; }
-.ff-card .v-mono { font-size: 28px; }
+/* four glass rows over a blue glow (Figma: layer blur 180 = CSS blur 90, background blur 40 = 20) */
+.ff-glow { position: absolute; left: 360px; top: 380px; width: 1300px; height: 560px; border-radius: 50%; background: rgba(20, 125, 255, .24); filter: blur(110px); }
+.ff-list { position: absolute; left: 140px; top: 326px; width: 1640px; display: flex; flex-direction: column; gap: 18px; }
+.ff-row { --c: #fff; position: relative; height: 140px; box-sizing: border-box; padding-left: 56px; display: grid; grid-template-columns: 428px 2px 1fr; align-items: center; border-radius: 24px; overflow: hidden;
+  background: linear-gradient(180deg, rgba(70, 140, 255, .24), rgba(30, 80, 180, .08)); backdrop-filter: blur(20px);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, .28), 0 20px 40px rgba(0, 3, 15, .6); }
+.ff-row.amber { --c: var(--amber); } .ff-row.red { --c: var(--bad); }
+/* the bright edge: a 1.5px ring, brightest at the top left */
+.ff-row::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .16) 50%, rgba(255, 255, 255, .08));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.ff-acc { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--c); }
+.ff-row b { font: 600 84px/1 var(--nums); color: var(--c); white-space: nowrap; }
+.ff-row b small { font: 500 32px var(--nums); color: #B8C8E8; }
+.ff-div { display: block; width: 2px; height: 76px; border-radius: 1px; background: rgba(255, 255, 255, .22); }
+.ff-row div { padding-left: 38px; }
+.ff-row p { font: 800 36px/42px var(--words); color: #fff; white-space: nowrap; }
+.ff-row .v-mono { display: block; margin-top: 10px; font: 500 28px/28px var(--nums); color: #B8C8E8; letter-spacing: 0; text-transform: none; }
 
 /* 09 the solution */
 .so-copy { position: absolute; left: 140px; top: 200px; width: 700px; }

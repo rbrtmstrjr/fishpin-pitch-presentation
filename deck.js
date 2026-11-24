@@ -51,6 +51,7 @@
     share: v => nf(v * 100) + '%',
     yrs: v => nf(v, 2) + ' yrs',
     million: v => nf(v / 1e6, 1) + ' million',
+    mil1: v => nf(v / 1e6, 1),
     date: v => new Date(v + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }),
     dec2: v => nf(v, 2),
     peso: v => '\u20B1' + nf(v),
