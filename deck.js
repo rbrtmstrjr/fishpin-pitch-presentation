@@ -206,6 +206,9 @@
     }).join('');
   });
 
+  /* 02 the founder: the photo fades up and settles (the provincial deck's slide 2 entrance) */
+  ANIM.founder = (s, t) => t.fromTo($('.fd-photo', s), { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out', clearProps: 'opacity,transform' }, 0);
+
   /* 05 the solution: the three phones lift and settle */
   ANIM.solution = (s, t) => t.fromTo($('.so-phones', s), { scale: 0.94 }, { scale: 1, duration: 1.4, ease: 'power2.out', clearProps: 'transform' }, 0.25);
 

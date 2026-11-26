@@ -16,6 +16,8 @@ const REQUIRED = [
   'assets/brand/fonts/OFL-Poppins.txt', 'assets/brand/fonts/OFL-IBM-Plex-Mono.txt',
   'assets/brand/texture/contour.svg', 'assets/video/cover-tatay.mp4', 'assets/video/cover-tatay.jpg', 'assets/video/cta-sea.mp4', 'assets/video/cta-sea.jpg',
   'assets/pitch/logos/navionics.png', 'assets/pitch/logos/fishbrain.png', 'assets/pitch/logos/garmin-activecaptain.png', 'assets/pitch/play-icon.png',
+  'assets/pitch/founder-main.jpg', 'assets/pitch/founder-catch.jpg', 'assets/pitch/founder-sea.jpg',
+  'assets/pitch/bg-shore.jpg', 'assets/pitch/bg-beach.jpg', 'assets/pitch/bg-rod.jpg', 'assets/pitch/bg-showing.jpg', 'assets/pitch/bg-phone.jpg', 'assets/pitch/bg-landing.jpg', 'assets/pitch/bg-catch.jpg',
   'assets/screens/map-nautical.png', 'assets/screens/navigate.png', 'assets/screens/trip.png',
   'assets/screens/anchor-armed.png', 'assets/screens/scan-result.png', 'assets/screens/sos.png',
   'assets/photos/phone-splash.jpg', 'assets/photos/robert-and-fisherman.jpg',
