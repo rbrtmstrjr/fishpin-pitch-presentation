@@ -78,6 +78,11 @@ def test_html_flags_competitor_logo_images():
     assert "competitor-logo" in [r for _, r, _ in cc.check_html(src)]
 
 
+def test_html_allows_competitor_logos_from_the_logos_folder():
+    src = '<img src="assets/pitch/logos/navionics.png" alt="Navionics logo">'
+    assert "competitor-logo" not in [r for _, r, _ in cc.check_html(src)]
+
+
 def test_html_with_empty_bindings_keeps_trial_wording_clean():
     src = '<p class="price-sub">one-time &middot; after a <span data-k="trialDays" data-f="int"></span>-day free trial</p>'
     assert cc.check_html(src) == []

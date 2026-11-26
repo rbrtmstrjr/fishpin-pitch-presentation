@@ -2,7 +2,8 @@
 
 Usage:  python scripts/check_claims.py FILE [FILE ...]
   *.html  checks the visible text (styles, scripts and comments removed, speaker
-          notes kept) plus <img> sources (no competitor logos). Line numbers refer
+          notes kept) plus <img> sources (competitor logos only from assets/pitch/logos/,
+          the competitors slide). Line numbers refer
           to the extracted text.
   other   checks the file as plain text, e.g. tools/qa/out/rendered.txt written by
           the browser QA after every number has been filled in.
@@ -50,7 +51,7 @@ RULES = [
     Rule("paywall-promise", re.compile(r"behind a paywall", I)),
     Rule("gemini", re.compile(r"Gemini(?! API)")),
 ]
-LOGO = re.compile(r"<img\b[^>]*\bsrc=[\"'][^\"']*(?:navionics|fishbrain|garmin|c-?map)", I)
+LOGO = re.compile(r"<img\b[^>]*\bsrc=[\"'](?!assets/pitch/logos/)[^\"']*(?:navionics|fishbrain|garmin|c-?map)", I)
 BLOCK_TAGS = re.compile(
     r"</?(?:p|div|li|ul|ol|dl|dt|dd|h[1-6]|section|aside|tr|td|th|table|thead|tbody|figure|figcaption|header|footer|br)\b[^>]*>", I)
 

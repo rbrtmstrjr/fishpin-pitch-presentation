@@ -282,6 +282,9 @@ html, body { margin: 0; background: var(--navy-deep); }
 .cp-bars { position: absolute; left: 140px; right: 140px; top: 380px; display: flex; flex-direction: column; gap: 22px; }
 .cp-row { display: grid; grid-template-columns: 420px 1fr 330px; align-items: center; column-gap: 28px; padding: 14px 22px; border-radius: 20px; border: 2px solid transparent; }
 .cp-row.us { border-color: var(--amber); background: rgba(255, 200, 87, .07); }
+/* each product's app icon beside its name (competitor logos come only from assets/pitch/logos) */
+.cp-who { display: grid; grid-template-columns: 72px 1fr; column-gap: 20px; align-items: center; }
+.cp-logo { display: block; width: 72px; height: 72px; border-radius: 16px; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .22), 0 8px 20px rgba(0, 0, 0, .35); }
 .cp-name b { display: block; font: 800 40px/1.1 var(--words); color: #fff; }
 .cp-name span { display: block; margin-top: 4px; font: 500 28px/1.25 var(--nums); color: var(--mist-2); }
 .cp-row.us .cp-name b { color: var(--amber); }

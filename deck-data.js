@@ -112,9 +112,9 @@
     },
 
     competitors: [
-      { name: 'Navionics', perYear: 3250, fiveYear: 16250, model: 'Yearly subscription', builtFor: 'Connected recreational boaters' },
-      { name: 'Fishbrain', perYear: 4200, fiveYear: 21000, model: 'Yearly subscription', builtFor: 'Connected recreational boaters' },
-      { name: 'Garmin plotter', min: 8000, max: 30000, model: 'Dedicated hardware', builtFor: 'Boats with a dedicated plotter' },
+      { name: 'Navionics', perYear: 3250, fiveYear: 16250, model: 'Yearly subscription', builtFor: 'Connected recreational boaters', logo: 'assets/pitch/logos/navionics.png' },
+      { name: 'Fishbrain', perYear: 4200, fiveYear: 21000, model: 'Yearly subscription', builtFor: 'Connected recreational boaters', logo: 'assets/pitch/logos/fishbrain.png' },
+      { name: 'Garmin plotter', min: 8000, max: 30000, model: 'Dedicated hardware', builtFor: 'Boats with a dedicated plotter', logo: 'assets/pitch/logos/garmin-activecaptain.png' },
     ],
 
     // the demo navigation shown in the app screenshot (FishPin Pitch 2026, chapter 2)

@@ -194,15 +194,15 @@
     const peso = v => '\u20B1' + nf(v);
     const top = Math.max(...DECK.competitors.map(c => c.max || c.fiveYear));
     const rows = DECK.competitors.map(c => c.min
-      ? { name: c.name, sub: c.model, lo: c.min, hi: c.max, val: `${peso(c.min)}–${nf(c.max)}` }
-      : { name: c.name, sub: c.model, lo: c.fiveYear, val: peso(c.fiveYear) });
-    rows.push({ us: true, name: 'FishPin', sub: `Pay once, after a ${DECK.trialDays}-day free trial`, lo: DECK.price, val: `${peso(DECK.price)} once` });
+      ? { name: c.name, logo: c.logo, sub: c.model, lo: c.min, hi: c.max, val: `${peso(c.min)}–${nf(c.max)}` }
+      : { name: c.name, logo: c.logo, sub: c.model, lo: c.fiveYear, val: peso(c.fiveYear) });
+    rows.push({ us: true, name: 'FishPin', logo: 'assets/pitch/play-icon.png', sub: `Pay once, after a ${DECK.trialDays}-day free trial`, lo: DECK.price, val: `${peso(DECK.price)} once` });
     box.innerHTML = rows.map((r, i) => {
       const at = (0.5 + i * 0.35).toFixed(2);
       const bar = r.hi
         ? `<i class="range" style="width:${(r.hi / top) * 100}%" data-grow data-grow-at="${at}"></i><i style="width:${(r.lo / top) * 100}%" data-grow data-grow-at="${at}"></i>`
         : `<i style="width:${(r.lo / top) * 100}%" data-grow data-grow-at="${at}"></i>`;
-      return `<div class="cp-row${r.us ? ' us' : ''}" data-rise data-at="${(0.4 + i * 0.35).toFixed(2)}"><p class="cp-name"><b>${r.name}</b><span>${r.sub}</span></p><div class="cp-track">${bar}</div><p class="cp-val num">${r.val}</p></div>`;
+      return `<div class="cp-row${r.us ? ' us' : ''}" data-rise data-at="${(0.4 + i * 0.35).toFixed(2)}"><div class="cp-who"><img class="cp-logo" src="${r.logo}" alt="${r.name} logo"><p class="cp-name"><b>${r.name}</b><span>${r.sub}</span></p></div><div class="cp-track">${bar}</div><p class="cp-val num">${r.val}</p></div>`;
     }).join('');
   });
 
