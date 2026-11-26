@@ -14,7 +14,7 @@ const REQUIRED = [
   'assets/brand/fonts/Poppins_300Light.ttf', 'assets/brand/fonts/Poppins_800ExtraBold.ttf',
   'assets/brand/fonts/IBMPlexMono_500Medium.ttf', 'assets/brand/fonts/IBMPlexMono_600SemiBold.ttf',
   'assets/brand/fonts/OFL-Poppins.txt', 'assets/brand/fonts/OFL-IBM-Plex-Mono.txt',
-  'assets/brand/texture/contour.svg', 'assets/video/cover-tatay.mp4', 'assets/video/cover-tatay.jpg',
+  'assets/brand/texture/contour.svg', 'assets/video/cover-tatay.mp4', 'assets/video/cover-tatay.jpg', 'assets/video/cta-sea.mp4', 'assets/video/cta-sea.jpg',
   'assets/screens/map-nautical.png', 'assets/screens/navigate.png', 'assets/screens/trip.png',
   'assets/screens/anchor-armed.png', 'assets/screens/scan-result.png', 'assets/screens/sos.png',
   'assets/photos/phone-splash.jpg', 'assets/photos/robert-and-fisherman.jpg',

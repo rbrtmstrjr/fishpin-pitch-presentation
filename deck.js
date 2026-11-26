@@ -262,15 +262,12 @@
     t.fromTo($('.cal .paid', s), { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2)', clearProps: 'transform,opacity' }, 3.05);
   };
 
-  /* 16 close: Mansalay on the region map (mimaropa-map.json: 100 units per degree) */
-  RENDER.push(function mansalayPin() {
-    const pin = $('#mansalayPin');
-    if (!pin) return;
-    // assets/pitch/mimaropa.svg viewBox, and the map box in deck.css (.c-map 400 x 430, the same aspect)
-    const [vx, vy, vw, vh] = [29.9, 748.3, 588.4, 633.3], [mx, my] = [483.2, 898], W = 400, H = 430;
-    pin.style.left = `${((mx - vx) / vw) * W}px`;
-    pin.style.top = `${((my - vy) / vh) * H}px`;
-  });
+  /* 15 close: the AVP's call to action, revealed in its steps (the line sharpening into place, then the English) */
+  ANIM.close = (s, t) => {
+    t.fromTo($('.cta-media', s), { opacity: 0 }, { opacity: 1, duration: 1.0, ease: 'power1.out', clearProps: 'opacity' }, 0);
+    t.fromTo($('.cta-line', s), { opacity: 0, y: 18, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.87, ease: 'power3.out', clearProps: 'opacity,transform,filter' }, 0.4);
+    t.fromTo($('.cta-en', s), { opacity: 0 }, { opacity: 1, duration: 0.73, ease: 'power3.out', clearProps: 'opacity' }, 1.13);
+  };
 
   /* Q&A appendix: tables and the licence ramp are built from DECK so they can never drift */
   RENDER.push(function appendixTables() {
