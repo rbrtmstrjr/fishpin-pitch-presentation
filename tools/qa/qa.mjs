@@ -183,7 +183,7 @@ async function checkSlidesInner(page, ready) {
   }
   if (!only) {
     const total = mains.reduce((t, s) => t + s.time, 0);
-    if (mains.length !== 16) fail('deck shape', `expected 16 main slides (the national rules allow 17), found ${mains.length}`);
+    if (mains.length !== 15) fail('deck shape', `expected 15 main slides (the national rules allow 17), found ${mains.length}`);
     if (total !== MAIN_SECONDS) fail('timing', `main slides add up to ${total}s; expected ${MAIN_SECONDS}s`);
   }
   writeFileSync(join(OUT, 'rendered.txt'), rendered, 'utf8');
